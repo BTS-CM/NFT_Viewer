@@ -1,0 +1,118 @@
+{
+    "BTS": {
+        "coreSymbol": "BTS",
+        "name": "BitShares",
+        "chainId": "4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8",
+        "nodeList": [
+            {
+                "url": "wss://node.xbts.io/ws"
+            },
+             {
+                "url": "wss://api.bts.mobi/ws"
+            },
+            {
+                "url": "wss://nexus01.co.uk/ws"
+            },
+            {
+                "url": "wss://dex.iobanker.com/ws"
+            },
+            {
+                "url": "wss://api.dex.trading/"
+            },
+            {
+                "url": "wss://api.bitshares.bhuz.info/ws"
+            },
+            {
+                "url": "wss://btsws.roelandp.nl/ws"
+            }
+        ],
+        "featured": [
+                {"name": "NFTEA.COPYB", "id": "1.3.6108", "issuer": "NFTEA"},
+                {"name": "NFTEA.CHANCE", "id": "1.3.6107", "issuer": "NFTEA"},
+                {"name": "NFTEA.CHANGE", "id": "1.3.6106", "issuer": "NFTEA"},
+                {"name": "NFTEA.CONTROL", "id": "1.3.6105", "issuer": "NFTEA"},
+                {"name": "NFTEA.CRIME", "id": "1.3.6104", "issuer": "NFTEA"},
+                {"name": "NFTEA.CURRENT", "id": "1.3.6103", "issuer": "NFTEA"},
+                {"name": "NFTEA.DAMAGE", "id": "1.3.6102", "issuer": "NFTEA"},
+                {"name": "NFTEA.DESIGN", "id": "1.3.6101", "issuer": "NFTEA"},
+                {"name": "NFTEA.DEV", "id": "1.3.6100", "issuer": "NFTEA"},
+                {"name": "NFTEA.DIRECTION", "id": "1.3.6099", "issuer": "NFTEA"},
+                {"name": "NFTEA.FIRE", "id": "1.3.6098", "issuer": "NFTEA"},
+                {"name": "NFTEA.DETAIL", "id": "1.3.6092", "issuer": "NFTEA"},
+                {"name": "NFTEA.DEATH", "id": "1.3.6091", "issuer": "NFTEA"},
+                {"name": "NFTEA.AGREEMENT", "id": "1.3.6090", "issuer": "NFTEA"},
+                {"name": "NFTEA.AIR", "id": "1.3.6089", "issuer": "NFTEA"},
+                {"name": "NFTEA.AMOUNT", "id": "1.3.6088", "issuer": "NFTEA"},
+                {"name": "NFTEA.APPROVAL", "id": "1.3.6087", "issuer": "NFTEA"},
+                {"name": "NFTEA.ART", "id": "1.3.6086", "issuer": "NFTEA"},
+                {"name": "NFTEA.ATTACKA", "id": "1.3.6085", "issuer": "NFTEA"},
+                {"name": "NFTEA.ATTACKB", "id": "1.3.6084", "issuer": "NFTEA"},
+                {"name": "NFTEA.ATTENTION", "id": "1.3.6083", "issuer": "NFTEA"},
+                {"name": "NFTEA.ATTRACTION", "id": "1.3.6082", "issuer": "NFTEA"},
+                {"name": "NFTEA.BALANCE", "id": "1.3.6081", "issuer": "NFTEA"},
+                {"name": "NFTEA.BELIEF", "id": "1.3.6080", "issuer": "NFTEA"},
+                {"name": "NFTEA.BIT", "id": "1.3.6079", "issuer": "NFTEA"},
+                {"name": "NFTEA.BLOW", "id": "1.3.6078", "issuer": "NFTEA"},
+                {"name": "NFTEA.HOME", "id": "1.3.6077", "issuer": "NFTEA"},
+                {"name": "NFTEA.BURST", "id": "1.3.6076", "issuer": "NFTEA"},
+                {"name": "NFTEA.CARE", "id": "1.3.6075", "issuer": "NFTEA"},
+                {"name": "NFTEA.CAUSE", "id": "1.3.6074", "issuer": "NFTEA"},
+                {"name": "NFTEA.COLOUR", "id": "1.3.6073", "issuer": "NFTEA"},
+                {"name": "NFTEA.COMFORT", "id": "1.3.6072", "issuer": "NFTEA"},
+                {"name": "NFTEA.COMPARISON", "id": "1.3.6071", "issuer": "NFTEA"},
+                {"name": "NFTEA.COMPETE", "id": "1.3.6070", "issuer": "NFTEA"},
+                {"name": "NFTEA.CONNECTION", "id": "1.3.6069", "issuer": "NFTEA"},
+                {"name": "NFTEA.COPY", "id": "1.3.6068", "issuer": "NFTEA"},
+                {"name": "NFTEA.CRACK", "id": "1.3.6067", "issuer": "NFTEA"},
+                {"name": "NFTEA.CREDIT", "id": "1.3.6066", "issuer": "NFTEA"},
+                {"name": "NFTEA.CRUSH", "id": "1.3.6065", "issuer": "NFTEA"},
+                {"name": "NFTEA.DAY", "id": "1.3.6064", "issuer": "NFTEA"},
+                {"name": "NFTEA.DISCOVERY", "id": "1.3.6063", "issuer": "NFTEA"},
+                {"name": "ARTCASA.DCOHRNCE", "id": "1.3.6056", "issuer": "ARTCASA"},
+                {"name": "ARTCASA.COHRNCE", "id": "1.3.6055", "issuer": "ARTCASA"},
+                {"name": "ARTCASA.ICECANDL", "id": "1.3.6014", "issuer": "ARTCASA"},
+                {"name": "ARTCASA.TERMDART", "id": "1.3.6113", "issuer": "ARTCASA"}
+        ]
+    },
+    "BTS_TEST": {
+        "coreSymbol": "TEST",
+        "name": "BitShares",
+        "testnet": true,
+        "chainId": "39f5e2ede1f8bc1a3a54a7914414e3779e33193f1f5693510e73cb7a87617447",
+        "nodeList": [
+            {
+                "url": "wss://testnet.xbts.io/ws"
+            },
+            {
+                "url": "wss://testnet.dex.trading/"
+            },
+            {
+                "url": "wss://api-testnet.61bts.com/ws"
+            },
+            {
+                "url": "wss://testnet.bitshares.im/ws"
+            },
+            {
+                "url": "https://eu.nodes.testnet.bitshares.ws/"
+            }
+        ],
+        "featured": [
+                {"name": "REDBAR.NFT001", "id": "1.3.1635", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT002", "id": "1.3.1636", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT003", "id": "1.3.1637", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT004", "id": "1.3.1662", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT005", "id": "1.3.1663", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT006", "id": "1.3.1664", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT007", "id": "1.3.1665", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT008", "id": "1.3.1666", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT009", "id": "1.3.1667", "issuer": "REDBAR"},
+                {"name": "REDBAR.NFT010", "id": "1.3.1668", "issuer": "REDBAR"},
+                {"name": "MKUU.NFT00002", "id": "1.3.1628", "issuer": "MKUU"},
+                {"name": "MKUU.NFT00003", "id": "1.3.1629", "issuer": "MKUU"},
+                {"name": "MKUU.NFT00004", "id": "1.3.1630", "issuer": "MKUU"},
+                {"name": "MKUU.NFT00006", "id": "1.3.1634", "issuer": "MKUU"},
+                {"name": "MKUU.PASDEUX", "id": "1.3.1633", "issuer": "MKUU"},
+                {"name": "MKUU.TILES21", "id": "1.3.1638", "issuer": "MKUU"}
+        ]
+    }
+}
