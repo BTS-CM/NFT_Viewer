@@ -1,27 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Button, Box, Text, Loader, Col, Paper } from '@mantine/core';
-import { Apis } from "bitsharesjs-ws";
-import SelectAsset from './SelectAsset';
+import { appStore } from '../../lib/states';
 
 export default function Portfolio(properties) {
   const userID = properties.userID;
-  const nodes = properties.nodes;
-  const environment = properties.environment;
 
-  const setNodes = properties.setNodes;
-  const setAsset = properties.setAsset;
-  const setProdConnection = properties.setProdConnection;
-  const setTestnetConnection = properties.setTestnetConnection;
-  const setConnection = properties.setConnection;
+  let environment = appStore((state) => state.environment);
+  let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
+
+  let setMode = appStore((state) => state.setMode);
+  let setAsset = appStore((state) => state.setAsset);
+
+  let nodes = appStore((state) => state.nodes);
+  let setNodes = appStore((state) => state.setNodes);
 
   const [balances, setBalances] = useState();
   const [tries, setTries] = useState(0);
   
   function back() {
-    setNodes();
-    setProdConnection();
-    setTestnetConnection();
-    setConnection();
+    setMode();
   }
 
   function increaseTries() {
@@ -31,69 +28,34 @@ export default function Portfolio(properties) {
   }
 
   function chosenAsset(item) {
-    setAsset(item)
-  }
-
-  function changeURL() {
-    let nodesToChange = nodes;
-    nodesToChange.push(nodesToChange.shift()); // Moving misbehaving node to end
-    setNodes(nodesToChange);
-
-    if (environment === 'production') {
-      setProdConnection(nodesToChange[0]);
-    } else {
-      setTestnetConnection(nodesToChange[0]);
-    }
+    setAsset(item);
   }
   
-  useEffect(() => {
-    async function fetchBalances() {
-
-      let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
-      window.electron.testConnections(target).then(async (res) => {
-        let fastestNode = res.node;
-        setNodes(res.latencies);
-
-        if (environment === 'production') {
-          setProdConnection(fastestNode);
-        } else {
-          setTestnetConnection(fastestNode);
-        }
-
-        try {
-          await Apis.instance(fastestNode, true).init_promise;
-        } catch (error) {
-          console.log(error);
-          changeURL();
-          return;
-        }
-        
-        let balanceResult;
-        try {
-          balanceResult = await Apis.instance().db_api().exec("get_account_balances", [userID, []]);
-        } catch (error) {
-          console.log(error);
-          return;
-        }
-        
-        let balanceSymbols;
-        try {
-          balanceSymbols = await Apis.instance().db_api().exec( "lookup_asset_symbols", [ balanceResult.map(balance => balance.asset_id) ]);
-        } catch (error) {
-          console.log(error);
-          return;
-        }
-
-        let filteredAssets = balanceSymbols.filter(asset => {
-          let desc = JSON.parse(asset.options.description);
-          return desc.nft_object ? true : false;
-        })
-        
-        setBalances(filteredAssets.length ? filteredAssets : []);
+  async function fetchBalances() {
+    if (nodes && nodes.length) {
+      window.electron.fetchUserBalances(nodes[0].url, userID).then(userBalances => {       
+        setBalances(userBalances);
+      })
+      .catch((error) => {
+        console.log(error);
       })
     }
-    fetchBalances();
-  }, [userID, tries]);
+  }
+
+  useEffect(() => {
+    async function fetchNodes() {
+      if (!nodes) {
+        window.electron.testConnections(target).then(res => {
+          setNodes(res.nodes);
+        }).then(() => {
+          return fetchBalances();
+        })
+      } else {
+        return fetchBalances();
+      }
+    }
+    fetchNodes();
+  }, [tries]);
   
   let topText;
   if (!nodes) {

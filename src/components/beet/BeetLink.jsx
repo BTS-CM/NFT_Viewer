@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Button, Group, Box, Text, Divider, Loader, Col, Paper } from '@mantine/core';
+import { Button, Box, Text, Loader, Col, Paper } from '@mantine/core';
 import { link } from 'beet-js';
+import { appStore, beetStore } from '../../lib/states';
 
 export default function BeetLink(properties) {
-  const setEnvironment = properties.setEnvironment;
-  const setIsLinked = properties.setIsLinked;
-  const setIdentity = properties.setIdentity;
-  const setCrypto = properties.setCrypto;
-  const setConnection = properties.setConnection;
-  const setAuthenticated = properties.setAuthenticated;
-  const setMode = properties.setMode;
+
   const connection = properties.connection;
+
+  let setMode = appStore((state) => state.setMode);
+  let setIsLinked = beetStore((state) => state.setIsLinked);
+  let setIdentity = beetStore((state) => state.setIdentity);
+  let setAuthenticated = beetStore((state) => state.setAuthenticated); 
+  let setConnection = beetStore((state) => state.setConnection);
 
   const [inProgress, setInProgress] = useState(false);
 
@@ -47,11 +48,9 @@ export default function BeetLink(properties) {
 
     console.log('Successfully linked');
     
-    setEnvironment(target === "BTS" ? 'production' : 'testnet');
     setIsLinked(true);
     setInProgress(false);
     setIdentity(connection.identity);
-    setCrypto(target)
   }
   
   let linkContents = inProgress === false
@@ -68,21 +67,13 @@ export default function BeetLink(properties) {
           _linkToBeet('BTS')
         }}
       >
-        Link to production Bitshares
-      </Button>
-      <Button
-        sx={{marginTop: '15px'}}
-        onClick={() => {
-          _linkToBeet('BTS_TEST')
-        }}
-      >
-        Link to testnet Bitshares
+        Link to BEET
       </Button>
     </span>
   : <span>
       <Loader variant="dots" />
       <Text size="md">
-        Waiting on respond from BEET prompt
+        Waiting on response from BEET prompt
       </Text>
     </span>;
 
@@ -91,6 +82,14 @@ export default function BeetLink(properties) {
       <Paper padding="sm" shadow="xs">
         <Box mx="auto" sx={{padding: '10px'}}>
           {linkContents}
+          <Button
+            sx={{marginTop: '15px', marginRight: '5px'}}
+            onClick={() => {
+              back()
+            }}
+          >
+            Back
+          </Button>
         </Box>
       </Paper>
     </Col>

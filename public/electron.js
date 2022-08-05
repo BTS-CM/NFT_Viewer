@@ -20,7 +20,7 @@ const createWindow = () => {
         protocol: 'file:',
         slashes: true
       })
-    : "http://localhost:3000";
+    : "http://localhost:3333";
   mainWindow.loadURL(indexURL);
 
   // Automatically open Chrome's DevTools in development mode.

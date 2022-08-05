@@ -1,21 +1,19 @@
 
 import { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
-import { Apis } from "bitsharesjs-ws";
+//import { Apis } from "bitsharesjs-ws";
+import { appStore, beetStore } from '../../lib/states';
 
 export default function SelectAsset(properties) {
-  const setAsset = properties.setAsset;
-  const setMode = properties.setMode;
-  const setNodes = properties.setNodes;
-  const setImages = properties.setImages;
+  let setMode = appStore((state) => state.setMode);
+  let setAsset = appStore((state) => state.setAsset);
 
-  const setProdConnection = properties.setProdConnection;
-  const setTestnetConnection = properties.setTestnetConnection;
+  let nodes = appStore((state) => state.nodes);
+  let setNodes = appStore((state) => state.setNodes);
+  let environment = appStore((state) => state.environment);
+  let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
 
-  const environment = properties.environment;
-  const nodes = properties.nodes;
   const userID = properties.userID;
-  const wsURL = properties.wsURL;
 
   const [issuedAssets, setIssuedAssets] = useState();
   const [tries, setTries] = useState(0);
@@ -26,23 +24,12 @@ export default function SelectAsset(properties) {
     setIssuedAssets();
     setTries(newTries);
   }
-  
-  function changeURL() {
-    let nodesToChange = nodes;
-    nodesToChange.push(nodesToChange.shift()); // Moving misbehaving node to end
-    setNodes(nodesToChange);
-    console.log(`Setting new node connection to: ${nodesToChange[0].url}`)
-    if (environment === 'production') {
-      setProdConnection(nodesToChange[0].url);
-    } else {
-      setTestnetConnection(nodesToChange[0].url);
-    }
-  }
 
   /**
    * User has selected an asset to edit
    * @param {Object} asset 
    */
+  /*
   function chosenAsset(asset) {
     let description = JSON.parse(asset.options.description);
 
@@ -61,63 +48,35 @@ export default function SelectAsset(properties) {
     setImages(output);
     setAsset(asset);    
   }
+  */
+  
+  async function getIssuedAssets() {
+    if (nodes && nodes.length) {
+      window.electron.fetchIssuedAssets(userID).then(issuedAssets => {       
+        setIssuedAssets(filteredAssets);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  }
 
   useEffect(() => {
     async function fetchIssuedAssets() {
-      setInProgress(true);
-      setIssuedAssets();
-
-      try {
-        await Apis.instance(wsURL, true).init_promise;
-      } catch (error) {
-        console.log(error);
-        changeURL();
-        setInProgress(false);
-        return;
+      if (!nodes) {
+        window.electron.testConnections(target).then(res => {
+          setNodes(res.nodes);
+          setNodeTimestamp(res.timestamp);
+        }).then(() => {
+          return getIssuedAssets();
+        })
+      } else {
+        return getIssuedAssets();
       }
-      
-      let fullAccounts;
-      try {
-        fullAccounts = await Apis.instance().db_api().exec("get_full_accounts", [[userID], true])
-      } catch (error) {
-        console.log(error);
-        setInProgress(false);
-        return;
-      }
-      
-      let accountAssets = fullAccounts[0][1].assets;
-
-
-      let assetsDetails;
-      try {
-        assetsDetails = await Apis.instance().db_api().exec("get_assets", [accountAssets, true])
-      } catch (error) {
-        console.log(error);
-        setInProgress(false);
-        return;
-      }
-
-      let identifiedNFTs = assetsDetails.filter(asset => {
-        if (
-            asset.options &&
-            asset.options.description &&
-            asset.options.description.length &&
-            asset.options.description.includes("media_png_multihashes") || asset.options.description.includes("media_PNG_multihashes") ||
-            asset.options.description.includes("media_gif_multihashes") || asset.options.description.includes("media_GIF_multihashes") ||
-            asset.options.description.includes("media_jpeg_multihash") || asset.options.description.includes("media_JPEG_multihash")
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-
-      setIssuedAssets(identifiedNFTs);
-      setInProgress(false);
     }
-    fetchIssuedAssets();
-  }, [userID, tries]);
-  
+    fetchIssuedAssets(tries);
+  }, []);
+
   let topText;
   if (!issuedAssets) {
     topText = <span>

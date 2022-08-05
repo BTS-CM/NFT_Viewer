@@ -1,40 +1,22 @@
 import { useState } from 'react';
 import { TextInput, Checkbox, Button, Box, Text, Divider, Col, Paper, Group, Tooltip, Loader } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { TransactionBuilder } from 'bitsharesjs';
-import { Apis } from "bitsharesjs-ws";
+//import { TransactionBuilder } from 'bitsharesjs';
+//import { Apis } from "bitsharesjs-ws";
+import { appStore } from '../../lib/states';
 
 export default function Buy(properties) {
   const connection = properties.connection;
   const asset = properties.asset;
+  const userID = properties.userID;
   
   const [inProgress, setInProgress] = useState(false);
   const [bought, setBought] = useState(false);
 
-  const setAsset = properties.setAsset;
-  const setMode = properties.setMode;
-
-  const environment = properties.environment;
-  const wsURL = properties.wsURL;
-  const nodes = properties.nodes;
-  const setNodes = properties.setNodes;
-  const setProdConnection = properties.setProdConnection;
-  const setTestnetConnection = properties.setTestnetConnection;
+  let setMode = appStore((state) => state.setMode);
 
   function back() {
     setMode();
-  }
-
-  function changeURL() {
-    let nodesToChange = nodes;
-    nodesToChange.push(nodesToChange.shift()); // Moving misbehaving node to end
-    setNodes(nodesToChange);
-    console.log(`Setting new node connection to: ${nodesToChange[0]}`)
-    if (environment === 'production') {
-      setProdConnection(nodesToChange[0]);
-    } else {
-      setTestnetConnection(nodesToChange[0]);
-    }
   }
 
   function attemptPurchase() {

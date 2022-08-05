@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Button, Text, Col, Paper, Group, Tooltip, Loader, SimpleGrid } from '@mantine/core';
-import { Apis } from "bitsharesjs-ws";
+import { appStore, beetStore } from '../../lib/states';
 
-import config from "../config/config.json";
+import config from "../../config/config.json";
 
 export default function Featured(properties) {
-  const setAsset = properties.setAsset;
-  const setMode = properties.setMode;
+  let setMode = appStore((state) => state.setMode);
+  let setAsset = appStore((state) => state.setAsset);
+  let featuredAssets = appStore((state) => state.featuredAssets);
+  let setFeaturedAssets = appStore((state) => state.setFeaturedAssets);
 
-  const environment = properties.environment;
-  const setNodes = properties.setNodes;
-  const setProdConnection = properties.setProdConnection;
-  const setTestnetConnection = properties.setTestnetConnection;
+  let environment = appStore((state) => state.environment);
+  let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
+
+  let nodes = appStore((state) => state.nodes);
+  let setNodes = appStore((state) => state.setNodes);
 
   const [assets, setAssets] = useState();
+  const [inProgress, setInProgress] = useState(false);
+
   function back() {
     setMode();
   }
@@ -22,63 +27,76 @@ export default function Featured(properties) {
     setAsset(item)
   }
 
-  useEffect(() => {
-    async function fetchAsset() {
+  async function getFeaturedAssets() {
+    return new Promise(async (resolve, reject) => {
+      let refNodes = appStore.getState().nodes;
+      if (!refNodes) {
+        console.log('no nodes');
+        return resolve();
+      }
+      let featuredIDs = config[target].featured.map(nft => nft.id);
 
-      let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
-      window.electron.testConnections(target).then(async (res) => {
-        let fastestNode = res.node;
-        setNodes(res.latencies);
+      setTimeout(() => {
+        setInProgress(false);
+        return resolve();
+      }, 10000);
 
-        if (environment === 'production') {
-          setProdConnection(fastestNode);
-        } else {
-          setTestnetConnection(fastestNode);
-        }
-
-        try {
-          await Apis.instance(fastestNode, true).init_promise;
-        } catch (error) {
-          console.log(error);
-          return;
-        }
-        
-        let featuredIDs = config[environment === 'production' ? 'BTS' : 'BTS_TEST'].featured.map(nft => nft.id);
-
-        let featuredAssets;
-        try {
-          featuredAssets = await Apis.instance().db_api().exec( "lookup_asset_symbols", [ featuredIDs ]);
-        } catch (error) {
-          console.log(error);
-          return;
-        }
-
+      window.electron.fetchAssets(refNodes[0], featuredIDs).then(featuredAssets => {
         let filteredAssets = featuredAssets.filter(asset => {
           let desc = JSON.parse(asset.options.description);
           return desc.nft_object ? true : false;
         })
         
-        setAssets(filteredAssets.length ? filteredAssets : []);
+        setAssets(filteredAssets);
+        setFeaturedAssets(filteredAssets);
+        setInProgress(false);
+        return resolve();
       })
+      .catch((error) => {
+        console.log(error);
+        setInProgress(false);
+        return resolve();
+      })
+    });
+  }
+
+  useEffect(() => {
+    async function fetchNodes() {
+      setInProgress(true);
+      if (featuredAssets && featuredAssets.length) {
+        setAssets(featuredAssets);
+        setInProgress(false);
+        return;
+      }
+
+      if (!nodes) {
+        return window.electron.testConnections(target).then(res => {
+          setNodes(res);
+        }).then(() => {
+          return getFeaturedAssets();
+        })
+      } else {
+        return getFeaturedAssets();
+      }
     }
-    fetchAsset();
+    fetchNodes();
   }, []);
 
   let response;
-  if (!assets) {
+  if (inProgress) {
     response = <span>
                 <Loader variant="dots" />
                 <Text size="sm" weight={600}>
                     Fetching featured assets
                 </Text>
               </span>;
-  } else if (!assets.length) {
+  } else if (assets && !assets.length) {
     response = <span>
                 <Text size="sm" weight={600}>
                     An error was encountered
                 </Text>
               </span>;
-  } else {
+  } else if (assets && assets.length) {
     response = <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
                   {
                     assets && assets.length
@@ -103,6 +121,9 @@ export default function Featured(properties) {
 
   return <Col span={12} key="Top">
             <Paper sx={{padding: '5px'}} shadow="xs">
+                <Text size="md">
+                  Featured NFTs
+                </Text>
                 { response }
                 <br/>
                 <Button

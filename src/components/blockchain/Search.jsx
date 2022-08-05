@@ -2,20 +2,18 @@
 import { useEffect, useState } from 'react';
 import { 
   TextInput,
-  TextInputProps,
   ActionIcon,
   useMantineTheme,
   Button,
   Box,
   Text,
-  SimpleGrid,
   Loader,
   Col,
   Paper
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons';
 
-import { Apis } from "bitsharesjs-ws";
+//import { Apis } from "bitsharesjs-ws";
 
 export default function Search(properties) {
   const theme = useMantineTheme();
@@ -61,6 +59,7 @@ export default function Search(properties) {
     setAsset(asset);    
   }
 
+  /*
   async function performSearch() {
     setInProgress(true);
     setSearchResult();
@@ -85,7 +84,7 @@ export default function Search(properties) {
     
     console.log(asset_search_results)
 
-    /*
+    
 
     let accountAssets = fullAccounts[0][1].assets;
 
@@ -105,10 +104,10 @@ export default function Search(properties) {
     })
 
     setSearchResult(identifiedNFTs);
-    */
+    
     setInProgress(false);
   }
-  
+  */
   let topText;
   if (inProgress) {
     topText = <span>

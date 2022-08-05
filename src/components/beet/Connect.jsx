@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, Loader, Col, Paper, Checkbox } from '@mantine/core';
 import { connect, checkBeet } from 'beet-js';
+import { appStore, beetStore } from '../../lib/states';
+import { useTimeout } from '@mantine/hooks';
 
 export default function Connect(properties) {
-  const connection = properties.connection;
-  const setConnection = properties.setConnection;
-  const setMode = properties.setMode;
-  const setAuthenticated = properties.setAuthenticated;
-
+  let setConnection = beetStore((state) => state.setConnection);
+  let setAuthenticated = beetStore((state) => state.setAuthenticated); 
+  let setMode = appStore((state) => state.setMode);
+  
   const [inProgress, setInProgress] = useState(false);
+
+  function back() {
+    setMode();
+  }
 
   function beetDownload() {
     window.electron.openURL('github');
@@ -17,6 +22,11 @@ export default function Connect(properties) {
   async function connectToBeet() {
     setInProgress(true);
 
+    setTimeout(() => {
+      setInProgress(false);
+      return;
+    }, 3000);
+    
     let beetOnline;
     try {
       beetOnline = await checkBeet(true);
@@ -40,25 +50,23 @@ export default function Connect(properties) {
       console.error(error)
     }
 
+    setInProgress(false);
+
     if (!connected) {
       console.error("Couldn't connect to Beet");
-      setConnection(null);
-      setAuthenticated(null);
-      setInProgress(false);
+      setConnection();
+      setAuthenticated();
       return;
     }
 
     setConnection(connected);
-    setInProgress(false);
     setAuthenticated(connected.authenticated);
   }
 
-  function back() {
-    setMode();
-  }
+
 
   let response;
-  if (inProgress === false && !connection) {
+  if (inProgress === false) {
     response = <span>
                 <Col span={12}>
                   <Paper padding="sm" shadow="xs">
