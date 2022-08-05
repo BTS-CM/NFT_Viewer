@@ -6,12 +6,27 @@ import { testNodes, fetchUserNFTBalances, fetchIssuedAssets, fetchAssets } from 
  */
 const appStore = create(
     (set, get) => ({
+      environment: null,
       mode: null,
+      nodes: null,
       asset: null,
       assets: null,
-      environment: null,
-      nodes: null,
+      searchResult: null,
+      setEnvironment: (env) => set({environment: env}),
       setMode: (mode) => set({mode: mode}),
+      setNodes: async () => {
+        const env = get().environment;
+        let response;
+        try {
+          response = await testNodes(env === 'production' ? 'BTS' : 'BTS_TEST');
+        } catch (error) {
+          console.log(error)
+        }
+  
+        if (response) {
+          set({ nodes: await response })
+        }
+      },
       setAsset: (newAsset) => set({asset: newAsset}),
       fetchAssets: async (asset_ids) => {
         const node = get().nodes[0];
@@ -48,38 +63,32 @@ const appStore = create(
           console.log(error)
         }
   
+        console.log(response)
+
         if (response) {
           set({ assets: await response })
         }
       },
-      setFeaturedAssets: (newAssets) => set({featuredAssets: newAssets}),
-      setEnvironment: (env) => set({environment: env}),
-      setNodes: async () => {
-        const env = get().environment;
-        let response;
-        try {
-          response = await testNodes(env === 'production' ? 'BTS' : 'BTS_TEST');
-        } catch (error) {
-          console.log(error)
-        }
-  
-        if (response) {
-          set({ nodes: await response })
-        }
-      },
       changeURL: () => {
+        console.log('Changing primary node');
         let nodesToChange = get().nodes;
         nodesToChange.push(nodesToChange.shift()); // Moving misbehaving node to end
         set({ nodes: nodesToChange })
       },
+      clearAssets: () => set({
+        assets: null
+      }),
+      back: () => set({
+        mode: null,
+        asset: null,
+        assets: null
+      }),
       reset: () => set({
-          mode: null,
-          asset: null,
-          connection: null,
           environment: null,
+          mode: null,
           nodes: null,
+          asset: null,
           assets: null,
-          environment: null
       })
   })
 );

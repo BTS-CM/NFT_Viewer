@@ -9,105 +9,52 @@ import {
   Text,
   Loader,
   Col,
-  Paper
+  Paper,
+  SimpleGrid
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons';
+import { appStore } from '../../lib/states';
 
-//import { Apis } from "bitsharesjs-ws";
 
 export default function Search(properties) {
   const theme = useMantineTheme();
 
-  const setAsset = properties.setAsset;
-  const setMode = properties.setMode;
-  const setNodes = properties.setNodes;
+  let assets = appStore((state) => state.assets);
 
-  const setProdConnection = properties.setProdConnection;
-  const setTestnetConnection = properties.setTestnetConnection;
+  let fetchAssets = appStore((state) => state.fetchAssets);
+  let clearAssets = appStore((state) => state.clearAssets);
+  let setAsset = appStore((state) => state.setAsset);
+  let goBack = appStore((state) => state.back);
 
-  const environment = properties.environment;
-  const nodes = properties.nodes;
-  const wsURL = properties.wsURL;
-
-  const [searchResult, setSearchResult] = useState();
   const [searchInput, setSearchInput] = useState();
-  const [tries, setTries] = useState(0);
   const [inProgress, setInProgress] = useState(false);
 
-  function increaseTries() {
-    let newTries = tries + 1;
-    setSearchResult();
-    setTries(newTries);
+  function back() {
+    goBack();
   }
   
-  function changeURL() {
-    let nodesToChange = nodes;
-    nodesToChange.push(nodesToChange.shift()); // Moving misbehaving node to end
-    setNodes(nodesToChange);
-    console.log(`Setting new node connection to: ${nodesToChange[0].url}`)
-    if (environment === 'production') {
-      setProdConnection(nodesToChange[0].url);
-    } else {
-      setTestnetConnection(nodesToChange[0].url);
-    }
-  }
-
   /**
    * @param {Object} asset 
    */
   function chosenAsset(asset) {
-    setAsset(asset);    
+    setAsset(asset);
   }
 
-  /*
   async function performSearch() {
     setInProgress(true);
-    setSearchResult();
+    clearAssets();
 
     try {
-      await Apis.instance(wsURL, true).init_promise;
-    } catch (error) {
-      console.log(error);
-      changeURL();
-      setInProgress(false);
-      return;
-    }
-    
-    let asset_search_results;
-    try {
-      asset_search_results = await Apis.instance().db_api().exec("lookup_asset_symbols", [[searchInput]])
+      await fetchAssets([searchInput])
     } catch (error) {
       console.log(error);
       setInProgress(false);
       return;
     }
-    
-    console.log(asset_search_results)
-
-    
-
-    let accountAssets = fullAccounts[0][1].assets;
-
-    let identifiedNFTs = assetsDetails.filter(asset => {
-      if (
-          asset.options &&
-          asset.options.description &&
-          asset.options.description.length &&
-          asset.options.description.includes("media_png_multihashes") || asset.options.description.includes("media_PNG_multihashes") ||
-          asset.options.description.includes("media_gif_multihashes") || asset.options.description.includes("media_GIF_multihashes") ||
-          asset.options.description.includes("media_jpeg_multihash") || asset.options.description.includes("media_JPEG_multihash")
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    })
-
-    setSearchResult(identifiedNFTs);
     
     setInProgress(false);
   }
-  */
+
   let topText;
   if (inProgress) {
     topText = <span>
@@ -116,13 +63,13 @@ export default function Search(properties) {
                   Searching
                 </Text>
               </span>;
-  } else if (!searchResult) {
+  } else if (!assets) {
     topText = <span>
                 <Text size="md">
                   Search for NFTs
                 </Text>
               </span>
-  } else if (!inProgress && !searchResult.length) {
+  } else if (!inProgress && !assets.length) {
     topText = <span>
                 <Text size="md">
                   No search results for input
@@ -136,10 +83,8 @@ export default function Search(properties) {
               </span>
   }
 
-  /*
-
-  let buttonList = searchResult && searchResult.length
-                    ? searchResult.map(asset => {
+  let buttonList = assets && assets.length
+                    ? assets.map(asset => {
                         return <Button
                                   compact
                                   sx={{margin: '2px'}}
@@ -154,13 +99,7 @@ export default function Search(properties) {
                       })
                     : null;
 
-  <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
-    {
-      buttonList
-    }
-  </SimpleGrid>
 
-  */
 
   return (
     <Col span={12}>
@@ -192,18 +131,16 @@ export default function Search(properties) {
             rightSectionWidth={42}
           />
 
-          <Button
-            sx={{marginTop: '15px', marginRight: '5px'}}
-            onClick={() => {
-              increaseTries()
-            }}
-          >
-            Refresh
-          </Button>
+          <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
+            {
+              buttonList
+            }
+          </SimpleGrid>
+
           <Button
             sx={{marginTop: '15px'}}
             onClick={() => {
-              setMode()
+              back()
             }}
           >
             Back

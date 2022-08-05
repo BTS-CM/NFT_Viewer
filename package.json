@@ -9,7 +9,7 @@
   "scripts": {
     "start": "vite --port=3333",
     "build": "vite build",
-    "dev": "concurrently -k \"cross-env BROWSER=none npm start\" \"npm:electron\"",
+    "dev": "concurrently -k \"cross-env BROWSER=none npm start\"",
     "electron": "electron .",
     "electron:start": "concurrently -k \"cross-env BROWSER=none vite preview --port 3333\" \"wait-on http://localhost:3333 && electronmon .\"",
     "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=dist/electron.js",

@@ -11,10 +11,6 @@ export default function Mode(properties) {
     setNodes();
   }, []);
 
-  if (nodes) {
-    console.log(nodes)
-  }
-
   return (
     <Col span={12}>
       <Paper padding="sm" shadow="xs">

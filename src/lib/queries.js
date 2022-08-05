@@ -1,7 +1,7 @@
 import config from '../config/config.json';
-//import TransactionBuilder from "bitsharesjs";
-import Apis from "bitsharesjs-ws";
-  
+import {Apis} from "bitsharesjs-ws";
+import { appStore } from './states';
+
 /**
  * Test the wss nodes, return latencies and fastest url.
  * @returns {Promise}
@@ -28,6 +28,38 @@ async function testNodes(target) {
 }
 
 /**
+ * Lookup asset details, return NFTs
+ * @param {Apis} api 
+ * @param {Array} asset_ids 
+ */
+async function lookup_asset_symbols(api, asset_ids) {
+    return new Promise(async (resolve, reject) => {
+        let symbols;
+        try {
+            symbols = await api.instance().db_api().exec( "lookup_asset_symbols", [ asset_ids ]);
+        } catch (error) {
+            console.log(error);
+            return reject();
+        }
+
+        symbols = symbols.filter(x => x !== null);
+        if (!symbols || !symbols.length) {
+            return reject();
+        }
+
+        let filteredAssets = symbols.filter(asset => {
+            if (!asset.options.description || !asset.options.description.length) {
+                return false;
+            }
+            let desc = JSON.parse(asset.options.description);
+            return desc.nft_object ? true : false;
+        })
+
+        return resolve(filteredAssets);
+    });
+}
+
+/**
  * Fetch asset info for multiple assets
  * @param {String} node
  * @param {Array} asset_ids 
@@ -38,18 +70,20 @@ async function testNodes(target) {
             await Apis.instance(node, true).init_promise;
         } catch (error) {
             console.log(error);
+            let changeURL = appStore.getState().changeURL;
+            changeURL();
             return reject();
         }
 
-        let featuredAssets;
+        let response;
         try {
-            featuredAssets = await Apis.instance().db_api().exec( "lookup_asset_symbols", [ asset_ids ]);
+            response = await lookup_asset_symbols(Apis, asset_ids);
         } catch (error) {
             console.log(error);
             return reject();
         }
 
-        return resolve(featuredAssets);
+        return resolve(response);
     });
 }
 
@@ -60,10 +94,12 @@ async function testNodes(target) {
  */
 async function fetchUserNFTBalances(node, accountID) {
     return new Promise(async (resolve, reject) => {
+
         try {
             await Apis.instance(node, true).init_promise;
         } catch (error) {
             console.log(error);
+            let changeURL = appStore.getState().changeURL;
             changeURL();
             return reject();
         }
@@ -76,20 +112,15 @@ async function fetchUserNFTBalances(node, accountID) {
             return reject();
         }
 
-        let balanceSymbols;
+        let response;
         try {
-            balanceSymbols = await Apis.instance().db_api().exec( "lookup_asset_symbols", [ balanceResult.map(balance => balance.asset_id) ]);
+            response = await lookup_asset_symbols(Apis, balanceResult.map(asset => asset.asset_id));
         } catch (error) {
             console.log(error);
             return reject();
         }
 
-        let filteredAssets = balanceSymbols.filter(asset => {
-            let desc = JSON.parse(asset.options.description);
-            return desc.nft_object ? true : false;
-        })
-
-        return  resolve(filteredAssets);
+        return resolve(response);
     });
 }
 
@@ -99,10 +130,13 @@ async function fetchUserNFTBalances(node, accountID) {
  */
 async function fetchIssuedAssets(accountID) {
     return new Promise(async (resolve, reject) => {
+
         try {
-            await Apis.instance(wsURL, true).init_promise;
+            await Apis.instance(node, true).init_promise;
         } catch (error) {
             console.log(error);
+            let changeURL = appStore.getState().changeURL;
+            changeURL();
             return reject();
         }
 
@@ -116,20 +150,15 @@ async function fetchIssuedAssets(accountID) {
 
         let accountAssets = fullAccounts[0][1].assets;
 
-        let assetsDetails;
+        let response;
         try {
-            assetsDetails = await Apis.instance().db_api().exec("get_assets", [accountAssets, true])
+            response = await lookup_asset_symbols(Apis, accountAssets.map(asset => asset.asset_id));
         } catch (error) {
             console.log(error);
             return reject();
         }
 
-        let filteredAssets = assetsDetails.filter(asset => {
-            let desc = JSON.parse(asset.options.description);
-            return desc.nft_object ? true : false;
-        })
-
-        return  resolve(filteredAssets);
+        return resolve(response);
     });
 }
 

@@ -29,8 +29,8 @@ export default function SelectAsset(properties) {
    * User has selected an asset to edit
    * @param {Object} asset 
    */
-  /*
   function chosenAsset(asset) {
+    /*
     let description = JSON.parse(asset.options.description);
 
     let output;
@@ -46,35 +46,16 @@ export default function SelectAsset(properties) {
     }
     
     setImages(output);
+    */
+
     setAsset(asset);    
-  }
-  */
-  
-  async function getIssuedAssets() {
-    if (nodes && nodes.length) {
-      window.electron.fetchIssuedAssets(userID).then(issuedAssets => {       
-        setIssuedAssets(filteredAssets);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    }
   }
 
   useEffect(() => {
-    async function fetchIssuedAssets() {
-      if (!nodes) {
-        window.electron.testConnections(target).then(res => {
-          setNodes(res.nodes);
-          setNodeTimestamp(res.timestamp);
-        }).then(() => {
-          return getIssuedAssets();
-        })
-      } else {
-        return getIssuedAssets();
-      }
+    async function fetchAssets() {
+      fetchIssuedAssets(userID)
     }
-    fetchIssuedAssets(tries);
+    fetchAssets();
   }, []);
 
   let topText;

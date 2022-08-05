@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Button, Text, Col, Paper, Group, Tooltip, Loader, SimpleGrid } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore } from '../../lib/states';
 
 import config from "../../config/config.json";
 
 export default function Featured(properties) {
-  let setMode = appStore((state) => state.setMode);
-  let setAsset = appStore((state) => state.setAsset);
-  let featuredAssets = appStore((state) => state.featuredAssets);
-  let setFeaturedAssets = appStore((state) => state.setFeaturedAssets);
-
   let environment = appStore((state) => state.environment);
   let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
+  let assets = appStore((state) => state.assets);
 
-  let nodes = appStore((state) => state.nodes);
-  let setNodes = appStore((state) => state.setNodes);
+  let setAsset = appStore((state) => state.setAsset);
+  let fetchAssets = appStore((state) => state.fetchAssets);
+  let setMode = appStore((state) => state.setMode);
 
-  const [assets, setAssets] = useState();
   const [inProgress, setInProgress] = useState(false);
 
   function back() {
@@ -27,59 +23,26 @@ export default function Featured(properties) {
     setAsset(item)
   }
 
-  async function getFeaturedAssets() {
-    return new Promise(async (resolve, reject) => {
-      let refNodes = appStore.getState().nodes;
-      if (!refNodes) {
-        console.log('no nodes');
-        return resolve();
-      }
-      let featuredIDs = config[target].featured.map(nft => nft.id);
-
-      setTimeout(() => {
-        setInProgress(false);
-        return resolve();
-      }, 10000);
-
-      window.electron.fetchAssets(refNodes[0], featuredIDs).then(featuredAssets => {
-        let filteredAssets = featuredAssets.filter(asset => {
-          let desc = JSON.parse(asset.options.description);
-          return desc.nft_object ? true : false;
-        })
-        
-        setAssets(filteredAssets);
-        setFeaturedAssets(filteredAssets);
-        setInProgress(false);
-        return resolve();
-      })
-      .catch((error) => {
-        console.log(error);
-        setInProgress(false);
-        return resolve();
-      })
-    });
-  }
-
   useEffect(() => {
-    async function fetchNodes() {
-      setInProgress(true);
-      if (featuredAssets && featuredAssets.length) {
-        setAssets(featuredAssets);
-        setInProgress(false);
-        return;
-      }
-
-      if (!nodes) {
-        return window.electron.testConnections(target).then(res => {
-          setNodes(res);
-        }).then(() => {
-          return getFeaturedAssets();
-        })
-      } else {
-        return getFeaturedAssets();
-      }
+    if (assets) {
+      setInProgress(false);
+      return;
     }
-    fetchNodes();
+
+    setInProgress(true);
+
+    setTimeout(() => {
+      setInProgress(false);
+      return;
+    }, 10000);
+
+    try {
+      fetchAssets(config[target].featured.map(nft => nft.id))
+    } catch (error) {
+      console.log(error);
+    }
+
+    setInProgress(false);
   }, []);
 
   let response;
