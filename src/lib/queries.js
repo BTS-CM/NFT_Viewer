@@ -128,7 +128,7 @@ async function fetchUserNFTBalances(node, accountID) {
  * Fetch any NFTs the user has created
  * @param {String} accountID 
  */
-async function fetchIssuedAssets(accountID) {
+async function fetchIssuedAssets(node, accountID) {
     return new Promise(async (resolve, reject) => {
 
         try {
@@ -162,9 +162,75 @@ async function fetchIssuedAssets(accountID) {
     });
 }
 
+/**
+ * Retrieve the object contents
+ * @param {String} node 
+ * @param {String} objectID 
+ * @returns 
+ */
+async function fetchObject(node, objectID) {
+    return new Promise(async (resolve, reject) => {
+
+        try {
+            await Apis.instance(node, true).init_promise;
+        } catch (error) {
+            console.log(error);
+            let changeURL = appStore.getState().changeURL;
+            changeURL();
+            return reject();
+        }
+
+        let object;
+        try {
+            object = await Apis.instance().db_api().exec("get_objects", [[objectID]])
+        } catch (error) {
+            console.log(error);
+            return reject();
+        }
+
+        console.log(object)
+
+        return resolve(object);
+    });
+}
+
+/**
+ * Fetch the orderbook for an NFT
+ * @param {String} node 
+ * @param {String} base 
+ * @param {String} quote 
+ * @param {Integer} limit 
+ * @returns 
+ */
+async function fetchOrderBook(node, base, quote, limit) {
+    return new Promise(async (resolve, reject) => {
+        
+        try {
+            await Apis.instance(node, true).init_promise;
+        } catch (error) {
+            console.log(error);
+            let changeURL = appStore.getState().changeURL;
+            changeURL();
+            return reject();
+        }
+
+        let orderBook;
+        try {
+            orderBook = await Apis.instance().db_api().exec("get_order_book", [[base, quote, limit]])
+        } catch (error) {
+            console.log(error);
+            return reject();
+        }
+
+        return resolve(orderBook);
+    });
+}
+
+
 export {
     testNodes,
     fetchUserNFTBalances,
     fetchIssuedAssets,
-    fetchAssets
+    fetchAssets,
+    fetchObject
 };

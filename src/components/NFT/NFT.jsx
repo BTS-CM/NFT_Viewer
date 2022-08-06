@@ -1,11 +1,14 @@
 import {
   TextInput,
   Checkbox,
+  CopyButton,
   Button,
+  Container,
   Box,
   Badge,
   Text,
   Tabs,
+  Card,
   Divider,
   Title,
   Col,
@@ -13,20 +16,15 @@ import {
   Group,
   Tooltip,
   Loader,
+  Textarea,
   Code
 } from '@mantine/core';
 import { getImage } from '../../lib/images';
 import { appStore } from '../../lib/states';
 
-import Holder from './Holder';
 import IssuerDetails from './IssuerDetails';
 
-function back() {
-  let setMode = appStore((state) => state.setMode);
-  let setAsset = appStore((state) => state.setAsset);
-  setAsset();
-  setMode();
-}
+
 
     /*
     let description = JSON.parse(asset.options.description);
@@ -48,7 +46,14 @@ function back() {
 
 export default function NFT(properties) {
   const asset = properties.asset;
- 
+  let setMode = appStore((state) => state.setMode);
+  let setAsset = appStore((state) => state.setAsset);
+
+  function back() {
+    setAsset();
+    setMode();
+  }
+
   let issuer = asset ? asset.issuer : undefined;
   let precision = asset ? asset.precision : undefined;
   let symbol = asset ? asset.symbol : undefined;
@@ -58,12 +63,16 @@ export default function NFT(properties) {
   let dynamic_asset_data = asset ? asset.dynamic_asset_data : undefined;
   let current_supply = dynamic_asset_data ? dynamic_asset_data.current_supply : undefined;
 
-  let description = asset && asset.description ? asset.description : undefined;
+  let description = asset
+                    && asset.options.description
+                    && asset.options.description.length ? JSON.parse(asset.options.description) : undefined;
   let main = description ? description.main : undefined;
   let market = description ? description.market : undefined;
   let short_name = description ? description.short_name : undefined;
   let nft_signature = description ? description.nft_signature : undefined;
   let nft_object = description ? description.nft_object : undefined;
+
+  console.log(nft_object)
 
   let type = nft_object && nft_object.type ? nft_object.type : undefined;
   let sig_pubkey_or_address = undefined;
@@ -78,7 +87,7 @@ export default function NFT(properties) {
   let narrative = nft_object && nft_object.narrative ? nft_object.narrative : undefined;
   let attestation = nft_object && nft_object.attestation ? nft_object.attestation : undefined;
   let acknowledgments = nft_object && nft_object.acknowledgments ? nft_object.acknowledgments : undefined;
-  let tags = nft_object && nft_object.tags ? nft_object.tags : undefined;
+  let tags = nft_object && nft_object.tags ? nft_object.tags.split(',') : undefined;
   let nft_flags = nft_object && nft_object.flags ? nft_object.flags.split(",") : undefined;
   let encoding = nft_object && nft_object.encoding ? nft_object.encoding : undefined;
   
@@ -86,15 +95,21 @@ export default function NFT(properties) {
   let holder_license = nft_object && nft_object.holder_license ? nft_object.holder_license : undefined;
   let password_multihash = nft_object && nft_object.password_multihash ? nft_object.password_multihash : undefined;
 
+  /*
+                {
+                  issuer
+                    ? <IssuerDetails issuer={issuer} />
+                    : null
+                }
+  */
 
-  return (
-    <Col span={12} key="Top">
+  return ([<Col span={12} key="Top">
       <Paper sx={{padding: '5px'}} shadow="xs">
           <Title order={2}>
             &quot;{title}&quot; by {artist}
           </Title>
 
-          <Tabs defaultValue="">
+          <Tabs defaultValue="NFT">
             <Tabs.List>
               <Tabs.Tab value="NFT">NFT</Tabs.Tab>
               <Tabs.Tab value="Asset">Asset</Tabs.Tab>
@@ -108,13 +123,13 @@ export default function NFT(properties) {
             </Tabs.List>
             
             <Tabs.Panel value="NFT" pt="xs">
-              <Text>
+              <Text size="md">
                 <b>Attestation</b>: &quot;{attestation}&quot;
               </Text>
-              <Text>
+              <Text size="md">
                 <b>Narrative</b>: &quot;{narrative}&quot;
               </Text>
-              <Text>
+              <Text size="md">
                 <b>Acknowledgments</b>: &quot;{acknowledgments ? acknowledgments : 'N/A'}&quot;
               </Text>
             </Tabs.Panel>
@@ -124,8 +139,6 @@ export default function NFT(properties) {
                 <Badge>
                   {`Name: ${symbol ? symbol : '???'}`}
                 </Badge>
-
-                <Holder id={asset.id} />
 
                 <Badge>
                   {`Quantity: ${current_supply ? current_supply : '???'}`}
@@ -161,11 +174,7 @@ export default function NFT(properties) {
                   </Badge>
                 </Tooltip>
 
-                {
-                  issuer
-                    ? <IssuerDetails issuer={issuer} />
-                    : null
-                }
+
               </Group>
             </Tabs.Panel>
 
@@ -174,12 +183,14 @@ export default function NFT(properties) {
                 tags && tags.length
                   ? <Group sx={{marginTop: '5px'}} position="center">
                       {
-                        tags.map((tag) => {
-                          return <Badge key={`tag: ${tag}`}>{tag}</Badge>
-                        })
+                        tags && tags.length
+                        ? tags.map((tag) => {
+                            return <Badge key={`tag: ${tag}`}>{tag}</Badge>
+                          })
+                        : null
                       }
                     </Group>
-                  : <Text>No topic/interest tags</Text>
+                  : <Text size="md">No topic/interest tags</Text>
               }
               <br/>
               {
@@ -191,13 +202,13 @@ export default function NFT(properties) {
                         })
                       }
                     </Group>
-                  : <Text>No NFT tags</Text>
+                  : <Text size="md">No NFT tags</Text>
               }
             </Tabs.Panel>
             
             <Tabs.Panel value="Buy" pt="xs">
-              <Text size="lg">
-                The NFT titled '${title}' (${symbol}) can be traded/transfered on the Bitshares decentralized exchange
+              <Text size="md">
+                This NFT can be traded/transfered on using the following Bitshares DEX web wallets
               </Text>
               <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                 <Button
@@ -294,7 +305,7 @@ export default function NFT(properties) {
                         ).filter(x => x)
                       }
                     </Group>
-                  : <Text>No flags are currently enabled.</Text>
+                  : <Text size="md">No flags are currently enabled.</Text>
               }
             </Tabs.Panel>
             
@@ -329,33 +340,63 @@ export default function NFT(properties) {
                         )
                       }
                     </Group>
-                  : <Text>All permissions have been disabled.</Text>
+                  : <Text size="md">All permissions have been disabled.</Text>
               }
             </Tabs.Panel>
             
             <Tabs.Panel value="Signature" pt="xs">
-              <Text size="lg">
-                <b>Signature</b>
-              </Text>
-              <Text>
-                {nft_signature ? nft_signature : 'N/A'}
-              </Text>
-              <Text size="lg">
-                <b>Signature</b>
-              </Text>
-              <Text>
-                {sig_pubkey_or_address}
-              </Text>
-              <Text size="lg">
-                <b>password_multihash</b>
-              </Text>
-              <Text>
-                {password_multihash}
-              </Text>
+              <Container size="md" px="xs">
+                <Card shadow="sm" p="sm" radius="md" withBorder m="sm">
+                  <Textarea
+                    placeholder={nft_signature ? nft_signature : 'N/A'}
+                    label="NFT Signature"
+                    value={nft_signature ? nft_signature : 'N/A'}
+                  />
+                  <CopyButton value={nft_signature}>
+                    {({ copied, copy }) => (
+                      <Button color={copied ? 'teal' : 'blue'} style={{marginTop: '5px'}} onClick={copy}>
+                        {copied ? 'Copied' : 'Copy'}
+                      </Button>
+                    )}
+                  </CopyButton>
+                </Card>
+              </Container>
+              <Container size="md" px="xs">
+                <Card shadow="sm" p="lg" radius="md" withBorder m="sm">
+                  <Textarea
+                    placeholder={sig_pubkey_or_address ? sig_pubkey_or_address : 'N/A'}
+                    label="Pubkey or address"
+                    value={sig_pubkey_or_address ? sig_pubkey_or_address : 'N/A'}
+                  />
+                  <CopyButton value={sig_pubkey_or_address}>
+                    {({ copied, copy }) => (
+                      <Button color={copied ? 'teal' : 'blue'} style={{marginTop: '5px'}} onClick={copy}>
+                        {copied ? 'Copied' : 'Copy'}
+                      </Button>
+                    )}
+                  </CopyButton>
+                </Card>
+              </Container>
+              <Container size="md" px="xs">
+                <Card shadow="sm" p="lg" radius="md" withBorder m="sm">
+                  <Textarea
+                    placeholder={password_multihash ? password_multihash : 'N/A'}
+                    label="password_multihash"
+                    value={password_multihash ? password_multihash : 'N/A'}
+                  />
+                  <CopyButton value={password_multihash}>
+                    {({ copied, copy }) => (
+                      <Button color={copied ? 'teal' : 'blue'} style={{marginTop: '5px'}} onClick={copy}>
+                        {copied ? 'Copied' : 'Copy'}
+                      </Button>
+                    )}
+                  </CopyButton>
+                </Card>
+              </Container>
             </Tabs.Panel>
             
             <Tabs.Panel value="License" pt="xs">
-              <Text>
+              <Text size="md">
                 <b>License: </b>
                 {
                   license
@@ -363,7 +404,7 @@ export default function NFT(properties) {
                     : `The license under which this NFT has been released has not been provied.`
                 }
               </Text>
-              <Text>
+              <Text size="md">
                 <b>Holder license: </b>
                 {
                   holder_license
@@ -374,21 +415,36 @@ export default function NFT(properties) {
             </Tabs.Panel>
             
             <Tabs.Panel value="JSON" pt="xs">
-              <Code block aria-label={"elasticSearchData"} style={{'maxWidth': '1000px'}}>
-                {asset ? JSON.stringify(asset) : 'N/A'}
-              </Code>
+              <Container size="md" px="xs">
+                <Card shadow="sm" p="sm" radius="md" withBorder m="sm">
+                  <Textarea
+                    placeholder={asset ? JSON.stringify(asset, null, 2) : 'N/A'}
+                    minRows={5}
+                    label="NFT Signature"
+                    value={asset ? JSON.stringify(asset, null, 2) : 'N/A'}
+                  />
+                  <CopyButton value={asset ? JSON.stringify(asset, null, 2) : 'N/A'}>
+                    {({ copied, copy }) => (
+                      <Button color={copied ? 'teal' : 'blue'} style={{marginTop: '5px'}} onClick={copy}>
+                        {copied ? 'Copied' : 'Copy'}
+                      </Button>
+                    )}
+                  </CopyButton>
+                </Card>
+            </Container>
             </Tabs.Panel>
           </Tabs>
 
-          <Button
-            onClick={() => {
-              back()
-            }}
-          >
-            Go back
-          </Button>   
       </Paper>
-    </Col>
-  )
+    </Col>,
+    <Col span={12} key="back">
+        <Button
+          onClick={() => {
+            back()
+          }}
+        >
+          Go back
+        </Button>   
+    </Col>])
 
 }
