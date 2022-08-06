@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { TextInput, Checkbox, Button, Box, Text, Divider, Col, Paper, Group, Tooltip, Loader } from '@mantine/core';
 import { useForm } from '@mantine/form';
-//import { TransactionBuilder } from 'bitsharesjs';
-//import { Apis } from "bitsharesjs-ws";
 import { appStore } from '../../lib/states';
 
 export default function Buy(properties) {

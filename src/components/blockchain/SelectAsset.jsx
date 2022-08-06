@@ -1,15 +1,12 @@
 
 import { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
-//import { Apis } from "bitsharesjs-ws";
-import { appStore, beetStore } from '../../lib/states';
+import { appStore } from '../../lib/states';
 
 export default function SelectAsset(properties) {
   let setMode = appStore((state) => state.setMode);
   let setAsset = appStore((state) => state.setAsset);
 
-  let nodes = appStore((state) => state.nodes);
-  let setNodes = appStore((state) => state.setNodes);
   let environment = appStore((state) => state.environment);
   let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
 
@@ -17,7 +14,6 @@ export default function SelectAsset(properties) {
 
   const [issuedAssets, setIssuedAssets] = useState();
   const [tries, setTries] = useState(0);
-  const [inProgress, setInProgress] = useState(false);
 
   function increaseTries() {
     let newTries = tries + 1;
@@ -30,24 +26,6 @@ export default function SelectAsset(properties) {
    * @param {Object} asset 
    */
   function chosenAsset(asset) {
-    /*
-    let description = JSON.parse(asset.options.description);
-
-    let output;
-    if (description.nft_object.media_png_multihashes || description.nft_object.media_PNG_multihashes) {
-      let hashes = description.nft_object.media_png_multihashes ?? description.nft_object.media_PNG_multihashes;
-      output = hashes.map(value => { return {url: value.url, type: 'PNG'}});
-    } else if (description.nft_object.media_gif_multihashes || description.nft_object.media_GIF_multihashes) {
-      let hashes = description.nft_object.media_png_multihashes ?? description.nft_object.media_PNG_multihashes;
-      output = hashes.map(value => { return {url: value.url, type: 'GIF'}});
-    } else if (description.nft_object.media_jpeg_multihash || description.nft_object.media_JPEG_multihash) {
-      let hashes = description.nft_object.media_jpeg_multihash ?? description.nft_object.media_JPEG_multihash;
-      output = hashes.map(value => { return {url: value.url, type: 'JPEG'}});
-    }
-    
-    setImages(output);
-    */
-
     setAsset(asset);    
   }
 
