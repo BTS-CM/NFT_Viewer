@@ -60,6 +60,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "simple-websocket": "^9.1.0",
+    "swr": "^1.3.0",
     "vite": "^3.0.4",
     "zustand": "^4.0.0",
     "beet-js": "^0.14.0"

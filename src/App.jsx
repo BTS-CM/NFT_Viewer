@@ -13,7 +13,7 @@ import SelectAsset from "./components/blockchain/SelectAsset";
 import Search from "./components/blockchain/Search";
 import Featured from "./components/blockchain/Featured";
 import Portfolio from "./components/blockchain/Portfolio";
-import NFT from "./components/blockchain/NFT";
+import NFT from "./components/NFT/NFT";
 
 import './App.css'
 

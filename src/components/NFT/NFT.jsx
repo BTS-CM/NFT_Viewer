@@ -1,7 +1,25 @@
-import { useState } from 'react';
-import { TextInput, Checkbox, Button, Box, Text, Tabs, Divider, Title, Col, Paper, Group, Tooltip, Loader } from '@mantine/core';
+import {
+  TextInput,
+  Checkbox,
+  Button,
+  Box,
+  Badge,
+  Text,
+  Tabs,
+  Divider,
+  Title,
+  Col,
+  Paper,
+  Group,
+  Tooltip,
+  Loader,
+  Code
+} from '@mantine/core';
 import { getImage } from '../../lib/images';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore } from '../../lib/states';
+
+import Holder from './Holder';
+import IssuerDetails from './IssuerDetails';
 
 function back() {
   let setMode = appStore((state) => state.setMode);
@@ -59,7 +77,15 @@ export default function NFT(properties) {
   let artist = nft_object && nft_object.artist ? nft_object.artist : undefined;
   let narrative = nft_object && nft_object.narrative ? nft_object.narrative : undefined;
   let attestation = nft_object && nft_object.attestation ? nft_object.attestation : undefined;
+  let acknowledgments = nft_object && nft_object.acknowledgments ? nft_object.acknowledgments : undefined;
+  let tags = nft_object && nft_object.tags ? nft_object.tags : undefined;
+  let nft_flags = nft_object && nft_object.flags ? nft_object.flags.split(",") : undefined;
   let encoding = nft_object && nft_object.encoding ? nft_object.encoding : undefined;
+  
+  let license = nft_object && nft_object.license ? nft_object.license : undefined;
+  let holder_license = nft_object && nft_object.holder_license ? nft_object.holder_license : undefined;
+  let password_multihash = nft_object && nft_object.password_multihash ? nft_object.password_multihash : undefined;
+
 
   return (
     <Col span={12} key="Top">
@@ -99,7 +125,7 @@ export default function NFT(properties) {
                   {`Name: ${symbol ? symbol : '???'}`}
                 </Badge>
 
-                {holder}
+                <Holder id={asset.id} />
 
                 <Badge>
                   {`Quantity: ${current_supply ? current_supply : '???'}`}
@@ -126,36 +152,52 @@ export default function NFT(properties) {
                   withArrow
                   label={
                     precision === 0
-                      ? t('nft.asset.precision_good', {short_name: short_name})
-                      : t('nft.asset.precision_bad')
+                      ? `With a precision of 0, '${short_name}' is a non-fungible token!`
+                      : `Due to not having a precision of 0, this is a fungible token.`
                     }
                 >
                   <Badge>
-                    {`${t('nft.asset.precision')}: ${precision}`}
+                    {`Precision: ${precision}`}
                   </Badge>
                 </Tooltip>
 
-                {detailsOfIssuer}
+                {
+                  issuer
+                    ? <IssuerDetails issuer={issuer} />
+                    : null
+                }
               </Group>
             </Tabs.Panel>
 
             <Tabs.Panel value="Tags" pt="xs">
               {
-                tagChips && tagChips.length
-                  ? <Group sx={{marginTop: '5px'}} position="center">{tagChips}</Group>
-                  : <Text>{t('nft.tags.no_tags')}</Text>
+                tags && tags.length
+                  ? <Group sx={{marginTop: '5px'}} position="center">
+                      {
+                        tags.map((tag) => {
+                          return <Badge key={`tag: ${tag}`}>{tag}</Badge>
+                        })
+                      }
+                    </Group>
+                  : <Text>No topic/interest tags</Text>
               }
               <br/>
               {
-                nftFlagChips && nftFlagChips.length
-                  ? <Group sx={{marginTop: '5px'}} position="center">{nftFlagChips}</Group>
-                  : <Text>{t('nft.tags.no_nft_tags')}</Text>
+                nft_flags && nft_flags.length
+                  ? <Group sx={{marginTop: '5px'}} position="center">
+                      {
+                        nft_flags.map((flag) => {
+                          return <Badge key={`flagchip: ${flag}`}>{flag}</Badge>
+                        })
+                      }
+                    </Group>
+                  : <Text>No NFT tags</Text>
               }
             </Tabs.Panel>
             
             <Tabs.Panel value="Buy" pt="xs">
               <Text size="lg">
-                {t('nft.buy.header', {title: title, symbol: symbol})}
+                The NFT titled '${title}' (${symbol}) can be traded/transfered on the Bitshares decentralized exchange
               </Text>
               <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                 <Button
@@ -191,7 +233,7 @@ export default function NFT(properties) {
                   GDEX.io
                 </Button>
                 <Tooltip
-                  label={t('nft.buy.tooltip', {symbol: symbol})}
+                  label={`Within the desktop app search for the UIA '${symbol}'`}
                   widthArrow
                 >
                   <Button
@@ -200,7 +242,7 @@ export default function NFT(properties) {
                     sx={{m: 0.25}}
                     variant="outline"
                   >
-                    {t('nft.buy.button')}
+                    Desktop app
                   </Button>
                 </Tooltip>
               </Group>
@@ -239,23 +281,61 @@ export default function NFT(properties) {
             
             <Tabs.Panel value="Flags" pt="xs">
               {
-                flagChips && flagChips.length
-                  ? <Group position="center">{flagChips}</Group>
-                  : <Text>{t('nft.flags.none')}</Text>
+                asset_flags
+                  ? <Group position="center">
+                      {
+                        Object.keys(asset_flags).map(
+                          (flag) => {
+                            const flagValue = asset_flags[flag];
+                            return flagValue === true
+                              ? <Badge leftSection={flagValue ? <IoCheckmark/> : <IoClose/>}>{flag.replace(/_/g, ' ')}</Badge>
+                              : null;
+                          }
+                        ).filter(x => x)
+                      }
+                    </Group>
+                  : <Text>No flags are currently enabled.</Text>
               }
             </Tabs.Panel>
             
             <Tabs.Panel value="Permissions" pt="xs">
               {
-                permissionChips && permissionChips.length
-                  ? <Group position="center">{permissionChips}</Group>
-                  : <Text>{t('nft.permissions.none')}</Text>
+                permissions
+                  ? <Group position="center">
+                      {
+                        Object.keys(permissions).map(
+                          (permission) => {
+                            const permissionValue = permissions[permission];
+                            return (
+                              <Tooltip
+                                withArrow
+                                label={
+                                  permissionValue === true || permissionValue === 'true'
+                                    ? t('nft.permissionTips.enabled.' + permission)
+                                    : t('nft.permissionTips.disabled.' + permission)
+                                }
+                                key={permission + '_tooltip'}
+                              >
+                                <Badge
+                                  leftSection={permissionValue ? <IoCheckmark/> : <IoClose/>}
+                                  key={permission + '_chip'}
+                                >
+                                  {permission.replace(/_/g, ' ')}
+                                </Badge>
+                              </Tooltip>
+                            );
+                  
+                          }
+                        )
+                      }
+                    </Group>
+                  : <Text>All permissions have been disabled.</Text>
               }
             </Tabs.Panel>
             
             <Tabs.Panel value="Signature" pt="xs">
               <Text size="lg">
-                <b>{t('nft.signature.header')}</b>
+                <b>Signature</b>
               </Text>
               <Text>
                 {nft_signature ? nft_signature : 'N/A'}
@@ -276,19 +356,19 @@ export default function NFT(properties) {
             
             <Tabs.Panel value="License" pt="xs">
               <Text>
-                <b>{t('nft.license.header1')}: </b>
+                <b>License: </b>
                 {
                   license
                     ? license
-                    : t('nft.license.none1')
+                    : `The license under which this NFT has been released has not been provied.`
                 }
               </Text>
               <Text>
-                <b>{t('nft.license.header2')}: </b>
+                <b>Holder license: </b>
                 {
                   holder_license
                     ? holder_license
-                    : t('nft.license.none2')
+                    : "Holder license information has not been provided."
                 }
               </Text>
             </Tabs.Panel>

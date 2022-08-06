@@ -8,6 +8,7 @@ export default function Portfolio(properties) {
   let environment = appStore((state) => state.environment);
   let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
   let assets = appStore((state) => state.assets);
+  let setAsset = appStore((state) => state.setAsset);
   let fetchNFTBalances = appStore((state) => state.fetchNFTBalances);
   let goBack = appStore((state) => state.back);
   let clearAssets = appStore((state) => state.clearAssets);

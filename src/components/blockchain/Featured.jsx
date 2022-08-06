@@ -46,7 +46,7 @@ export default function Featured(properties) {
   }, []);
 
   let response;
-  if (inProgress) {
+  if (inProgress || !assets) {
     response = <span>
                 <Loader variant="dots" />
                 <Text size="sm" weight={600}>
