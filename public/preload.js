@@ -43,6 +43,10 @@ async function _openURL(target) {
     ipcRenderer.send('openURL', target);
 }
 
+async function _openDEX(args) {
+    ipcRenderer.send('openDEX', args);
+}
+
 contextBridge.exposeInMainWorld(
     "electron",
     {
@@ -51,6 +55,9 @@ contextBridge.exposeInMainWorld(
         },
         openURL: async (target) => {
             return _openURL(target);
+        },
+        openDEX: async (args) => {
+            return _openDEX(args);
         }
     }
 );

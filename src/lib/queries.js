@@ -188,9 +188,60 @@ async function fetchObject(node, objectID) {
             return reject();
         }
 
-        console.log(object)
-
         return resolve(object);
+    });
+}
+
+/**
+ * Retrieve the object contents
+ * @param {String} node 
+ * @param {Object} asset
+ * @returns 
+ */
+ async function fetchDynamicData(node, asset) {
+    return new Promise(async (resolve, reject) => {
+
+        try {
+            await Apis.instance(node, true).init_promise;
+        } catch (error) {
+            console.log(error);
+            let changeURL = appStore.getState().changeURL;
+            changeURL();
+            return reject();
+        }
+
+        const issuerID = asset.issuer;
+        let issuerObject;
+        try {
+            issuerObject = await Apis.instance().db_api().exec("get_objects", [[issuerID]])
+        } catch (error) {
+            console.log(error);
+        }
+
+        const dynamicDataID = asset ? asset.dynamic_asset_data_id : null;
+        let dynamicData;
+        try {
+            dynamicData = await Apis.instance().db_api().exec("get_objects", [[dynamicDataID]])
+        } catch (error) {
+            console.log(error);
+        }
+
+        const base = asset.symbol;
+        const quote = JSON.parse(asset.options.description).market ?? 'BTS';
+        const limit = 10;
+
+        let order_book;
+        try {
+            order_book = await Apis.instance().db_api().exec("get_order_book", [base, quote, limit])
+        } catch (error) {
+            console.log(error);
+        }
+
+        return resolve({
+            issuer: issuerObject && issuerObject.length ? issuerObject[0].name : '???',
+            quantity: dynamicData && dynamicData.length ? dynamicData[0].current_supply : '???',
+            order_book: order_book
+        });
     });
 }
 
@@ -232,5 +283,7 @@ export {
     fetchUserNFTBalances,
     fetchIssuedAssets,
     fetchAssets,
-    fetchObject
+    fetchObject,
+    fetchDynamicData,
+    fetchOrderBook
 };

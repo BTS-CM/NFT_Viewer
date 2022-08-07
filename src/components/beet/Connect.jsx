@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button, Group, Box, Text, Divider, Loader, Col, Paper, Checkbox } from '@mantine/core';
+import { Button, Group, Container, Box, Text, Divider, Loader, Col, Paper, Checkbox } from '@mantine/core';
 import { connect, checkBeet } from 'beet-js';
 import { appStore, beetStore } from '../../lib/states';
 import { useTimeout } from '@mantine/hooks';
@@ -67,10 +67,9 @@ export default function Connect(properties) {
 
   let response;
   if (inProgress === false) {
-    response = <span>
-                <Col span={12}>
+    response = [<Col span={12} key="connect">
                   <Paper padding="sm" shadow="xs">
-                    <Box mx="auto" sx={{padding: '10px'}}>
+                    <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
                       <Text size="md">
                         This tool is designed for use with the Bitshares BEET Wallet.
                       </Text>
@@ -94,8 +93,8 @@ export default function Connect(properties) {
                       </Button> 
                     </Box>
                   </Paper>
-                </Col>
-                <Col span={12}>
+                </Col>,
+                <Col span={12} key="download">
                   <Paper padding="sm" shadow="xs">
                     <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
                       <Text size="md">
@@ -114,8 +113,7 @@ export default function Connect(properties) {
                       </Button>
                     </Box>
                   </Paper>
-                </Col>              
-              </span>;
+                </Col>];
   } else {
     response = <Box mx="auto" sx={{padding: '10px'}}>
                   <span>

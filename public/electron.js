@@ -50,6 +50,24 @@ ipcMain.on('openURL', (event, arg) => {
   }
 });
 
+let allowedDEX = {
+  "XBTSIO": "https://ex.xbts.io/market/",
+  "BitsharesOrg": "https://wallet.bitshares.org/#/market/",
+  "ioBanker": "https://dex.iobanker.com/market/",
+  "GDEX": "https://www.gdex.io/market/",
+  "lightClient": "https://github.com/bitshares/bitshares-ui/releases"
+};
+
+ipcMain.on('openDEX', (event, arg) => {
+  if (allowedDEX.hasOwnProperty(arg.target)) {
+    event.returnValue = 'Opening url!'
+    let url = arg.target === 'lightClient'
+                ? allowedDEX[arg.target]
+                : allowedDEX[arg.target] + `${arg.symbol}_${arg.market ? arg.market : 'BTS'}`
+    shell.openExternal(url);
+  }
+});
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.

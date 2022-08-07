@@ -19,50 +19,31 @@ import {
   Textarea,
   Code
 } from '@mantine/core';
-import { getImage } from '../../lib/images';
 import { appStore } from '../../lib/states';
 
 import IssuerDetails from './IssuerDetails';
-
-
-
-    /*
-    let description = JSON.parse(asset.options.description);
-
-    let output;
-    if (description.nft_object.media_png_multihashes || description.nft_object.media_PNG_multihashes) {
-      let hashes = description.nft_object.media_png_multihashes ?? description.nft_object.media_PNG_multihashes;
-      output = hashes.map(value => { return {url: value.url, type: 'PNG'}});
-    } else if (description.nft_object.media_gif_multihashes || description.nft_object.media_GIF_multihashes) {
-      let hashes = description.nft_object.media_png_multihashes ?? description.nft_object.media_PNG_multihashes;
-      output = hashes.map(value => { return {url: value.url, type: 'GIF'}});
-    } else if (description.nft_object.media_jpeg_multihash || description.nft_object.media_JPEG_multihash) {
-      let hashes = description.nft_object.media_jpeg_multihash ?? description.nft_object.media_JPEG_multihash;
-      output = hashes.map(value => { return {url: value.url, type: 'JPEG'}});
-    }
-    
-    setImages(output);
-    */
+import Quantity from './Quantity';
+import Media from './Media';
 
 export default function NFT(properties) {
   const asset = properties.asset;
-  let setMode = appStore((state) => state.setMode);
+  let back = appStore((state) => state.back);
   let setAsset = appStore((state) => state.setAsset);
 
-  function back() {
-    setAsset();
-    setMode();
+  function goBack() {
+    back();
+  }
+
+  function launchDEX(args) {
+    window.electron.openDEX(args)
   }
 
   let issuer = asset ? asset.issuer : undefined;
   let precision = asset ? asset.precision : undefined;
   let symbol = asset ? asset.symbol : undefined;
-
   let permissions = asset ? asset.permissions : undefined;
   let asset_flags = asset ? asset.flags : undefined;
-  let dynamic_asset_data = asset ? asset.dynamic_asset_data : undefined;
-  let current_supply = dynamic_asset_data ? dynamic_asset_data.current_supply : undefined;
-
+  
   let description = asset
                     && asset.options.description
                     && asset.options.description.length ? JSON.parse(asset.options.description) : undefined;
@@ -71,8 +52,6 @@ export default function NFT(properties) {
   let short_name = description ? description.short_name : undefined;
   let nft_signature = description ? description.nft_signature : undefined;
   let nft_object = description ? description.nft_object : undefined;
-
-  console.log(nft_object)
 
   let type = nft_object && nft_object.type ? nft_object.type : undefined;
   let sig_pubkey_or_address = undefined;
@@ -95,19 +74,13 @@ export default function NFT(properties) {
   let holder_license = nft_object && nft_object.holder_license ? nft_object.holder_license : undefined;
   let password_multihash = nft_object && nft_object.password_multihash ? nft_object.password_multihash : undefined;
 
-  /*
-                {
-                  issuer
-                    ? <IssuerDetails issuer={issuer} />
-                    : null
-                }
-  */
-
   return ([<Col span={12} key="Top">
       <Paper sx={{padding: '5px'}} shadow="xs">
           <Title order={2}>
             &quot;{title}&quot; by {artist}
           </Title>
+
+          <Media asset={asset} />
 
           <Tabs defaultValue="NFT">
             <Tabs.List>
@@ -140,13 +113,17 @@ export default function NFT(properties) {
                   {`Name: ${symbol ? symbol : '???'}`}
                 </Badge>
 
-                <Badge>
-                  {`Quantity: ${current_supply ? current_supply : '???'}`}
-                </Badge>
+                <Quantity />
 
                 <Badge>
                   {`File type: ${type ? type : '???'}`}
                 </Badge>
+
+                {
+                  issuer
+                    ? <IssuerDetails issuer={issuer} />
+                    : null
+                }
 
                 <Tooltip
                   withArrow
@@ -208,36 +185,40 @@ export default function NFT(properties) {
             
             <Tabs.Panel value="Buy" pt="xs">
               <Text size="md">
-                This NFT can be traded/transfered on using the following Bitshares DEX web wallets
+                This NFT can be traded/transfered using the following Bitshares DEX wallets
               </Text>
               <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                 <Button
-                  component="a"
-                  href={`https://wallet.bitshares.org/#/market/${symbol}_${market ? market : 'BTS'}`}
+                  onClick={() => {
+                    launchDEX({target: 'BitsharesOrg', symbol: symbol, market: market})
+                  }}
                   sx={{m: 0.25}}
                   variant="outline"
                 >
                   Bitshares.org
                 </Button>
                 <Button
-                  component="a"
-                  href={`https://ex.xbts.io/market/${symbol}_${market ? market : 'BTS'}`}
+                  onClick={() => {
+                    launchDEX({target: 'XBTSIO', symbol: symbol, market: market})
+                  }}
                   sx={{m: 0.25}}
                   variant="outline"
                 >
                   XBTS.io
                 </Button>
                 <Button
-                  component="a"
-                  href={`https://dex.iobanker.com/market/${symbol}_${market ? market : 'BTS'}`}
+                  onClick={() => {
+                    launchDEX({target: 'ioBanker', symbol: symbol, market: market})
+                  }}
                   sx={{m: 0.25}}
                   variant="outline"
                 >
                   ioBanker DEX
                 </Button>
                 <Button
-                  component="a"
-                  href={`https://www.gdex.io/market/${symbol}_${market ? market : 'BTS'}`}
+                  onClick={() => {
+                    launchDEX({target: 'GDEX', symbol: symbol, market: market})
+                  }}
                   sx={{m: 0.25}}
                   variant="outline"
                 >
@@ -248,8 +229,9 @@ export default function NFT(properties) {
                   widthArrow
                 >
                   <Button
-                    component="a"
-                    href={`https://github.com/bitshares/bitshares-ui/releases`}
+                    onClick={() => {
+                      launchDEX({target: 'lightClient', symbol: symbol, market: market})
+                    }}
                     sx={{m: 0.25}}
                     variant="outline"
                   >
@@ -350,6 +332,7 @@ export default function NFT(properties) {
                   <Textarea
                     placeholder={nft_signature ? nft_signature : 'N/A'}
                     label="NFT Signature"
+                    readOnly
                     value={nft_signature ? nft_signature : 'N/A'}
                   />
                   <CopyButton value={nft_signature}>
@@ -366,6 +349,7 @@ export default function NFT(properties) {
                   <Textarea
                     placeholder={sig_pubkey_or_address ? sig_pubkey_or_address : 'N/A'}
                     label="Pubkey or address"
+                    readOnly
                     value={sig_pubkey_or_address ? sig_pubkey_or_address : 'N/A'}
                   />
                   <CopyButton value={sig_pubkey_or_address}>
@@ -382,6 +366,7 @@ export default function NFT(properties) {
                   <Textarea
                     placeholder={password_multihash ? password_multihash : 'N/A'}
                     label="password_multihash"
+                    readOnly
                     value={password_multihash ? password_multihash : 'N/A'}
                   />
                   <CopyButton value={password_multihash}>
@@ -420,6 +405,7 @@ export default function NFT(properties) {
                   <Textarea
                     placeholder={asset ? JSON.stringify(asset, null, 2) : 'N/A'}
                     minRows={5}
+                    readOnly
                     label="NFT Signature"
                     value={asset ? JSON.stringify(asset, null, 2) : 'N/A'}
                   />
@@ -440,7 +426,7 @@ export default function NFT(properties) {
     <Col span={12} key="back">
         <Button
           onClick={() => {
-            back()
+            goBack()
           }}
         >
           Go back

@@ -105,7 +105,7 @@ function App() {
                   NFTEA Gallery
                 </Button>
                 {
-                  isLinked
+                  environment
                   ? <Button 
                       variant="outline" color="dark"
                       sx={{marginTop: '15px', marginBottom: '5px'}}

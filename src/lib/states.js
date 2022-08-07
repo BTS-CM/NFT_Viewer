@@ -1,5 +1,6 @@
 import create from 'zustand';
-import { testNodes, fetchUserNFTBalances, fetchIssuedAssets, fetchAssets } from './queries';
+import { getImage } from './images';
+import { testNodes, fetchUserNFTBalances, fetchIssuedAssets, fetchAssets, fetchDynamicData } from './queries';
 
 /**
  * NFT_Viewer related
@@ -10,6 +11,10 @@ const appStore = create(
       mode: null,
       nodes: null,
       asset: null,
+      asset_images: null,
+      asset_issuer: null,
+      asset_quantity: null,
+      asset_order_book: null,
       assets: null,
       searchResult: null,
       setEnvironment: (env) => set({environment: env}),
@@ -27,7 +32,37 @@ const appStore = create(
           set({ nodes: await response })
         }
       },
-      setAsset: (newAsset) => set({asset: newAsset}),
+      setAsset: async (newAsset) => {
+        const node = get().nodes[0];
+        let dynamicData;
+        try {
+          dynamicData = await fetchDynamicData(node, newAsset);
+        } catch (error) {
+          console.log(error)
+          return;
+        }
+
+        let description = newAsset
+                          && newAsset.options.description
+                          && newAsset.options.description.length
+                          ? JSON.parse(newAsset.options.description) : undefined;
+        let nft_object = description ? description.nft_object : undefined;
+
+        let images;
+        try {
+          images = await getImage(nft_object)
+        } catch (error) {
+          console.log(error);
+        }
+
+        set({
+          asset: newAsset,
+          asset_images: images,
+          asset_issuer: dynamicData.issuer,
+          asset_quantity: dynamicData.quantity,
+          asset_order_book: dynamicData.order_book
+        })
+      },
       fetchAssets: async (asset_ids) => {
         const node = get().nodes[0];
         let response;
@@ -81,14 +116,19 @@ const appStore = create(
       back: () => set({
         mode: null,
         asset: null,
-        assets: null
+        asset_issuer: null,
+        asset_quantity: null,
+        asset_order_book: null
       }),
       reset: () => set({
           environment: null,
           mode: null,
           nodes: null,
           asset: null,
-          assets: null,
+          asset_issuer: null,
+          asset_quantity: null,
+          asset_order_book: null,
+          assets: null
       })
   })
 );
