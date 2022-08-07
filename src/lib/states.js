@@ -12,6 +12,7 @@ const appStore = create(
       nodes: null,
       asset: null,
       asset_images: null,
+      ipfsGateway: 'https://gateway.ipfs.io',
       asset_issuer: null,
       asset_quantity: null,
       asset_order_book: null,

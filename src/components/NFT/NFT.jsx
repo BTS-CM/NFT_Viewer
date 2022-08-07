@@ -28,8 +28,6 @@ import Media from './Media';
 export default function NFT(properties) {
   const asset = properties.asset;
   let back = appStore((state) => state.back);
-  let setAsset = appStore((state) => state.setAsset);
-
   function goBack() {
     back();
   }

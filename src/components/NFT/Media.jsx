@@ -1,45 +1,69 @@
 import { Carousel } from '@mantine/carousel';
-import { Image } from '@mantine/core';
+import { Image, Container, Card, Center } from '@mantine/core';
+import { useId } from '@mantine/hooks';
+
 import { appStore } from '../../lib/states';
-import { getImage } from '../../lib/images';
-import { IconMessageShare, IconTemperature } from '@tabler/icons';
 
 export default function Media(properties) {
   let asset_images = appStore((state) => state.asset_images);
+  let ipfsGateway = appStore((state) => state.ipfsGateway);
   
+  const height = 250;
+  const width = 250;
+  let response;
   if (!asset_images) {
-    return (
-      <Image
-        width={200}
-        height={120}
-        src={null}
-        alt="NFT Image load failure"
-        withPlaceholder
-      />
-    )
+    response = <Image
+                  width={width}
+                  height={height}
+                  src={null}
+                  alt="NFT Image load failure"
+                  withPlaceholder
+                />;
+  } else if (asset_images.length > 1) {
+    response = <Carousel
+                 slideSize="33%"
+                 height={height + 5}
+                 slideGap="xs"
+                 controlsOffset="xs"
+                 align="center"
+                 loop
+                >
+                  {
+                    asset_images.map(image => {
+                      const uuid = useId(image);
+                      return <Carousel.Slide key={uuid}>
+                                <Center>
+                                  <Image
+                                    width={width}
+                                    height={height}
+                                    fit="contain"
+                                    src={ipfsGateway + image}
+                                    sx={{border: '1px solid grey'}}
+                                  />
+                                </Center>
+                              </Carousel.Slide>;
+                    })
+                  }
+                </Carousel>
+  } else {
+    response = <Image
+                  width={width}
+                  height={height}
+                  fit="contain"
+                  src={asset_images[0]}
+                />
   }
 
   return (
-    asset_images.length > 1
-    ? <Carousel slideSize="70%" height={200} slideGap="xs" controlsOffset="xs" loop withIndicators>
+    <Container size="md" px="xs">
+      <Card shadow="sm" p="sm" radius="md" withBorder m="sm">
+        <Center>
         {
-          asset_images.map(image => {
-            return <Carousel.Slide>
-                      <Image
-                        width={200}
-                        height={200}
-                        fit="contain"
-                        src={image}
-                      />
-                    </Carousel.Slide>;
-          })
+          response
         }
-      </Carousel>
-    : <Image
-        width={200}
-        height={200}
-        fit="contain"
-        src={asset_images[0]}
-      />
-  );
+        </Center>
+
+      </Card>
+    </Container>
+  )
 }
