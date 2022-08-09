@@ -29,7 +29,6 @@ function App() {
   let isLinked = beetStore((state) => state.isLinked);
   let identity = beetStore((state) => state.identity);
   let connection = beetStore((state) => state.connection);
-
   let environment = appStore((state) => state.environment);
 
   const resetApp = appStore((state) => state.reset);
@@ -51,23 +50,24 @@ function App() {
     initPrompt = <Search />
   } else if (mode === 'featured' && !asset) {
       initPrompt = <Featured />
-  } else if ((mode === 'balance' || mode === 'issued' || mode === 'buy') && !asset) {
-    if (!connection) {
-      initPrompt = <Connect />;
-    } else if (connection && authenticated && !isLinked) {
-      initPrompt = <BeetLink connection={connection} />;
-    } else {
-      let userID = identity.requested.account.id;
-      if (mode === 'balance') {
-        initPrompt = <Portfolio userID={userID}/>
-      } else if (mode === 'issued') {
-        initPrompt = <SelectAsset userID={userID} />
-      } else if (mode === 'buy') {
-        initPrompt = <Buy userID={userID} connection={connection} asset={asset} />
-      }
+  } else if (
+      ((mode === 'balance' || mode === 'issued' || mode === 'buy') && !isLinked)
+  ) {
+    initPrompt = !connection
+                  ? <Connect />
+                  : <BeetLink connection={connection} />;
+  } else if (!asset) {
+    let userID = identity.requested.account.id;
+    if (mode === 'balance') {
+      initPrompt = <Portfolio userID={userID}/>
+    } else if (mode === 'issued') {
+      initPrompt = <SelectAsset userID={userID} />
     }
+  } else if (asset && mode === 'buy') {
+    let userID = identity.requested.account.id;
+    initPrompt = <Buy userID={userID} connection={connection} />
   } else if (asset) {
-    initPrompt = <NFT asset={asset} />;
+    initPrompt = <NFT connection={connection} asset={asset} />;
   } else {
     initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>
   }

@@ -1,5 +1,5 @@
 import { Carousel } from '@mantine/carousel';
-import { Image, Container, Card, Center } from '@mantine/core';
+import { Image, Box, Paper, Container, Card, Center } from '@mantine/core';
 import { useId } from '@mantine/hooks';
 
 import { appStore } from '../../lib/states';
@@ -23,6 +23,7 @@ export default function Media(properties) {
     response = <Carousel
                  slideSize="33%"
                  height={height + 5}
+                 sx={{ maxWidth: 680 }}
                  slideGap="xs"
                  controlsOffset="xs"
                  align="center"
@@ -55,15 +56,12 @@ export default function Media(properties) {
   }
 
   return (
-    <Container size="md" px="xs">
-      <Card shadow="sm" p="sm" radius="md" withBorder m="sm">
-        <Center>
+    <Box mx="auto" sx={{padding: '10px'}}>
+      <Paper sx={{padding: '5px'}} shadow="xs">
         {
           response
         }
-        </Center>
-
-      </Card>
-    </Container>
+      </Paper>
+    </Box>
   )
 }

@@ -59,6 +59,8 @@ export default function Connect(properties) {
       return;
     }
 
+    //console.log(connected.inject())
+    
     setConnection(connected);
     setAuthenticated(connected.authenticated);
   }

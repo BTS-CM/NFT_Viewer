@@ -1,28 +1,71 @@
 import { useState } from 'react';
-import { TextInput, Checkbox, Button, Box, Text, Divider, Col, Paper, Group, Tooltip, Loader } from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { appStore } from '../../lib/states';
+import { Button, Text, Col, Paper, Loader } from '@mantine/core';
+import { appStore, beetStore } from '../../lib/states';
 
 export default function Buy(properties) {
+  const userID = properties.userID;
   const connection = properties.connection;
   const asset = properties.asset;
-  const userID = properties.userID;
-  
+
+  let nodes = appStore((state) => state.nodes);
+  let setMode = appStore((state) => state.setMode);
+
   const [inProgress, setInProgress] = useState(false);
   const [bought, setBought] = useState(false);
-
-  let setMode = appStore((state) => state.setMode);
 
   function back() {
     setMode();
   }
 
-  function attemptPurchase() {
+  let asset_order_book = appStore((state) => state.asset_order_book);
+  let bids = asset_order_book ? asset_order_book.bids : null;
+  let soldAsset = asset_order_book ? asset_order_book.quote : null;
+  let boughtAsset = asset_order_book ? asset_order_book.base : null;
+  let amountToBuy = bids ? bids[0].base : null;
+  let amountToSell = bids ? bids[0].quote : null;
+
+  async function attemptPurchase() {
+    setInProgress(true);
     console.log('Attempting to purchase NFT');
+
+    if (!bids || !bids.length) {
+      return;
+    }
+
+    let bidResult;
+    return window.electron.purchaseNFT(
+      connection,
+      nodes[0],
+      userID,
+      amountToSell,
+      soldAsset,
+      amountToBuy,
+      boughtAsset
+    ).then((res) => {
+      setBought(bidResult);
+      setInProgress(false);
+    }).catch((error) => {
+      console.log(error);
+      setInProgress(false);
+    })
+
   }
 
   let response;
-  if (inProgress) {
+  if (!asset_order_book) {
+    response = <span>
+                  <Text size="md">
+                    This NFT is not currently for sale.
+                  </Text>
+                  <Button
+                    onClick={() => {
+                      back()
+                    }}
+                  >
+                    Back
+                  </Button>
+                </span>;
+  } else if (inProgress) {
     response = <span>
                   <Loader variant="dots" />
                   <Text size="md">
@@ -32,7 +75,7 @@ export default function Buy(properties) {
   } else if (bought) {
     response = <span>
                     <Text size="md">
-                      Successfully purchased the NFT {''} for {''}.
+                      Successfully broadcast a buy limit order for the NFT "{boughtAsset}" in return for {amountToSell ?? '???'} {soldAsset ?? '???'}.
                     </Text>
                     <Button
                       onClick={() => {
@@ -45,7 +88,7 @@ export default function Buy(properties) {
   } else {
     response = <span>
                   <Text size="md">
-                    Instruct BEET to purchase the NFT {''} for {''}?
+                    Instruct BEET to purchase the NFT "{boughtAsset}" for {amountToSell ?? '???'} {soldAsset ?? '???'}?
                   </Text>
                   <Button
                     onClick={() => {
