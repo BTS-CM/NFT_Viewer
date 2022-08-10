@@ -45,7 +45,7 @@ export default function Search(properties) {
     clearAssets();
 
     try {
-      await fetchAssets([searchInput])
+      await fetchAssets([searchInput.toUpperCase()])
     } catch (error) {
       console.log(error);
       setInProgress(false);

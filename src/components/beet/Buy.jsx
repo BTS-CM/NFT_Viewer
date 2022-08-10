@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, Text, Col, Paper, Loader } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore } from '../../lib/states';
+import { purchaseNFT } from '../../lib/broadcasts';
 
 export default function Buy(properties) {
   const userID = properties.userID;
@@ -33,7 +34,7 @@ export default function Buy(properties) {
     }
 
     let bidResult;
-    return window.electron.purchaseNFT(
+    return purchaseNFT(
       connection,
       nodes[0],
       userID,
@@ -91,6 +92,7 @@ export default function Buy(properties) {
                     Instruct BEET to purchase the NFT "{boughtAsset}" for {amountToSell ?? '???'} {soldAsset ?? '???'}?
                   </Text>
                   <Button
+                    sx={{marginRight: '5px'}}
                     onClick={() => {
                       attemptPurchase()
                     }}

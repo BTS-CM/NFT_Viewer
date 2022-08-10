@@ -1,8 +1,6 @@
 import create from 'zustand';
 import { getImage } from './images';
 import { testNodes, fetchUserNFTBalances, fetchIssuedAssets, fetchAssets, fetchDynamicData } from './queries';
-import { TransactionBuilder } from 'bitsharesjs';
-
 
 /**
  * NFT_Viewer related
@@ -146,9 +144,6 @@ const beetStore = create((set, get) => ({
     identity: null,
     txBuilderInjected: null,
     setConnection: (res) => set({connection: res}),
-    setTXBuilderInjection: () => {
-
-    },
     setAuthenticated: (auth) => set({authenticated: auth}),
     setIsLinked: (link) => set({isLinked: link}),
     setIdentity: (id) => set({identity: id}),

@@ -31,8 +31,9 @@ async function testNodes(target) {
  * Lookup asset details, return NFTs
  * @param {Apis} api 
  * @param {Array} asset_ids 
+ * @param {Boolean} nonNFT 
  */
-async function lookup_asset_symbols(api, asset_ids) {
+async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
     return new Promise(async (resolve, reject) => {
         let symbols;
         try {
@@ -45,6 +46,10 @@ async function lookup_asset_symbols(api, asset_ids) {
         symbols = symbols.filter(x => x !== null);
         if (!symbols || !symbols.length) {
             return reject();
+        }
+
+        if (nonNFT) {
+            return resolve(symbols);
         }
 
         let filteredAssets = symbols.filter(asset => {
@@ -63,8 +68,9 @@ async function lookup_asset_symbols(api, asset_ids) {
  * Fetch asset info for multiple assets
  * @param {String} node
  * @param {Array} asset_ids 
+ * @param {Boolean} nonNFT 
  */
- async function fetchAssets(node, asset_ids) {
+ async function fetchAssets(node, asset_ids, nonNFT = false) {
     return new Promise(async (resolve, reject) => {
         try {
             await Apis.instance(node, true).init_promise;
@@ -77,7 +83,7 @@ async function lookup_asset_symbols(api, asset_ids) {
 
         let response;
         try {
-            response = await lookup_asset_symbols(Apis, asset_ids);
+            response = await lookup_asset_symbols(Apis, asset_ids, nonNFT);
         } catch (error) {
             console.log(error);
             return reject();
