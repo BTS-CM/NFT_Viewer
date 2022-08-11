@@ -6,7 +6,6 @@ import { purchaseNFT } from '../../lib/broadcasts';
 export default function Buy(properties) {
   const userID = properties.userID;
   const connection = properties.connection;
-  const asset = properties.asset;
 
   let nodes = appStore((state) => state.nodes);
   let setMode = appStore((state) => state.setMode);
@@ -15,6 +14,10 @@ export default function Buy(properties) {
   const [bought, setBought] = useState(false);
 
   function back() {
+    setMode();
+  }
+
+  function goToBalance() {
     setMode();
   }
 
@@ -78,6 +81,13 @@ export default function Buy(properties) {
                     <Text size="md">
                       Successfully broadcast a buy limit order for the NFT "{boughtAsset}" in return for {amountToSell ?? '???'} {soldAsset ?? '???'}.
                     </Text>
+                    <Button
+                      onClick={() => {
+                        goToBalance('balance');
+                      }}
+                    >
+                      View portfolio
+                    </Button>
                     <Button
                       onClick={() => {
                         back()

@@ -42,7 +42,7 @@ export default function Connect(properties) {
     let connected;
     try {
       connected = await connect(
-        "NFT Issuance tool",
+        "NFT Viewer",
         "Application",
         "localhost"
       );
