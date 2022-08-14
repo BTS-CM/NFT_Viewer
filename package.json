@@ -47,15 +47,15 @@
     }
   },
   "dependencies": {
+    "@babel/core": "^7.18.10",
     "@emotion/react": "^11.10.0",
-    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@mantine/carousel": "^5.1.1",
     "@mantine/core": "^5.1.1",
     "@mantine/form": "^5.1.1",
     "@mantine/hooks": "^5.1.1",
     "@tabler/icons": "^1.79.0",
     "@vitejs/plugin-react": "^2.0.0",
+    "beet-js": "https://github.com/bitshares/beet-js#develop",
     "bitsharesjs": "^6.0.0",
     "bitsharesjs-ws": "^6.0.0",
     "buffer": "^6.0.3",
@@ -68,15 +68,17 @@
     "stream-browserify": "^3.0.0",
     "util": "^0.12.4",
     "vite": "^3.0.5",
-    "zustand": "^4.0.0",
-    "beet-js": "^0.14.0"
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "concurrently": "^7.3.0",
     "cross-env": "^7.0.3",
     "electron": "^20.0.1",
     "electron-builder": "^23.3.3",
     "electronmon": "^2.0.2",
+    "esbuild": "^0.15.3",
     "vite-plugin-electron": "^0.8.6",
     "wait-on": "^6.0.1"
   },
