@@ -27,7 +27,7 @@
   "build": {
     "appId": "com.electron.NFT_Viewer",
     "productName": "Bitshares NFT Viewer",
-    "artifactName": "nft_tool.${ext}",
+    "artifactName": "nft_viewer.${ext}",
     "files": [
       "dist/**/*",
       "./src/index.html",
