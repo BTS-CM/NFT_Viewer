@@ -1,7 +1,7 @@
 {
-  "name": "NFT_Viewer",
+  "name": "nft_viewer",
   "version": "1.0.0",
-  "author": "",
+  "author": "https://nftea.gallery <nftea.gallery@gmail.com>",
   "description": "An NFT viewing tool for Bitshares",
   "homepage": "./",
   "private": true,
@@ -12,9 +12,9 @@
     "dev": "concurrently -k \"cross-env BROWSER=none npm start\"",
     "electron": "electron .",
     "electron:start": "concurrently -k \"cross-env BROWSER=none vite preview --port 3333\" \"wait-on http://localhost:3333 && electronmon .\"",
-    "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=dist/electron.js",
-    "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=dist/electron.js",
-    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=dist/electron.js"
+    "electron:package:macos-latest": "yarn build && electron-builder -m -c.extraMetadata.main=dist/electron.js",
+    "electron:package:windows-latest": "yarn build && electron-builder -w -c.extraMetadata.main=dist/electron.js",
+    "electron:package:ubuntu-latest": "yarn build && electron-builder -l -c.extraMetadata.main=dist/electron.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
   },
   "build": {
     "appId": "com.electron.NFT_Viewer",
-    "productName": "NFT Viewer",
+    "productName": "Bitshares NFT Viewer",
+    "artifactName": "nft_tool.${ext}",
     "files": [
       "dist/**/*",
       "./src/index.html",
