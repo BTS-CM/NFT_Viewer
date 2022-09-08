@@ -37,15 +37,17 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
     return new Promise(async (resolve, reject) => {
         let symbols;
         try {
-            symbols = await api.instance().db_api().exec( "lookup_asset_symbols", [ asset_ids ]);
+            symbols = await api.instance().db_api().exec( "lookup_asset_symbols", [asset_ids]);
         } catch (error) {
             console.log(error);
             return reject();
         }
 
+        console.log({symbols})
+
         symbols = symbols.filter(x => x !== null);
         if (!symbols || !symbols.length) {
-            return reject();
+            return resolve([]);
         }
 
         if (nonNFT) {
@@ -154,11 +156,15 @@ async function fetchIssuedAssets(node, accountID) {
             return reject();
         }
 
-        let accountAssets = fullAccounts[0][1].assets;
+        if (!fullAccounts.length || !fullAccounts[0].length) {
+            console.log({fullAccounts})
+            return reject();            
+        }
 
+        let accountAssets = fullAccounts[0][1].assets;
         let response;
         try {
-            response = await lookup_asset_symbols(Apis, accountAssets.map(asset => asset.asset_id));
+            response = await lookup_asset_symbols(Apis, accountAssets);
         } catch (error) {
             console.log(error);
             return reject();
@@ -230,6 +236,11 @@ async function fetchObject(node, objectID) {
             dynamicData = await Apis.instance().db_api().exec("get_objects", [[dynamicDataID]])
         } catch (error) {
             console.log(error);
+        }
+
+        if (!issuerObject || !dynamicData) {
+            console.log('Missing objects')
+            return reject();
         }
 
         const base = asset.symbol;

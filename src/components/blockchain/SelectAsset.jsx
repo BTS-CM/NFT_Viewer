@@ -4,21 +4,26 @@ import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } fro
 import { appStore } from '../../lib/states';
 
 export default function SelectAsset(properties) {
-  let setMode = appStore((state) => state.setMode);
   let setAsset = appStore((state) => state.setAsset);
+  let setMode = appStore((state) => state.setMode);
+  let changeURL = appStore((state) => state.changeURL);
 
-  let environment = appStore((state) => state.environment);
-  let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
+  let fetchIssuedAssets = appStore((state) => state.fetchIssuedAssets);
+  let clearAssets = appStore((state) => state.clearAssets);
+  let assets = appStore((state) => state.assets);
 
   const userID = properties.userID;
-
-  const [issuedAssets, setIssuedAssets] = useState();
   const [tries, setTries] = useState(0);
 
   function increaseTries() {
     let newTries = tries + 1;
-    setIssuedAssets();
+    clearAssets();
     setTries(newTries);
+  }
+
+  function goBack() {
+    setMode();
+    clearAssets();
   }
 
   /**
@@ -30,32 +35,35 @@ export default function SelectAsset(properties) {
   }
 
   useEffect(() => {
-    async function fetchAssets() {
-      fetchIssuedAssets(userID)
+    async function issuedAssets() {
+      try {
+        await fetchIssuedAssets(userID);
+      } catch (error) {
+        console.log(error);
+        changeURL();
+        return;
+      }
     }
-    fetchAssets();
-  }, []);
+    issuedAssets();
+  }, [userID, tries]);
 
   let topText;
-  if (!issuedAssets) {
+  if (!assets) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="md">
                   Retrieving info on your Bitshares account
                 </Text>
               </span>;
-  } else if (!issuedAssets.length) {
+  } else if (!assets.length) {
     topText = <span>
                 <Text size="md">
-                  Nothing to edit
+                  No issued assets found
                 </Text>
                 <Text size="sm" weight={600}>
                   This Bitshares account hasn't issued any NFTs on the BTS DEX.
                 </Text>
-                <Text size="sm" weight={600}>
-                  You can either create a new NFT or switch Bitshares account.
-                </Text>
-                <Text size="sm" weight={600}>
+                <Text size="sm" weight={500}>
                   Note: Buying and owning an NFT on the BTS DEX doesn't automatically grant you NFT editing rights.
                 </Text>
               </span>
@@ -63,13 +71,13 @@ export default function SelectAsset(properties) {
   } else {
     topText = <span>
                 <Text size="md">
-                  Select the NFT you wish to edit
+                  Select the NFT you wish to view
                 </Text>
               </span>
   }
 
-  let buttonList = issuedAssets
-                    ? issuedAssets.map(asset => {
+  let buttonList = assets
+                    ? assets.map(asset => {
                         return <Button
                                   compact
                                   sx={{margin: '2px'}}
@@ -108,7 +116,7 @@ export default function SelectAsset(properties) {
           <Button
             sx={{marginTop: '15px'}}
             onClick={() => {
-              setMode()
+              goBack()
             }}
           >
             Back

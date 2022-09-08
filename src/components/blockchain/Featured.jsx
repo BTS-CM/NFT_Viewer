@@ -12,11 +12,13 @@ export default function Featured(properties) {
   let setAsset = appStore((state) => state.setAsset);
   let fetchAssets = appStore((state) => state.fetchAssets);
   let setMode = appStore((state) => state.setMode);
+  let clearAssets = appStore((state) => state.clearAssets);
 
   const [inProgress, setInProgress] = useState(false);
 
   function back() {
     setMode();
+    clearAssets();
   }
 
   function selectAsset(item) {

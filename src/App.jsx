@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Text, Container, Center, Group, Grid, Col, Paper, Button, Divider, Image } from '@mantine/core'
-import { appStore, beetStore } from './lib/states';
+import { appStore, beetStore, identitiesStore } from './lib/states';
 
 import Mode from "./components/setup/Mode";
 import Environment from "./components/setup/Environment";
@@ -22,40 +22,43 @@ function openURL() {
 }
 
 function App() {
+  let environment = appStore((state) => state.environment);
   let mode = appStore((state) => state.mode);
   let asset = appStore((state) => state.asset);
+  let setNodes = appStore((state) => state.setNodes);
 
+  let connection = beetStore((state) => state.connection);
   let authenticated = beetStore((state) => state.authenticated);
   let isLinked = beetStore((state) => state.isLinked);
   let identity = beetStore((state) => state.identity);
-  let connection = beetStore((state) => state.connection);
-  let environment = appStore((state) => state.environment);
+  let setIdentities = identitiesStore((state) => state.setIdentities);
 
-  const resetApp = appStore((state) => state.reset);
-  const resetBeet = beetStore((state) => state.reset);
-  const resetNodes = appStore((state) => state.reset);
+  let resetApp = appStore((state) => state.reset);
+  let resetBeet = beetStore((state) => state.reset);
+  //const resetNodes = appStore((state) => state.reset);
 
   function reset() {
     resetApp();
     resetBeet();
-    resetNodes();
+    //resetNodes();
   }
 
   let initPrompt;
   if (!environment) {
     initPrompt = <Environment />;
+  } else if (!isLinked) {
+    if (!connection) {
+      setNodes();
+      initPrompt = <Connect />
+    } else {
+      initPrompt = <BeetLink />;
+    }
   } else if (!mode) {
     initPrompt = <Mode />;
   } else if (mode === 'search' && !asset) {
     initPrompt = <Search />
   } else if (mode === 'featured' && !asset) {
       initPrompt = <Featured />
-  } else if (
-      ((mode === 'balance' || mode === 'issued' || mode === 'buy') && !isLinked)
-  ) {
-    initPrompt = !connection
-                  ? <Connect />
-                  : <BeetLink connection={connection} />;
   } else if (!asset) {
     let userID = identity.requested.account.id;
     if (mode === 'balance') {
@@ -63,13 +66,20 @@ function App() {
     } else if (mode === 'issued') {
       initPrompt = <SelectAsset userID={userID} />
     }
-  } else if (asset && mode === 'buy') {
-    let userID = identity.requested.account.id;
-    initPrompt = <Buy userID={userID} connection={connection} />
   } else if (asset) {
-    initPrompt = <NFT connection={connection} asset={asset} />;
+    let userID = identity.requested.account.id;
+    initPrompt = <NFT userID={userID} />;
   } else {
     initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>
+  }
+
+  if (isLinked && identity) {
+    setIdentities(identity);
+  }
+
+  let caption;
+  if (environment) {
+    caption = environment === 'production' ? 'Bitshares' : 'Testnet BTS';
   }
 
   return (
@@ -83,7 +93,7 @@ function App() {
                   radius="md"
                   src="./logo2.png"
                   alt="Bitshares logo"
-                  caption="Bitshares NFT Viewer - Created by NFTEA Gallery"
+                  caption={`${caption ?? ''} NFT Issuance tool`}
                 />
               </div>
             </Col>

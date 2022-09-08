@@ -1,32 +1,35 @@
 import { useState } from 'react';
 import { Button, Text, Col, Paper, Loader } from '@mantine/core';
-import { appStore } from '../../lib/states';
+import { appStore, beetStore } from '../../lib/states';
 import { purchaseNFT } from '../../lib/broadcasts';
 
 export default function Buy(properties) {
   const userID = properties.userID;
-  const connection = properties.connection;
-
+  let connection = beetStore((state) => state.connection);
   let nodes = appStore((state) => state.nodes);
+
   let setMode = appStore((state) => state.setMode);
+  let setAsset = appStore((state) => state.setAsset);
 
   const [inProgress, setInProgress] = useState(false);
   const [bought, setBought] = useState(false);
 
-  function back() {
-    setMode();
-  }
-
   function goToBalance() {
-    setMode();
+    setMode('balance');
+    setAsset();
   }
 
   let asset_order_book = appStore((state) => state.asset_order_book);
+
+  console.log({asset_order_book})
+
+  //let asks = asset_order_book ? asset_order_book.asks : null;
   let bids = asset_order_book ? asset_order_book.bids : null;
   let soldAsset = asset_order_book ? asset_order_book.quote : null;
   let boughtAsset = asset_order_book ? asset_order_book.base : null;
-  let amountToBuy = bids ? bids[0].base : null;
-  let amountToSell = bids ? bids[0].quote : null;
+
+  let amountToBuy = bids && bids.length ? bids[0].base : null;
+  let amountToSell = bids && bids.length ? bids[0].quote : null;
 
   async function attemptPurchase() {
     setInProgress(true);
@@ -56,18 +59,11 @@ export default function Buy(properties) {
   }
 
   let response;
-  if (!asset_order_book) {
+  if (!bids || !bids.length) {
     response = <span>
                   <Text size="md">
                     This NFT is not currently for sale.
                   </Text>
-                  <Button
-                    onClick={() => {
-                      back()
-                    }}
-                  >
-                    Back
-                  </Button>
                 </span>;
   } else if (inProgress) {
     response = <span>
@@ -83,7 +79,7 @@ export default function Buy(properties) {
                     </Text>
                     <Button
                       onClick={() => {
-                        goToBalance('balance');
+                        goToBalance();
                       }}
                     >
                       View portfolio

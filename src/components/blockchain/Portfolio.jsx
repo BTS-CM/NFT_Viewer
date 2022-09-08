@@ -6,7 +6,7 @@ export default function Portfolio(properties) {
   const userID = properties.userID;
 
   let environment = appStore((state) => state.environment);
-  let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
+
   let assets = appStore((state) => state.assets);
   let setAsset = appStore((state) => state.setAsset);
   let fetchNFTBalances = appStore((state) => state.fetchNFTBalances);
@@ -60,7 +60,6 @@ export default function Portfolio(properties) {
               </span>;
   } else if (!assets.length) {
     topText = <span>
-                <Loader variant="dots" />
                 <Text size="sm" weight={600}>
                     You don't seem to have any NFTs in your portfolio yet.
                 </Text>

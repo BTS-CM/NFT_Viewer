@@ -43,7 +43,10 @@ import config from '../config/config.json';
           return reject();
         }
 
-        console.log(soldAssetDetails[0])
+        if (!soldAssetDetails && !boughtAssetDetails) {
+          console.log('Missing asset details')
+          return reject();
+        }
 
         try {
           await Apis.instance(
@@ -61,8 +64,7 @@ import config from '../config/config.json';
         let tr = new TXBuilder();
     
         let currentDate = new Date();
-        let currentMonth = currentDate.getMonth();
-        currentDate.setMonth(currentMonth + 1);
+        currentDate.setHours(currentDate.getHours() + 24);
     
         tr.add_type_operation(
           "limit_order_create",
@@ -100,7 +102,7 @@ import config from '../config/config.json';
         }
     
         try {
-          await tr.set_expire_seconds(2630000); // 1 month exipiry
+          await tr.set_expire_seconds(4000);
         } catch (error) {
           console.error(error);
           return reject();

@@ -29,12 +29,12 @@ jobs:
           - os: windows-latest
             release_suffix: windows
             release_format: exe
-          #- os: macos-latest
-          #  release_suffix: macos
-          #  release_format: dmg
           - os: ubuntu-latest
             release_suffix: ubuntu
             release_format: deb
+#          - os: macos-latest
+#            release_suffix: macos
+#            release_format: dmg
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -83,7 +83,6 @@ jobs:
         files: |
             /home/runner/nft_viewer.exe
             /home/runner/nft_viewer.deb
-          #  ${{steps.download.outputs.download-path}}nft_viewer.dmg
         tag_name: ${{ needs.create_release.outputs.tag-name }}
         body: |
                 Release Notes

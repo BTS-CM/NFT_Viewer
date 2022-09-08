@@ -24,11 +24,12 @@ import { appStore, beetStore } from '../../lib/states';
 import IssuerDetails from './IssuerDetails';
 import Quantity from './Quantity';
 import Media from './Media';
+import Buy from "../beet/Buy";
 
 export default function NFT(properties) {
-  const asset = properties.asset;
-  const connection = properties.connection;
   const userID = properties.userID;
+
+  let asset = appStore((state) => state.asset);
 
   let back = appStore((state) => state.back);
   let environment = appStore((state) => state.environment);
@@ -195,17 +196,8 @@ export default function NFT(properties) {
                     </Tabs.Panel>
                     
                     <Tabs.Panel value="Buy" pt="xs">
-                      <Text size="md">
-                        This NFT can be purchased directly via BEET
-                      </Text>
                       <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
-                        <Button
-                          onClick={() => {
-                            beetBuy();
-                          }}
-                        >
-                          Buy via BEET
-                        </Button>
+                        <Buy userID={userID} />
                       </Group>
                       {
                         environment === 'production'
@@ -252,7 +244,7 @@ export default function NFT(properties) {
                             </Button>
                             <Tooltip
                               label={`Within the desktop app search for the UIA '${symbol}'`}
-                              widthArrow
+                              withArrow
                             >
                               <Button
                                 onClick={() => {

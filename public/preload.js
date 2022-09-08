@@ -1,8 +1,7 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-const { contextBridge, ipcRenderer } = require("electron");
+const { ipcRenderer } = require("electron");
 const Socket = require("simple-websocket")
-const config = require("../src/config/config.json");
 
 // Note: Changes to this file will require a build before electron:start works
 
@@ -47,6 +46,19 @@ async function _openDEX(args) {
     ipcRenderer.send('openDEX', args);
 }
 
+window.electron = {
+    testConnection: async (url) => {
+        return _testConnection(url);
+    },
+    openURL: async (target) => {
+        return _openURL(target);
+    },
+    openDEX: async (args) => {
+        return _openDEX(args);
+    }
+}
+
+/*
 contextBridge.exposeInMainWorld(
     "electron",
     {
@@ -61,3 +73,4 @@ contextBridge.exposeInMainWorld(
         }
     }
 );
+*/

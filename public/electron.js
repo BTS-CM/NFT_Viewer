@@ -10,7 +10,9 @@ const createWindow = () => {
     webPreferences: {
        nodeIntegration: true,
        enableRemoteModule:true,
-       preload: path.join(__dirname, "preload.js")
+       contextIsolation:false,
+       preload: path.join(__dirname, "preload.js"),
+       partition: 'persist:nft_viewer'
     }
   })
 

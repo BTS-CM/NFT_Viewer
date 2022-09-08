@@ -11,7 +11,7 @@ export default function Media(properties) {
   const height = 250;
   const width = 250;
   let response;
-  if (!asset_images) {
+  if (!asset_images || !asset_images.length) {
     response = <Image
                   width={width}
                   height={height}
@@ -58,9 +58,11 @@ export default function Media(properties) {
   return (
     <Box mx="auto" sx={{padding: '10px'}}>
       <Paper sx={{padding: '5px'}} shadow="xs">
-        {
-          response
-        }
+        <Center>
+          {
+            response
+          }
+        </Center>
       </Paper>
     </Box>
   )
