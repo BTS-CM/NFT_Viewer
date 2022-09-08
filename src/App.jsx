@@ -93,7 +93,7 @@ function App() {
                   radius="md"
                   src="./logo2.png"
                   alt="Bitshares logo"
-                  caption={`${caption ?? ''} NFT Issuance tool`}
+                  caption={`${caption ?? ''} NFT viewer`}
                 />
               </div>
             </Col>
