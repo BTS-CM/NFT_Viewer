@@ -103,5 +103,5 @@ jobs:
         request_rate: 2
         monitor_path: /home/runner/
         files: |
-          ./nft_viewer.exe
-          ./nft_viewer.deb
+          /home/runner/nft_viewer.exe
+          /home/runner/nft_viewer.deb
