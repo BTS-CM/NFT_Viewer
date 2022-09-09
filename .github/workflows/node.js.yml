@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: BTS-CM/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
       with:
         name: ${{ github.ref_name }}
         draft: false
@@ -78,7 +78,7 @@ jobs:
           echo "::set-output name=debhash::$(sha256sum /home/runner/nft_viewer.deb|cut -c-64)"
           echo "::set-output name=exehash::$(sha256sum /home/runner/nft_viewer.exe|cut -c-64)"
     - name: Perform release
-      uses: softprops/action-gh-release@v1
+      uses: BTS-CM/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
       with:
         files: |
             /home/runner/nft_viewer.exe
@@ -95,7 +95,7 @@ jobs:
                 |[Linux](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.deb)|`${{steps.calc_hash.outputs.debhash}}`|
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: VirusTotal Monitor Scan
+#    - name: VirusTotal Monitor Scan
 #      uses: grctest/ghaction-virustotal@4cba92acb3059c6c146a7722a0d0fc1a046d373f
 #      with:
 #        vt_api_key: ${{ secrets.VT_API_KEY }}
