@@ -96,12 +96,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: VirusTotal Monitor Scan
-      uses: grctest/ghaction-virustotal@4cba92acb3059c6c146a7722a0d0fc1a046d373f
-      with:
-        vt_api_key: ${{ secrets.VT_API_KEY }}
-        vt_monitor: true
-        request_rate: 1
-        monitor_path: /home/runner/
-        files: |
-          /home/runner/nft_viewer.exe
-          /home/runner/nft_viewer.deb
+#      uses: grctest/ghaction-virustotal@4cba92acb3059c6c146a7722a0d0fc1a046d373f
+#      with:
+#        vt_api_key: ${{ secrets.VT_API_KEY }}
+#        vt_monitor: true
+#        request_rate: 1
+#        monitor_path: /home/runner/
+#        files: |
+#          /home/runner/nft_viewer.exe
+#          /home/runner/nft_viewer.deb
