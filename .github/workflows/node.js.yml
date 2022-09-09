@@ -96,7 +96,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: VirusTotal Monitor Scan
-      uses: crazy-max/ghaction-virustotal@v3
+      uses: grctest/ghaction-virustotal@71d4987c5988ab43392f3cc38e00b32e039b494e
       with:
         vt_api_key: ${{ secrets.VT_API_KEY }}
         vt_monitor: true
