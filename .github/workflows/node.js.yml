@@ -63,6 +63,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+    - name: reqs
+      run: apt install unzip
+    - name: Download VT
+      run: wget https://github.com/VirusTotal/vt-cli/releases/download/0.10.2/Linux64.zip
+    - name: Unzip VT
+      run: unzip Linux64.zip
+    - name: Prepare
+      run: chmod +x vt
     - name: Download exe
       id: download
       uses: actions/download-artifact@v3
@@ -79,6 +87,15 @@ jobs:
       with:
         name: nft_viewer.dmg
         path: ~/
+    - name: scan
+      run: vt scan nft_viewer.deb -k ${{ secrets.VT_API_KEY }} | read debVT
+    - name: scan
+      run: vt scan nft_viewer.exe -k ${{ secrets.VT_API_KEY }} | read exeVT
+    - name: scan
+      run: vt scan nft_viewer.dmg -k ${{ secrets.VT_API_KEY }} | read dmgVT
+    - run: echo "$debVT"
+    - run: echo "$exeVT"
+    - run: echo "$dmgVT"
     - name: Calculate hashes
       id: calc_hash
       run: |
