@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: reqs
-      run: apt install unzip
+      run: sudo apt-get install unzip
     - name: Download VT
       run: wget https://github.com/VirusTotal/vt-cli/releases/download/0.10.2/Linux64.zip
     - name: Unzip VT
@@ -115,10 +115,10 @@ jobs:
                 _________________________________
                 Binaries for download
                 --------
-                | Platform | SHA256 Checksum |
-                |---|---|
-                |[Microsoft Windows](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.exe)|`${{steps.calc_hash.outputs.exehash}}`|
-                |[Linux](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.deb)|`${{steps.calc_hash.outputs.debhash}}`|
-                |[MacOS](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.dmg)|`${{steps.calc_hash.outputs.dmghash}}`|
+                | Platform | SHA256 Checksum | VirusTotal Analysis |
+                |---|---|---|
+                |[Microsoft Windows](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.exe)|`${{steps.calc_hash.outputs.exehash}}`|[exe](https://www.virustotal.com/gui/file/${{ exeVT }})|
+                |[Linux](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.deb)|`${{steps.calc_hash.outputs.debhash}}`|[deb](https://www.virustotal.com/gui/file/${{ debVT }})|
+                |[MacOS](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.dmg)|`${{steps.calc_hash.outputs.dmghash}}`|[dmg](https://www.virustotal.com/gui/file/${{ dmgVT }})|
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
