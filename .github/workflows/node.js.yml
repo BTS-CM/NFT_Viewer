@@ -117,8 +117,8 @@ jobs:
                 --------
                 | Platform | SHA256 Checksum | VirusTotal Analysis |
                 |---|---|---|
-                |[Microsoft Windows](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.exe)|`${{steps.calc_hash.outputs.exehash}}`|[exe](https://www.virustotal.com/gui/file/${{ exeVT }})|
-                |[Linux](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.deb)|`${{steps.calc_hash.outputs.debhash}}`|[deb](https://www.virustotal.com/gui/file/${{ debVT }})|
-                |[MacOS](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.dmg)|`${{steps.calc_hash.outputs.dmghash}}`|[dmg](https://www.virustotal.com/gui/file/${{ dmgVT }})|
+                |[Microsoft Windows](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.exe)|`${{steps.calc_hash.outputs.exehash}}`|[exe](https://www.virustotal.com/gui/file/$exeVT)|
+                |[Linux](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.deb)|`${{steps.calc_hash.outputs.debhash}}`|[deb](https://www.virustotal.com/gui/file/$debVT)|
+                |[MacOS](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.dmg)|`${{steps.calc_hash.outputs.dmghash}}`|[dmg](https://www.virustotal.com/gui/file/dmgVT)|
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
