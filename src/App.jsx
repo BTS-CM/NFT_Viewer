@@ -73,9 +73,11 @@ function App() {
     initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>
   }
 
-  if (isLinked && identity) {
-    setIdentities(identity);
-  }
+  useEffect(() => {
+    if (isLinked && identity) {
+      setIdentities(identity);
+    }
+  }, [isLinked, identity]);
 
   let caption;
   if (environment) {

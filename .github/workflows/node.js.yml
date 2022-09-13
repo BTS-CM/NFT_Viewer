@@ -32,9 +32,9 @@ jobs:
           - os: ubuntu-latest
             release_suffix: ubuntu
             release_format: deb
-#          - os: macos-latest
-#            release_suffix: macos
-#            release_format: dmg
+          - os: macos-latest
+            release_suffix: macos
+            release_format: dmg
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -56,6 +56,8 @@ jobs:
         name: nft_viewer.${{ matrix.release_format }}
         path: dist/nft_viewer.${{ matrix.release_format }}
 
+    - run: ls dist
+
   generate:
     name: generate files
     needs: build
@@ -72,17 +74,24 @@ jobs:
       with:
         name: nft_viewer.deb
         path: ~/
+    - name: Download dmg
+      uses: actions/download-artifact@v3
+      with:
+        name: nft_viewer.dmg
+        path: ~/
     - name: Calculate hashes
       id: calc_hash
       run: |
           echo "::set-output name=debhash::$(sha256sum /home/runner/nft_viewer.deb|cut -c-64)"
           echo "::set-output name=exehash::$(sha256sum /home/runner/nft_viewer.exe|cut -c-64)"
+          echo "::set-output name=dmghash::$(sha256sum /home/runner/nft_viewer.dmg|cut -c-64)"
     - name: Perform release
       uses: BTS-CM/action-gh-release@cd28b0f5ee8571b76cfdaa62a30d51d752317477
       with:
         files: |
             /home/runner/nft_viewer.exe
             /home/runner/nft_viewer.deb
+            /home/runner/nft_viewer.dmg
         tag_name: ${{ needs.create_release.outputs.tag-name }}
         body: |
                 Release Notes
@@ -93,15 +102,6 @@ jobs:
                 |---|---|
                 |[Microsoft Windows](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.exe)|`${{steps.calc_hash.outputs.exehash}}`|
                 |[Linux](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.deb)|`${{steps.calc_hash.outputs.debhash}}`|
+                |[MacOS](https://github.com/BTS-CM/NFT_Viewer/releases/download/${{ github.ref_name }}/nft_viewer.dmg)|`${{steps.calc_hash.outputs.dmghash}}`|
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#    - name: VirusTotal Monitor Scan
-#      uses: grctest/ghaction-virustotal@4cba92acb3059c6c146a7722a0d0fc1a046d373f
-#      with:
-#        vt_api_key: ${{ secrets.VT_API_KEY }}
-#        vt_monitor: true
-#        request_rate: 1
-#        monitor_path: /home/runner/
-#        files: |
-#          /home/runner/nft_viewer.exe
-#          /home/runner/nft_viewer.deb
