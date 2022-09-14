@@ -103,9 +103,9 @@ jobs:
     - name: scan
       id: scan
       run: |
-          echo "::set-output name=debVT::$(./vt scan file /home/runner/nft_viewer.deb -k ${{ secrets.VT_API_KEY }})"
-          echo "::set-output name=exeVT::$(./vt scan file /home/runner/nft_viewer.exe -k ${{ secrets.VT_API_KEY }})"
-          echo "::set-output name=dmgVT::$(./vt scan file /home/runner/nft_viewer.dmg -k ${{ secrets.VT_API_KEY }})"
+          echo "::set-output name=debVT::$(./vt scan file /home/runner/nft_viewer.deb -k ${{ secrets.VT_API_KEY }}|cut -b 15-)"
+          echo "::set-output name=exeVT::$(./vt scan file /home/runner/nft_viewer.exe -k ${{ secrets.VT_API_KEY }}|cut -b 15-)"
+          echo "::set-output name=dmgVT::$(./vt scan file /home/runner/nft_viewer.dmg -k ${{ secrets.VT_API_KEY }}|cut -b 15-)"
     - name: Calculate hashes
       id: calc_hash
       run: |
