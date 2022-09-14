@@ -48,6 +48,19 @@ jobs:
         cache: 'yarn'
     
     - run: yarn install
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - uses: actions/cache@v3
+      id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
     - run: yarn run electron:package:${{ matrix.os }}
 
     - name: Upload .${{ matrix.release_format }} file
@@ -90,9 +103,9 @@ jobs:
     - name: scan
       id: scan
       run: |
-          echo "::set-output name=debVT::$(./vt scan /home/runner/nft_viewer.deb) -k ${{ secrets.VT_API_KEY }}"
-          echo "::set-output name=exeVT::$(./vt scan /home/runner/nft_viewer.exe) -k ${{ secrets.VT_API_KEY }}"
-          echo "::set-output name=dmgVT::$(./vt scan /home/runner/nft_viewer.dmg) -k ${{ secrets.VT_API_KEY }}"
+          echo "::set-output name=debVT::$(./vt scan /home/runner/nft_viewer.deb -k ${{ secrets.VT_API_KEY }})"
+          echo "::set-output name=exeVT::$(./vt scan /home/runner/nft_viewer.exe -k ${{ secrets.VT_API_KEY }})"
+          echo "::set-output name=dmgVT::$(./vt scan /home/runner/nft_viewer.dmg -k ${{ secrets.VT_API_KEY }})"
     - name: Calculate hashes
       id: calc_hash
       run: |
