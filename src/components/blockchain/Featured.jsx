@@ -15,6 +15,7 @@ export default function Featured(properties) {
   let clearAssets = appStore((state) => state.clearAssets);
 
   const [inProgress, setInProgress] = useState(false);
+  const [increment, setIncrement] = useState(0);
 
   function back() {
     setMode();
@@ -25,41 +26,53 @@ export default function Featured(properties) {
     setAsset(item)
   }
 
+  function refresh() {
+    clearAssets();
+    setIncrement(increment + 1);
+  }
+
   useEffect(() => {
-    if (assets) {
+    async function fetchData() {
+      if (assets) {
+        setInProgress(false);
+        return;
+      }
+  
+      setInProgress(true);
+  
+      setTimeout(() => {
+        setInProgress(false);
+        return;
+      }, 3500);
+  
+      try {
+        await fetchAssets(config[target].featured.map(nft => nft.id))
+      } catch (error) {
+        console.log(error);
+      }
+  
       setInProgress(false);
-      return;
     }
-
-    setInProgress(true);
-
-    setTimeout(() => {
-      setInProgress(false);
-      return;
-    }, 10000);
-
-    try {
-      fetchAssets(config[target].featured.map(nft => nft.id))
-    } catch (error) {
-      console.log(error);
-    }
-
-    setInProgress(false);
-  }, []);
+    fetchData();
+  }, [increment, assets]);
 
   let response;
-  if (inProgress || !assets) {
+  if (inProgress) {
     response = <span>
                 <Loader variant="dots" />
                 <Text size="sm" weight={600}>
                     Fetching featured assets
                 </Text>
               </span>;
-  } else if (assets && !assets.length) {
+  } else if (!assets || assets && !assets.length) {
     response = <span>
                 <Text size="sm" weight={600}>
-                    An error was encountered
+                  An issue was encountered whilst fetching featured assets, please try again.
                 </Text>
+                <Button onClick={() => refresh()}>
+                  Try again
+                </Button>
+                <br/>
               </span>;
   } else if (assets && assets.length) {
     response = <SimpleGrid cols={3} sx={{marginTop: '10px'}}>

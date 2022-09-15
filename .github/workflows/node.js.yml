@@ -24,7 +24,7 @@ jobs:
     needs: create_release
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         include:
           - os: windows-latest
             release_suffix: windows
@@ -51,7 +51,6 @@ jobs:
       run: yarn --prefer-offline
 
     - run: yarn install
-
     - run: yarn run electron:package:${{ matrix.os }}
 
     - name: Upload .${{ matrix.release_format }} file

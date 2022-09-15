@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Text, Container, Center, Group, Grid, Col, Paper, Button, Divider, Image } from '@mantine/core'
 import { appStore, beetStore, identitiesStore } from './lib/states';
 
@@ -46,29 +46,31 @@ function App() {
   let initPrompt;
   if (!environment) {
     initPrompt = <Environment />;
-  } else if (!isLinked) {
-    if (!connection) {
-      setNodes();
-      initPrompt = <Connect />
-    } else {
-      initPrompt = <BeetLink />;
-    }
   } else if (!mode) {
+    setNodes();
     initPrompt = <Mode />;
   } else if (mode === 'search' && !asset) {
     initPrompt = <Search />
   } else if (mode === 'featured' && !asset) {
-      initPrompt = <Featured />
+    initPrompt = <Featured />
   } else if (!asset) {
-    let userID = identity.requested.account.id;
-    if (mode === 'balance') {
-      initPrompt = <Portfolio userID={userID}/>
-    } else if (mode === 'issued') {
-      initPrompt = <SelectAsset userID={userID} />
+    if (!isLinked) {
+      if (!connection) {
+        setNodes();
+        initPrompt = <Connect />
+      } else {
+        initPrompt = <BeetLink />;
+      }
+    } else {
+      let userID = identity.requested.account.id;
+      if (mode === 'balance') {
+        initPrompt = <Portfolio userID={userID}/>
+      } else if (mode === 'issued') {
+        initPrompt = <SelectAsset userID={userID} />
+      }
     }
   } else if (asset) {
-    let userID = identity.requested.account.id;
-    initPrompt = <NFT userID={userID} />;
+    initPrompt = <NFT />;
   } else {
     initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>
   }

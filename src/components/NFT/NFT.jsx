@@ -27,8 +27,6 @@ import Media from './Media';
 import Buy from "../beet/Buy";
 
 export default function NFT(properties) {
-  const userID = properties.userID;
-
   let asset = appStore((state) => state.asset);
 
   let back = appStore((state) => state.back);
@@ -197,7 +195,7 @@ export default function NFT(properties) {
                     
                     <Tabs.Panel value="Buy" pt="xs">
                       <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
-                        <Buy userID={userID} />
+                        <Buy />
                       </Group>
                       {
                         environment === 'production'

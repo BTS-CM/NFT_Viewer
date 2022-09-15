@@ -3,13 +3,18 @@ import { Button, Text, Col, Paper, Loader } from '@mantine/core';
 import { appStore, beetStore } from '../../lib/states';
 import { purchaseNFT } from '../../lib/broadcasts';
 
-export default function Buy(properties) {
-  const userID = properties.userID;
-  let connection = beetStore((state) => state.connection);
-  let nodes = appStore((state) => state.nodes);
+import Connect from "./Connect";
+import BeetLink from "./BeetLink";
 
+export default function Buy(properties) {
+  let connection = beetStore((state) => state.connection);
+  let isLinked = beetStore((state) => state.isLinked);
+  let identity = beetStore((state) => state.identity);
+
+  let nodes = appStore((state) => state.nodes);
   let setMode = appStore((state) => state.setMode);
   let setAsset = appStore((state) => state.setAsset);
+  let setNodes = appStore((state) => state.setNodes);
 
   const [inProgress, setInProgress] = useState(false);
   const [bought, setBought] = useState(false);
@@ -20,8 +25,6 @@ export default function Buy(properties) {
   }
 
   let asset_order_book = appStore((state) => state.asset_order_book);
-
-  console.log({asset_order_book})
 
   //let asks = asset_order_book ? asset_order_book.asks : null;
   let bids = asset_order_book ? asset_order_book.bids : null;
@@ -38,6 +41,8 @@ export default function Buy(properties) {
     if (!bids || !bids.length) {
       return;
     }
+
+    let userID = identity.requested.account.id;
 
     let bidResult;
     return purchaseNFT(
@@ -65,6 +70,24 @@ export default function Buy(properties) {
                     This NFT is not currently for sale.
                   </Text>
                 </span>;
+  } else if (!isLinked) {
+    if (!connection) {
+      setNodes();
+      response = <span>
+                  <Text size="md">
+                    To continue purchase, connect to Beet.
+                  </Text>
+                  <Connect />
+                </span>
+      
+    } else {
+      response = <span>
+                  <Text size="md">
+                    To continue purchase, link with Beet.
+                  </Text>
+                  <BeetLink />
+                </span>;
+    }
   } else if (inProgress) {
     response = <span>
                   <Loader variant="dots" />
