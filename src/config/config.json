@@ -91,9 +91,6 @@
             },
             {
                 "url": "wss://testnet.bitshares.im/ws"
-            },
-            {
-                "url": "https://eu.nodes.testnet.bitshares.ws/"
             }
         ],
         "featured": [

@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
-import { appStore } from '../../lib/states';
+import { appStore, beetStore } from '../../lib/states';
+import Accounts from "./Accounts";
 
 export default function SelectAsset(properties) {
   let setAsset = appStore((state) => state.setAsset);
@@ -11,8 +12,10 @@ export default function SelectAsset(properties) {
   let fetchIssuedAssets = appStore((state) => state.fetchIssuedAssets);
   let clearAssets = appStore((state) => state.clearAssets);
   let assets = appStore((state) => state.assets);
+  let reset = beetStore((state) => state.reset);
+  let back = appStore((state) => state.back);
 
-  const userID = properties.userID;
+  let account = appStore((state) => state.account);
   const [tries, setTries] = useState(0);
 
   function increaseTries() {
@@ -22,6 +25,8 @@ export default function SelectAsset(properties) {
   }
 
   function goBack() {
+    reset();
+    back();
     setMode();
     clearAssets();
   }
@@ -37,7 +42,7 @@ export default function SelectAsset(properties) {
   useEffect(() => {
     async function issuedAssets() {
       try {
-        await fetchIssuedAssets(userID);
+        await fetchIssuedAssets(account);
       } catch (error) {
         console.log(error);
         changeURL();
@@ -45,10 +50,17 @@ export default function SelectAsset(properties) {
       }
     }
     issuedAssets();
-  }, [userID, tries]);
+  }, [account, tries]);
 
   let topText;
-  if (!assets) {
+  if (!account) {
+    topText = <span>
+                <Text size="lg">
+                  Lookup assets issued by an user
+                </Text>
+                <Accounts />
+              </span>;
+  } else if (!assets) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="md">
@@ -67,7 +79,6 @@ export default function SelectAsset(properties) {
                   Note: Buying and owning an NFT on the BTS DEX doesn't automatically grant you NFT editing rights.
                 </Text>
               </span>
-              
   } else {
     topText = <span>
                 <Text size="md">

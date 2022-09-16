@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Button, Box, Text, Loader, Col, Paper, SimpleGrid } from '@mantine/core';
-import { appStore } from '../../lib/states';
+import { appStore, beetStore } from '../../lib/states';
+
+import Accounts from "./Accounts";
 
 export default function Portfolio(properties) {
-  const userID = properties.userID;
-
   let environment = appStore((state) => state.environment);
-
   let assets = appStore((state) => state.assets);
+  let account = appStore((state) => state.account);
+
   let setAsset = appStore((state) => state.setAsset);
   let fetchNFTBalances = appStore((state) => state.fetchNFTBalances);
   let goBack = appStore((state) => state.back);
   let clearAssets = appStore((state) => state.clearAssets);
+
+  let resetConnection = beetStore((state) => state.reset);
 
   const [tries, setTries] = useState(0);
   const [inProgress, setInProgress] = useState(false);
 
   function back() {
     goBack();
+    resetConnection();
   }
 
   function increaseTries() {
@@ -40,18 +44,22 @@ export default function Portfolio(properties) {
       }, 10000);
 
       try {
-        fetchNFTBalances(userID);
+        fetchNFTBalances(account);
       } catch (error) {
         console.log(error);
       }
 
       setInProgress(false);
     }
-    fetchBalance()
-  }, [tries]);
+    if (account) {
+      fetchBalance()
+    }
+  }, [tries, account]);
 
   let topText;
-  if (inProgress || !assets) {
+  if (!account) {
+    topText = <Accounts />
+  } else if (inProgress || !assets) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="sm" weight={600}>

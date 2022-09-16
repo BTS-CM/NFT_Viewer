@@ -4,6 +4,7 @@ import { appStore, beetStore, identitiesStore } from './lib/states';
 
 import Mode from "./components/setup/Mode";
 import Environment from "./components/setup/Environment";
+import Settings from "./components/setup/Settings";
 
 import Connect from "./components/beet/Connect";
 import BeetLink from "./components/beet/BeetLink";
@@ -26,6 +27,7 @@ function App() {
   let mode = appStore((state) => state.mode);
   let asset = appStore((state) => state.asset);
   let setNodes = appStore((state) => state.setNodes);
+  let setMode = appStore((state) => state.setMode);
 
   let connection = beetStore((state) => state.connection);
   let authenticated = beetStore((state) => state.authenticated);
@@ -37,6 +39,10 @@ function App() {
   let resetBeet = beetStore((state) => state.reset);
   //const resetNodes = appStore((state) => state.reset);
 
+  function openSettings() {
+    setMode('settings');
+  }
+
   function reset() {
     resetApp();
     resetBeet();
@@ -45,32 +51,24 @@ function App() {
 
   let initPrompt;
   if (!environment) {
-    initPrompt = <Environment />;
+    initPrompt = <Environment />
   } else if (!mode) {
     setNodes();
-    initPrompt = <Mode />;
+    initPrompt = <Mode />
+  } else if (mode === 'settings') {
+    initPrompt = <Settings />
   } else if (mode === 'search' && !asset) {
     initPrompt = <Search />
   } else if (mode === 'featured' && !asset) {
     initPrompt = <Featured />
   } else if (!asset) {
-    if (!isLinked) {
-      if (!connection) {
-        setNodes();
-        initPrompt = <Connect />
-      } else {
-        initPrompt = <BeetLink />;
-      }
-    } else {
-      let userID = identity.requested.account.id;
       if (mode === 'balance') {
-        initPrompt = <Portfolio userID={userID}/>
+        initPrompt = <Portfolio />
       } else if (mode === 'issued') {
-        initPrompt = <SelectAsset userID={userID} />
+        initPrompt = <SelectAsset />
       }
-    }
   } else if (asset) {
-    initPrompt = <NFT />;
+    initPrompt = <NFT />
   } else {
     initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>
   }
@@ -118,6 +116,20 @@ function App() {
                 >
                   NFTEA Gallery
                 </Button>
+                {
+                  environment
+                    ? <Button 
+                        variant="outline" color="dark"
+                        sx={{marginTop: '15px', marginRight: '5px', marginBottom: '5px'}}
+                        onClick={() => {
+                          openSettings()
+                        }}
+                      >
+                        Settings
+                      </Button>
+                    : null
+                }
+                
                 {
                   environment
                   ? <Button 

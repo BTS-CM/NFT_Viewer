@@ -43,8 +43,6 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
             return reject();
         }
 
-        console.log({symbols})
-
         symbols = symbols.filter(x => x !== null);
         if (!symbols || !symbols.length) {
             return resolve([]);
@@ -55,10 +53,17 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
         }
 
         let filteredAssets = symbols.filter(asset => {
-            if (!asset.options.description || !asset.options.description.length) {
+            if (!asset.options || !asset.options.description || !asset.options.description.length) {
                 return false;
             }
-            let desc = JSON.parse(asset.options.description);
+            let desc;
+            try {
+                desc = JSON.parse(asset.options.description);
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
+
             return desc.nft_object ? true : false;
         })
 

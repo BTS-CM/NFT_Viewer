@@ -14,6 +14,7 @@ const appStore = create(
       mode: null,
       nodes: null,
       asset: null,
+      account: null,
       asset_images: null,
       ipfsGateway: 'https://gateway.ipfs.io',
       asset_issuer: null,
@@ -67,6 +68,7 @@ const appStore = create(
           asset_order_book: dynamicData.order_book
         })
       },
+      setAccount: (newAccount) => set({account: newAccount}),
       setAssetImages: (images) =>  set({asset_images: images}),
       fetchAssets: async (asset_ids) => {
         /**
@@ -132,6 +134,7 @@ const appStore = create(
         mode: null,
         asset: null,
         assets: null,
+        account: null,
         asset_issuer: null,
         asset_quantity: null,
         asset_order_book: null
