@@ -4,12 +4,16 @@ import { appStore, beetStore, identitiesStore } from '../../lib/states';
 
 export default function Connect(properties) {
   let lite = properties.lite ?? null;
+  let nftPage = properties.nftPage ?? null;
+  let backCallback = properties.backCallback ?? null;
+
   let connect = beetStore((state) => state.connect);
   let link = beetStore((state) => state.link);
-  let setMode = appStore((state) => state.setMode);
 
   let environment = appStore((state) => state.environment);
   let setEnvironment = appStore((state) => state.setEnvironment); 
+  let setMode = appStore((state) => state.setMode);
+  let setAccount = appStore((state) => state.setAccount);
 
   let identities = identitiesStore((state) => state.identities);
   let setIdentities = identitiesStore((state) => state.setIdentities);
@@ -18,8 +22,12 @@ export default function Connect(properties) {
   const [inProgress, setInProgress] = useState(false);
 
   function back() {
-    setMode();
-    setEnvironment();
+    if (nftPage) {
+      backCallback();
+    } else {
+      setMode();
+      setEnvironment();
+    }
   }
 
   /**
@@ -66,6 +74,7 @@ export default function Connect(properties) {
       return;
     }
    
+    setAccount(identity.account.id);
     setIdentities(identity);
     setInProgress(false);
   }
@@ -190,6 +199,7 @@ export default function Connect(properties) {
               Connect to Beet
             </Button>
             <Button
+              variant="light"
               onClick={() => {
                 back()
               }}

@@ -15,6 +15,9 @@ import Search from "./components/blockchain/Search";
 import Featured from "./components/blockchain/Featured";
 import Portfolio from "./components/blockchain/Portfolio";
 import NFT from "./components/NFT/NFT";
+import Loading from "./components/setup/Loading";
+import AccountMode from "./components/setup/AccountMode";
+import Offline from "./components/setup/Offline";
 
 import './App.css'
 
@@ -26,8 +29,10 @@ function App() {
   let environment = appStore((state) => state.environment);
   let mode = appStore((state) => state.mode);
   let asset = appStore((state) => state.asset);
+  let nodes = appStore((state) => state.nodes);
   let setNodes = appStore((state) => state.setNodes);
   let setMode = appStore((state) => state.setMode);
+  let setEnvironment = appStore((state) => state.setEnvironment);
 
   let connection = beetStore((state) => state.connection);
   let authenticated = beetStore((state) => state.authenticated);
@@ -37,7 +42,7 @@ function App() {
 
   let resetApp = appStore((state) => state.reset);
   let resetBeet = beetStore((state) => state.reset);
-  //const resetNodes = appStore((state) => state.reset);
+  const resetNodes = appStore((state) => state.reset);
 
   function openSettings() {
     setMode('settings');
@@ -46,17 +51,53 @@ function App() {
   function reset() {
     resetApp();
     resetBeet();
-    //resetNodes();
+    resetNodes();
   }
+
+  const [loadingNodes, setLoadingNodes] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (environment && (!nodes || !nodes.length)) {
+        setLoadingNodes(true);
+        console.log('setting nodes')
+        try {
+          await setNodes();
+        } catch (error) {
+          console.log(error)
+        }
+        setLoadingNodes(false);
+      }
+    }
+
+    fetchData();
+  }, [environment, nodes]);
+
+  useEffect(() => {
+    if (nodes && nodes.length) {
+      console.log({nodes})
+      setLoadingNodes(false);
+    }
+  }, [nodes]);
 
   let initPrompt;
   if (!environment) {
     initPrompt = <Environment />
+  } else if (loadingNodes) {
+    initPrompt = <Loading />
+  } else if (!loadingNodes && !nodes || !nodes.length) {
+    initPrompt = <Offline />
   } else if (!mode) {
-    setNodes();
-    initPrompt = <Mode />
+    initPrompt = <Mode 
+                    backCallback={() => {
+                      setEnvironment()
+                      resetNodes()
+                    }}
+                  />
   } else if (mode === 'settings') {
     initPrompt = <Settings />
+  } else if (mode === 'lookup') {
+    initPrompt = <AccountMode backCallback={() => setMode()} />
   } else if (mode === 'search' && !asset) {
     initPrompt = <Search />
   } else if (mode === 'featured' && !asset) {

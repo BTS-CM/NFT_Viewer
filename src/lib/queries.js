@@ -2,23 +2,31 @@ import config from '../config/config.json';
 import {Apis} from "bitsharesjs-ws";
 import { appStore } from './states';
 
+const _nodes = {
+    BTS: config.BTS.nodeList.map(node => node.url),
+    BTS_TEST: config.BTS_TEST.nodeList.map(node => node.url)
+};
+
 /**
  * Test the wss nodes, return latencies and fastest url.
  * @returns {Promise}
  */
-async function testNodes(target) {
+async function testNodes(target, itr = 0) {
     return new Promise(async (resolve, reject) => {
-        let urls = config[target].nodeList.map(node => node.url);
-
-        return Promise.all(urls.map(url => window.electron.testConnection(url)))
+        let urlPromises = _nodes[target].map(url => window.electron.testConnection(url, itr > 0 ? itr * 3000 : 3000))
+        return Promise.all(urlPromises)
         .then((validNodes) => {
             let filteredNodes = validNodes.filter(x => x);
             if (filteredNodes.length) {
-                let sortedNodes = filteredNodes.sort((a, b) => a.lag - b.lag);
-                return resolve(sortedNodes.map(node => node.url));
+                let sortedNodes = filteredNodes.sort((a, b) => a.lag - b.lag).map(node => node.url);
+                return resolve(sortedNodes);
             } else {
-                console.error("No valid BTS WSS connections established; Please check your internet connection.")
-                return reject();
+                if (itr > 2) {
+                    console.error("No valid BTS WSS connections established; Please check your internet connection.")
+                    return reject();
+                }
+                console.log("Couldn't establish network connections; trying again with greater timeout durations. Apologies for the delay.")
+                return resolve(testNodes(target, itr + 1));
             }
         })
         .catch(error => {
@@ -85,7 +93,7 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
             console.log(error);
             let changeURL = appStore.getState().changeURL;
             changeURL();
-            return reject();
+            return reject('Invalid node');
         }
 
         let response;
@@ -93,7 +101,7 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
             response = await lookup_asset_symbols(Apis, asset_ids, nonNFT);
         } catch (error) {
             console.log(error);
-            return reject();
+            return reject('Invalid asset ');
         }
 
         return resolve(response);
@@ -162,7 +170,6 @@ async function fetchIssuedAssets(node, accountID) {
         }
 
         if (!fullAccounts.length || !fullAccounts[0].length) {
-            console.log({fullAccounts})
             return reject();            
         }
 
@@ -200,6 +207,36 @@ async function fetchObject(node, objectID) {
         let object;
         try {
             object = await Apis.instance().db_api().exec("get_objects", [[objectID]])
+        } catch (error) {
+            console.log(error);
+            return reject();
+        }
+
+        return resolve(object);
+    });
+}
+
+/**
+ * Search for an account, given 1.2.x or an account name.
+ * @param {String} node 
+ * @param {String} search_string
+ * @returns 
+ */
+ async function accountSearch(node, search_string) {
+    return new Promise(async (resolve, reject) => {
+
+        try {
+            await Apis.instance(node, true).init_promise;
+        } catch (error) {
+            console.log(error);
+            let changeURL = appStore.getState().changeURL;
+            changeURL();
+            return reject();
+        }
+
+        let object;
+        try {
+            object = await Apis.instance().db_api().exec("get_accounts", [[search_string]])
         } catch (error) {
             console.log(error);
             return reject();
@@ -307,5 +344,6 @@ export {
     fetchAssets,
     fetchObject,
     fetchDynamicData,
-    fetchOrderBook
+    fetchOrderBook,
+    accountSearch
 };

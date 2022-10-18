@@ -105,6 +105,7 @@ export default function Featured(properties) {
                 { response }
                 <br/>
                 <Button
+                  variant="light"
                   onClick={() => {
                     back()
                   }}

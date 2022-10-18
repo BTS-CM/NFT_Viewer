@@ -122,6 +122,7 @@ export default function Portfolio(properties) {
             tryAgain
           }
           <Button
+            variant="light"
             sx={{marginTop: '15px'}}
             onClick={() => {
               back()

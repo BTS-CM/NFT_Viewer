@@ -20,7 +20,7 @@ import { fetchObject } from '../../lib/queries';
 import Connect from '../beet/Connect'
 import BeetLink from '../beet/BeetLink'
 
-export default function Search(properties) {
+export default function Accounts(properties) {
   const theme = useMantineTheme();
 
   let identities = identitiesStore((state) => state.identities);

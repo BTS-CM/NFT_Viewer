@@ -117,6 +117,7 @@ export default function SelectAsset(properties) {
           </SimpleGrid>
 
           <Button
+            variant="outline"
             sx={{marginTop: '15px', marginRight: '5px'}}
             onClick={() => {
               increaseTries()
@@ -125,6 +126,7 @@ export default function SelectAsset(properties) {
             Refresh
           </Button>
           <Button
+            variant="light"
             sx={{marginTop: '15px'}}
             onClick={() => {
               goBack()

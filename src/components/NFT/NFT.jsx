@@ -443,6 +443,7 @@ export default function NFT(properties) {
             </Col>,
             <Col span={12} key="back">
               <Button
+                variant="light"
                 onClick={() => {
                   goBack()
                 }}

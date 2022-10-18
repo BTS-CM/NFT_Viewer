@@ -44,11 +44,17 @@ export default function Search(properties) {
     setInProgress(true);
     clearAssets();
 
+    if (!searchInput || !searchInput.length) {
+      console.log('No search input')
+      return;
+    }
+
     try {
       await fetchAssets([searchInput.toUpperCase()])
     } catch (error) {
       console.log(error);
       setInProgress(false);
+      performSearch();
       return;
     }
     
@@ -138,6 +144,7 @@ export default function Search(properties) {
           </SimpleGrid>
 
           <Button
+            variant="light"
             sx={{marginTop: '15px'}}
             onClick={() => {
               back()

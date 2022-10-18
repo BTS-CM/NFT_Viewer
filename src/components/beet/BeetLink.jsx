@@ -42,6 +42,7 @@ export default function BeetLink(properties) {
         Proceed with linking this app to your Beet wallet below.
       </Text>
       <Button
+        variant="outline"
         sx={{marginTop: '15px', marginRight: '5px'}}
         onClick={() => {
           _linkToBeet()
@@ -63,6 +64,7 @@ export default function BeetLink(properties) {
         <Box mx="auto" sx={{padding: '10px'}}>
           {linkContents}
           <Button
+            variant="light"
             sx={{marginTop: '15px', marginRight: '5px'}}
             onClick={() => {
               back()

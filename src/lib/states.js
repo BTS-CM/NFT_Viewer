@@ -26,6 +26,11 @@ const appStore = create(
       setMode: (mode) => set({mode: mode}),
       setNodes: async () => {
         const env = get().environment;
+        if (!env) {
+          console.log('No env set');
+          return;
+        }
+
         let response;
         try {
           response = await testNodes(env === 'production' ? 'BTS' : 'BTS_TEST');
@@ -75,10 +80,16 @@ const appStore = create(
          * Looking asset data from an array of IDs
          * @param {Array} asset_ids
          */
-        const node = get().nodes[0];
+        const node = get().nodes;
+
+        if (!node || !node.length) { 
+          //console.log('No nodes')
+          return;
+        }
+
         let response;
         try {
-          response = await fetchAssets(node, asset_ids);
+          response = await fetchAssets(node[0], asset_ids);
         } catch (error) {
           console.log(error)
         }
