@@ -51,7 +51,7 @@ jobs:
     #- name: Instruct yarn to use cache
     #  run: yarn --prefer-offline
 
-    - run: yarn install
+    - run: yarn install --network-concurrency 1
     - run: yarn run electron:package:${{ matrix.os }}
 
     - name: Upload .${{ matrix.release_format }} file
