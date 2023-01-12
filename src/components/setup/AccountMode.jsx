@@ -36,10 +36,11 @@ export default function AccountMode(properties) {
 
   const prompt = <span>
                     <Text size="md">
-                      For the account "{account ?? '???'}" what do you want to see?
+                      For the account "{account ?? '???'}" what do you want to do?
                     </Text>
                     <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                       <Button
+                        variant="outline"
                         sx={{marginTop: '15px', marginRight: '5px'}}
                         onClick={() => {
                           setMode('balance');
@@ -48,6 +49,7 @@ export default function AccountMode(properties) {
                         View NFT portfolio
                       </Button>
                       <Button
+                        variant="outline"
                         sx={{marginTop: '15px', marginRight: '5px'}}
                         onClick={() => {
                           setMode('issued');
@@ -58,6 +60,7 @@ export default function AccountMode(properties) {
                     </Group>
                     <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                       <Button
+                        variant="light"
                         onClick={() => {
                           backCallback()
                         }}

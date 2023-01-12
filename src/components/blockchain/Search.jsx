@@ -133,7 +133,7 @@ export default function Search(properties) {
                   <IconArrowRight size={18} stroke={1.5} />
               </ActionIcon>
             }
-            placeholder="Search questions"
+            placeholder="1.3.x or symbol"
             rightSectionWidth={42}
           />
 

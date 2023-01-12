@@ -34,15 +34,16 @@ function App() {
   let setMode = appStore((state) => state.setMode);
   let setEnvironment = appStore((state) => state.setEnvironment);
 
-  let connection = beetStore((state) => state.connection);
-  let authenticated = beetStore((state) => state.authenticated);
   let isLinked = beetStore((state) => state.isLinked);
   let identity = beetStore((state) => state.identity);
   let setIdentities = identitiesStore((state) => state.setIdentities);
 
+  let setIdentity = beetStore((state) => state.setIdentity);
+  let setAccount = appStore((state) => state.setAccount);
+
   let resetApp = appStore((state) => state.reset);
   let resetBeet = beetStore((state) => state.reset);
-  const resetNodes = appStore((state) => state.reset);
+  let resetNodes = appStore((state) => state.reset);
 
   function openSettings() {
     setMode('settings');
@@ -75,21 +76,25 @@ function App() {
 
   useEffect(() => {
     if (nodes && nodes.length) {
-      console.log({nodes})
       setLoadingNodes(false);
     }
   }, [nodes]);
 
   let initPrompt;
   if (!environment) {
+    // Prompt the user to select a network
     initPrompt = <Environment />
   } else if (loadingNodes) {
     initPrompt = <Loading />
   } else if (!loadingNodes && !nodes || !nodes.length) {
     initPrompt = <Offline />
   } else if (!mode) {
+    // What would you like to do?
     initPrompt = <Mode 
                     backCallback={() => {
+                      //setIdentity()
+                      resetBeet()
+                      setAccount()
                       setEnvironment()
                       resetNodes()
                     }}
@@ -97,18 +102,28 @@ function App() {
   } else if (mode === 'settings') {
     initPrompt = <Settings />
   } else if (mode === 'lookup') {
-    initPrompt = <AccountMode backCallback={() => setMode()} />
+    // Get an account reference
+    initPrompt = <AccountMode
+                    backCallback={() => {
+                      resetBeet()
+                      setAccount()
+                      setMode()
+                    }}
+                  />
   } else if (mode === 'search' && !asset) {
+    // Search for NFTs
     initPrompt = <Search />
   } else if (mode === 'featured' && !asset) {
+    // Show featured NFTs
     initPrompt = <Featured />
-  } else if (!asset) {
-      if (mode === 'balance') {
-        initPrompt = <Portfolio />
-      } else if (mode === 'issued') {
-        initPrompt = <SelectAsset />
-      }
+  } else if (!asset && mode === 'balance') {
+    // Show NFTs in an account balance
+    initPrompt = <Portfolio />
+  } else if (!asset && mode === 'issued') {
+    // Show NFTs the account has created
+    initPrompt = <SelectAsset />
   } else if (asset) {
+    // An NFT has been selected
     initPrompt = <NFT />
   } else {
     initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>

@@ -3,7 +3,67 @@ import { persist } from 'zustand/middleware';
 import { connect, checkBeet, link } from 'beet-js';
 
 import { getImage } from './images';
-import { testNodes, fetchUserNFTBalances, fetchIssuedAssets, fetchAssets, fetchDynamicData } from './queries';
+import { 
+  testNodes,
+  fetchUserNFTBalances,
+  fetchIssuedAssets,
+  fetchAssets,
+  fetchDynamicData
+} from './queries';
+
+const identitiesStore = create(
+  persist((set, get) => ({
+    identities: [],
+    storedConnections: {},
+    storeConnection: (connection) => {
+      if (!connection || !connection.identity) {
+        return;
+      }
+      const currentConnections = get().storedConnections;
+      if (!currentConnections[connection.identity.identityhash]) {
+        currentConnections[connection.identity.identityhash] = {
+          beetkey: connection.beetkey,
+          next_identification: connection.next_identification,
+          secret: connection.secret,
+        };
+        set({ storedConnections: currentConnections });
+      }
+    },
+    removeConnection: (identityhash) => {
+      const currentConnections = get().storedConnections;
+      if (currentConnections[identityhash]) {
+        delete currentConnections[identityhash];
+        set({ storedConnections: currentConnections });
+      }
+    },
+    setIdentities: (identity) => {
+      if (!identity) {
+        return;
+      }
+
+      let currentIdentities = get().identities;
+
+      if (currentIdentities.find(id => 
+        id.identityHash === identity.identityHash
+        && id.requested.account.id === identity.requested.account.id
+      )) {
+        console.log('Account already linked')
+        return;
+      }
+      
+      currentIdentities.push(identity);
+      set({identities: currentIdentities});
+    },
+    removeIdentity: (accountID) => {
+      if (!accountID) {
+        return;
+      }
+      let currentIdentities = get().identities;
+      let newIdentities = currentIdentities.filter(x => x.requested.account.id != accountID);
+      set({identities: newIdentities});
+    }
+  }))
+);
 
 /**
  * NFT_Viewer related
@@ -204,22 +264,21 @@ const beetStore = create((set, get) => ({
         console.error(error)
       }
 
-      let auth = {
-        connection: null,
-        authenticated: null,
-        isLinked: null
-      };
-
       if (!connected) {
         console.error("Couldn't connect to Beet");
-        set(auth)
+        set({
+          connection: null,
+          authenticated: null,
+          isLinked: null
+        })
         return;
       }
-    
-      auth.connection = connected;
-      auth.authenticated = connected.authenticated;
 
-      set(auth);
+      set({
+        connection: connected,
+        authenticated: true,
+        isLinked: false
+      });
     },
     link: async (environment) => {
       /**
@@ -227,25 +286,37 @@ const beetStore = create((set, get) => ({
        * @param {String} environment
        */
       let currentConnection = get().connection;
-      let linkage = { isLinked: null, identity: null };
 
       let linkAttempt;
       try {
         linkAttempt = await link(environment === 'production' ? 'BTS' : 'BTS_TEST', currentConnection);
       } catch (error) {
         console.error(error)
-        set(linkage)
+        set({ isLinked: null, identity: null })
         return;
       }
 
       if (!currentConnection.identity) {
-        set(linkage)
+        set({ isLinked: null, identity: null })
         return;
       }
 
-      linkage.isLinked = true;
-      linkage.identity = currentConnection.identity;
-      set(linkage)
+      const { storeConnection } = identitiesStore.getState();
+
+      try {
+        storeConnection(currentConnection);
+      } catch (error) {
+        console.log(error);
+      }
+      
+      const { setAccount } = appStore.getState();
+      try {
+        setAccount(currentConnection.identity.requested.account.id);
+      } catch (error) {
+        console.log(error);
+      }
+
+      set({ isLinked: true, identity: currentConnection.identity })
     },
     setConnection: (res) => set({connection: res}),
     setAuthenticated: (auth) => set({authenticated: auth}),
@@ -258,38 +329,6 @@ const beetStore = create((set, get) => ({
       identity: null,
     })
 }));
-
-const identitiesStore = create(
-  persist((set, get) => ({
-    identities: [],
-    setIdentities: (identity) => {
-      if (!identity) {
-        return;
-      }
-
-      let currentIdentities = get().identities;
-
-      if (currentIdentities.find(id => 
-        id.identityHash === identity.identityHash
-        && id.requested.account.id === identity.requested.account.id
-      )) {
-        console.log('Account already linked')
-        return;
-      }
-      
-      currentIdentities.push(identity);
-      set({identities: currentIdentities});
-    },
-    removeIdentity: (accountID) => {
-      if (!accountID) {
-        return;
-      }
-      let currentIdentities = get().identities;
-      let newIdentities = currentIdentities.filter(x => x.requested.account.id != accountID);
-      set({identities: newIdentities});
-    }
-  }))
-);
 
 export {
   appStore,

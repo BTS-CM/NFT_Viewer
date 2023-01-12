@@ -48,7 +48,7 @@ export default function Mode(properties) {
                   setMode('featured');
                 }}
               >
-                View featured
+                View featured NFTs
               </Button>
             </Group>
 
