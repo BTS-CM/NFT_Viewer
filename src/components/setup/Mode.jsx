@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Button, Box, Text, Col, Group, Paper } from '@mantine/core';
-import { appStore } from '../../lib/states';
+import { appStore, translationStore } from '../../lib/states';
 
 export default function Mode(properties) {
+  const t= translationStore((state) => state.t);
   const setMode = appStore((state) => state.setMode); 
   const setNodes = appStore((state) => state.setNodes);
-  const nodes = appStore((state) => state.nodes);
 
   let backCallback = properties.backCallback;
 
@@ -19,7 +19,7 @@ export default function Mode(properties) {
         <Box mx="auto" sx={{padding: '10px'}}>
           <span>
             <Text size="md">
-              What do you want to do?
+              {t('setup:mode.header')}
             </Text>
 
             <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
@@ -30,7 +30,7 @@ export default function Mode(properties) {
                   setMode('search');
                 }}
               >
-                Search for NFT
+                {t('setup:mode.searchBtn')}
               </Button>
               <Button
                 variant="outline"
@@ -39,7 +39,7 @@ export default function Mode(properties) {
                   setMode('lookup');
                 }}
               >
-                Lookup an account's NFTs
+                {t('setup:mode.lookupBtn')}
               </Button>
               <Button
                 variant="outline"
@@ -48,7 +48,7 @@ export default function Mode(properties) {
                   setMode('featured');
                 }}
               >
-                View featured NFTs
+                {t('setup:mode.featuredBtn')}
               </Button>
             </Group>
 
@@ -59,7 +59,7 @@ export default function Mode(properties) {
                   backCallback()
                 }}
               >
-                Back
+                {t('setup:mode.back')}
               </Button>
             </Group>
           </span>

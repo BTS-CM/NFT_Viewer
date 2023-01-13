@@ -9,12 +9,14 @@ import {
   Col,
   Paper,
 } from '@mantine/core';
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
 
 export default function Connect(properties) {
   let lite = properties.lite ?? null;
   let nftPage = properties.nftPage ?? null;
   let backCallback = properties.backCallback ?? null;
+  
+  const t= translationStore((state) => state.t);
   
   const connect = beetStore((state) => state.connect);
   const setIdentity = beetStore((state) => state.setIdentity);
@@ -143,7 +145,7 @@ export default function Connect(properties) {
               remove(row);
             }}
           >
-            Remove
+            {t('beet:connect.remove')}
           </Button>
         </td>
       </tr>
@@ -159,7 +161,7 @@ export default function Connect(properties) {
           ? <Paper padding="sm" shadow="xs">
               <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
                 <Text size="md">
-                  Which previously linked BEET account do you want to use?
+                  {t('beet:connect.previousBEET')}
                 </Text>
                 
                 <ScrollArea sx={{ height: rows.length > 1 && rows.length < 3 ? rows.length * 55 : 120 }}>
@@ -176,7 +178,9 @@ export default function Connect(properties) {
         <br />
         <Paper padding="sm" shadow="xs">
           <Box mx="auto" sx={{ padding: '10px', paddingTop: '10px' }}>
-            <Text size="md">Want to use a different account?</Text>
+            <Text size="md">
+              {t('beet:connect.newBEET')}
+            </Text>
             <Button
               variant="light"
               sx={{ marginTop: '15px', marginRight: '5px', marginBottom: '5px' }}
@@ -184,7 +188,7 @@ export default function Connect(properties) {
                 connectToBeet();
               }}
             >
-              Connect with new account
+              {t('beet:connect.newBtn')}
             </Button>
             <br />
             <Button
@@ -194,7 +198,7 @@ export default function Connect(properties) {
                 back();
               }}
             >
-              Go back
+              {t('beet:connect.back')}
             </Button>
           </Box>
         </Paper>
@@ -206,9 +210,11 @@ export default function Connect(properties) {
       <Col span={12} key="connect">
         <Paper padding="sm" shadow="xs">
           <Box mx="auto" sx={{ padding: '10px', paddingTop: '10px' }}>
-            <Text size="md">This tool is designed for use with the Bitshares BEET Wallet.</Text>
             <Text size="md">
-              Launch and unlock it, then click the connect button below to proceed.
+              {t('beet:connect.beetHeader')}
+            </Text>
+            <Text size="md">
+              {t('beet:connect.beetSubheading')}
             </Text>
             <Button
               sx={{ marginTop: '15px', marginRight: '5px' }}
@@ -216,7 +222,7 @@ export default function Connect(properties) {
                 connectToBeet();
               }}
             >
-              Connect to Beet
+              {t('beet:connect.beetConnect')}
             </Button>
             <Button
               svariant="light"
@@ -224,7 +230,7 @@ export default function Connect(properties) {
                 back();
               }}
             >
-              Go back
+              {t('beet:connect.back')}
             </Button>
           </Box>
         </Paper>
@@ -237,16 +243,18 @@ export default function Connect(properties) {
           <Paper padding="sm" shadow="xs">
             <Box mx="auto" sx={{ padding: '10px', paddingTop: '10px' }}>
               <Text size="md">
-                Don&apos;t yet have the Bitshares BEET wallet installed? Follow the link below.
+                {t('beet:connect.btsPrompt')}
               </Text>
-              <Text size="md">Once installed, create a wallet and proceed to connect above.</Text>
+              <Text size="md">
+                {t('beet:connect.btsGuide')}
+              </Text>
               <Button
                 sx={{ marginTop: '15px', marginRight: '5px' }}
                 onClick={() => {
                   beetDownload();
                 }}
               >
-                Download BEET
+                {t('beet:connect.beetDownload')}
               </Button>
             </Box>
           </Paper>
@@ -258,7 +266,9 @@ export default function Connect(properties) {
       <Box mx="auto" sx={{ padding: '10px' }}>
         <span>
           <Loader variant="dots" />
-          <Text size="md">Connecting to BEET</Text>
+          <Text size="md">
+            {t('beet:connect.connecting')}
+          </Text>
         </span>
       </Box>
     );

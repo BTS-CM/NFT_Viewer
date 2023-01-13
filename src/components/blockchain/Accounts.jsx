@@ -14,7 +14,7 @@ import {
   SimpleGrid
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconAlertCircle } from '@tabler/icons';
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
 import { fetchObject } from '../../lib/queries';
 
 import Connect from '../beet/Connect'
@@ -22,6 +22,7 @@ import BeetLink from '../beet/BeetLink'
 
 export default function Accounts(properties) {
   const theme = useMantineTheme();
+  const t= translationStore((state) => state.t);
 
   let identities = identitiesStore((state) => state.identities);
   let setAccount = appStore((state) => state.setAccount);
@@ -82,26 +83,26 @@ export default function Accounts(properties) {
   if (!searchInput || !attempted) {
     topText = <span>
                 <Text size="md">
-                  Enter an account ID to proceed
+                  {t('blockchain:accounts.enterID')}
                 </Text>
               </span>
   } else if (inProgress) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="md">
-                  Looking up account
+                  {t('blockchain:accounts.fetchingAccount')}
                 </Text>
               </span>;
   } else if (!inProgress && !result && attempted) {
     topText = <span>
                 <Text size="md">
-                  No such account could be found, check input and try again.
+                  {t('blockchain:accounts.noAccount')}
                 </Text>
               </span>
   } else if (attempted && result) {
     topText = <span>
                 <Text size="md">
-                  Search results
+                  {t('blockchain:accounts.searchResults')}
                 </Text>
               </span>
   }
@@ -144,7 +145,7 @@ export default function Accounts(properties) {
     return <span>
             <Loader variant="dots" />
             <Text size="md">
-              Loading...
+              {t('blockchain:accounts.loading')}
             </Text>
           </span>
   }
@@ -164,7 +165,7 @@ export default function Accounts(properties) {
               || reg.test(searchInput.split("1.2.")[1]) === false)
                 ? <Alert
                     icon={<IconAlertCircle size={16} />}
-                    title="Invalid Account ID - It must begin with '1.2.' and end in a number."
+                    title={t('blockchain:accounts.invalidID')}
                     color="orange"
                     style={{margin: '5px'}}
                   />
@@ -194,7 +195,7 @@ export default function Accounts(properties) {
                         <IconArrowRight size={18} stroke={1.5} />
                     </ActionIcon>
                   }
-                  placeholder="Account ID (e.g. 1.2.0)"
+                  placeholder={t('blockchain:accounts.accountID')}
                   rightSectionWidth={42}
                 />
               : null
@@ -217,7 +218,7 @@ export default function Accounts(properties) {
                       tempIDs && tempIDs.length
                       ? <Box mx="auto" sx={{padding: '10px', marginTop: '10px'}}>
                           <Text size="md">
-                            Proceed with an existing account ID from linked Beet account?
+                            {t('blockchain:accounts.existingID')}
                           </Text>
                           <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
                             { tempIDs }
@@ -230,7 +231,7 @@ export default function Accounts(properties) {
                         </Box>
                       : <span>
                           <Text size="md">
-                            Fetch account ID from Beet wallet
+                            {t('blockchain:accounts.beetReq')}
                           </Text>
                           <Box mx="auto" sx={{padding: '10px', marginTop: '10px'}}>
                             {
@@ -246,7 +247,7 @@ export default function Accounts(properties) {
               </span>
             : <Paper padding="sm" shadow="xs">
                 <Text size="md">
-                  Proceed with your Beet linked account
+                  {t('blockchain:accounts.beetLinked')}
                 </Text>
                 <Box mx="auto" sx={{padding: '10px', marginTop: '10px'}}>
                   <Button

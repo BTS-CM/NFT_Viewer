@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Button, Text, Col, Paper, Group, Tooltip, Loader, SimpleGrid } from '@mantine/core';
-import { appStore } from '../../lib/states';
+import { appStore, translationStore } from '../../lib/states';
 
 import config from "../../config/config.json";
 
 export default function Featured(properties) {
+  const t= translationStore((state) => state.t);
   let environment = appStore((state) => state.environment);
   let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
   let assets = appStore((state) => state.assets);
@@ -61,16 +62,16 @@ export default function Featured(properties) {
     response = <span>
                 <Loader variant="dots" />
                 <Text size="sm" weight={600}>
-                    Fetching featured assets
+                  {t('blockchain:featured.fetching')}
                 </Text>
               </span>;
   } else if (!assets || assets && !assets.length) {
     response = <span>
                 <Text size="sm" weight={600}>
-                  An issue was encountered whilst fetching featured assets, please try again.
+                  {t('blockchain:featured.issue')}
                 </Text>
                 <Button onClick={() => refresh()}>
-                  Try again
+                  {t('blockchain:featured.retry')}
                 </Button>
                 <br/>
               </span>;
@@ -100,7 +101,7 @@ export default function Featured(properties) {
   return <Col span={12} key="Top">
             <Paper sx={{padding: '5px'}} shadow="xs">
                 <Text size="md">
-                  Featured NFTs
+                  {t('blockchain:featured.heading')}
                 </Text>
                 { response }
                 <br/>
@@ -110,7 +111,7 @@ export default function Featured(properties) {
                     back()
                   }}
                 >
-                  Go back
+                  {t('blockchain:featured.back')}
                 </Button>   
             </Paper>
           </Col>;

@@ -1,10 +1,11 @@
 
 import { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore, beetStore, translationStore } from '../../lib/states';
 import Accounts from "./Accounts";
 
 export default function SelectAsset(properties) {
+  const t= translationStore((state) => state.t);
   let setAsset = appStore((state) => state.setAsset);
   let setMode = appStore((state) => state.setMode);
   let changeURL = appStore((state) => state.changeURL);
@@ -56,7 +57,7 @@ export default function SelectAsset(properties) {
   if (!account) {
     topText = <span>
                 <Text size="lg">
-                  Lookup assets issued by an user
+                  {t('blockchain:selectAsset.lookup')}
                 </Text>
                 <Accounts />
               </span>;
@@ -64,25 +65,25 @@ export default function SelectAsset(properties) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="md">
-                  Retrieving info on your Bitshares account
+                  {t('blockchain:selectAsset.fetching')}
                 </Text>
               </span>;
   } else if (!assets.length) {
     topText = <span>
                 <Text size="md">
-                  No issued assets found
+                  {t('blockchain:selectAsset.noResultsHeader')}
                 </Text>
                 <Text size="sm" weight={600}>
-                  This Bitshares account hasn't issued any NFTs on the BTS DEX.
+                  {t('blockchain:selectAsset.noResultsDesc')}
                 </Text>
                 <Text size="sm" weight={500}>
-                  Note: Buying and owning an NFT on the BTS DEX doesn't automatically grant you NFT editing rights.
+                  {t('blockchain:selectAsset.notice')}
                 </Text>
               </span>
   } else {
     topText = <span>
                 <Text size="md">
-                  Select the NFT you wish to view
+                  {t('blockchain:selectAsset.selection')}
                 </Text>
               </span>
   }
@@ -123,7 +124,7 @@ export default function SelectAsset(properties) {
               increaseTries()
             }}
           >
-            Refresh
+            {t('blockchain:selectAsset.refresh')}
           </Button>
           <Button
             variant="light"
@@ -132,7 +133,7 @@ export default function SelectAsset(properties) {
               goBack()
             }}
           >
-            Back
+            {t('blockchain:selectAsset.back')}
           </Button>
         </Box>
       </Paper>

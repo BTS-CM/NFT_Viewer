@@ -1,7 +1,8 @@
 import { Loader, Box, Text, Col, Paper } from '@mantine/core';
-import { appStore } from '../../lib/states';
+import { appStore, translationStore } from '../../lib/states';
 
 export default function Offline(properties) {
+  const t= translationStore((state) => state.t);
   const setMode = appStore((state) => state.setMode);
 
   return (
@@ -10,7 +11,7 @@ export default function Offline(properties) {
         <Box mx="auto" sx={{padding: '10px'}}>
           <span>
             <Text size="md">
-              Finding fastest blockchain connection, please wait..
+              {t('setup:loading.message')}
             </Text>
             <Loader variant="dots" />
           </span>

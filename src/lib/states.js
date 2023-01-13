@@ -11,6 +11,28 @@ import {
   fetchDynamicData
 } from './queries';
 
+import locales from '../localization';
+
+const translationStore = create(
+  persist((set, get) => ({
+    t: null,
+    i18n: i18next.init(locales, (err, t) => {
+      if (err) {
+        console.log('something went wrong loading', err);
+        return;
+      };
+      console.log('loaded localization');
+      set({ t: t });
+    }),
+    changeLanguage: (lng) => {
+      const i18n = get().i18n;
+      i18n.changeLanguage(lng);
+      set({ i18n: i18n });
+    }
+  }))
+);
+
+
 const identitiesStore = create(
   persist((set, get) => ({
     identities: [],
@@ -333,5 +355,6 @@ const beetStore = create((set, get) => ({
 export {
   appStore,
   beetStore,
-  identitiesStore
+  identitiesStore,
+  translationStore
 };

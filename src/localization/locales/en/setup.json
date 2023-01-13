@@ -1,0 +1,44 @@
+{
+    "accountMode": {
+        "header": "For the account \"{{account}}\" what do you want to do?",
+        "balance": "View NFT portfolio",
+        "issued": "View issued NFTs",
+        "back": "Back",
+        "header2": "Please provide an account id/name:",
+        "chooseBEET": "Ask BEET",
+        "chooseSearch": "Lookup account manually",
+        "beetPrompt": "To continue please connect to Beet.",
+        "linkPrompt": "To continue please link with Beet.",
+        "waiting": "Waiting on user response from BEET client"
+    },
+    "environment": {
+        "header": "Which Bitshares blockchain do you want to use?",
+        "testnet": "Test network",
+        "production": "Main network"
+    },
+    "loading": {
+        "message": "Finding fastest blockchain connection, please wait.."
+    },
+    "mode": {
+        "header": "What do you want to do?",
+        "searchBtn": "Search for NFT",
+        "lookupBtn": "Lookup an account's NFTs",
+        "featuredBtn": "View featured NFTs",
+        "back": "Back"
+    },
+    "offline": {
+        "header": "You seem to be offline? Fix your network connection then try again.",
+        "exit": "Exit"
+    },
+    "settings": {
+        "remove": "Remove",
+        "settings": "Settings",
+        "linked": "Here are your currently linked acounts",
+        "notLinked": "Beet not linked.",
+        "back": "Back"
+    },
+    "app": {
+        "error": "An issue was encountered, reset and try again.",
+        "reset": "Reset app"
+    }
+}

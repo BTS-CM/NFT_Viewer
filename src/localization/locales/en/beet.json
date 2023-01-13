@@ -1,0 +1,41 @@
+{
+    "beetlink": {
+        "connected": "Connected to Beet wallet successfully.",
+        "linkPrompt": "Proceed with linking this app to your Beet wallet below.",
+        "linkButton": "Link to Beet",
+        "beetWait": "Waiting on response from BEET prompt",
+        "backButton": "Back"
+    },
+    "buy": {
+        "unavailable": "This NFT is not currently for sale.",
+        "buyPrompt": "How would you like to purchase this NFT?",
+        "beetBuy": "Buy via BEET wallet",
+        "qrCodes": "Using QR codes",
+        "beetConnect": "To continue purchase, connect to Beet.",
+        "beetLink": "To continue purchase, link with Beet.",
+        "beetWait": "Waiting on user response from BEET client.",
+        "buySuccess": "Successfully broadcast a buy limit order for the NFT \"{{boughtAsset}}\" in return for {{amountToSell}} {{soldAsset}}",
+        "viewPortfolio": "View portfolio",
+        "backButton": "Back",
+        "beetBuyPrompt": "Instruct BEET to purchase the NFT \"{{boughtAsset}}\" for {{amountToSell}} {{soldAsset}}?",
+        "confirmPurchase": "Yes",
+        "rejectPurchase": "No",
+        "generateQR": "Generate QR code",
+        "scanQR": "To buy this NFT scan the below QR code",
+        "waitQR": "Please wait whilst your QR code is generated"
+    },
+    "connect": {
+        "remove": "Remove",
+        "previousBEET": "Which previously linked BEET account do you want to use?",
+        "newBEET": "Want to use a different account?",
+        "newBtn": "Connect with new account",
+        "back": "Go back",
+        "beetHeader": "This tool is designed for use with the Bitshares BEET Wallet.",
+        "beetSubheading": "Launch and unlock it, then click the connect button below to proceed.",
+        "beetConnect": "Connect to Beet",
+        "btsPrompt": "Don't yet have the Bitshares BEET wallet installed? Follow the link below.",
+        "btsGuide": "Once installed, create a wallet and proceed to connect above.",
+        "beetDownload": "Download BEET",
+        "connecting": "Connecting to BEET"
+    }
+}

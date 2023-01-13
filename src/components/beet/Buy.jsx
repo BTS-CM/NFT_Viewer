@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Text, Col, Group, Loader } from '@mantine/core';
 import { QRCode } from 'react-qrcode-logo';
 
-import { appStore, beetStore } from '../../lib/states';
+import { appStore, beetStore, translationStore } from '../../lib/states';
 import { generateQRContents, purchaseNFT } from '../../lib/broadcasts';
 
 import Connect from "./Connect";
@@ -10,6 +10,7 @@ import BeetLink from "./BeetLink";
 import AccountSearch from "../blockchain/AccountSearch";
 
 export default function Buy(properties) {
+  const t= translationStore((state) => state.t);
   let connection = beetStore((state) => state.connection);
   let isLinked = beetStore((state) => state.isLinked);
   let identity = beetStore((state) => state.identity);
@@ -107,13 +108,13 @@ export default function Buy(properties) {
   if (!bids || !bids.length) {
     response = <span>
                   <Text size="md">
-                    This NFT is not currently for sale.
+                    {t('beet:buy.unavailable')}
                   </Text>
                 </span>;
   } else if (!chosen) {
     response = <span>
                   <Text size="md">
-                    Want to buy this NFT now?
+                    {t('beet:buy.buyPrompt')}
                   </Text>
                   <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                     <Button
@@ -123,7 +124,7 @@ export default function Buy(properties) {
                         setChosen('BEET');
                       }}
                     >
-                      Buy via BEET wallet
+                      {t('beet:buy.beetBuy')}
                     </Button>
                     <Button
                       sx={{m: 0.25}}
@@ -132,7 +133,7 @@ export default function Buy(properties) {
                         setChosen('QR');
                       }}
                     >
-                      Using QR codes
+                      {t('beet:buy.qrCodes')}
                     </Button>
                   </Group>
                 </span>;
@@ -140,14 +141,14 @@ export default function Buy(properties) {
     if (!connection) {
       response = <span>
                   <Text size="md">
-                    To continue purchase, connect to Beet.
+                    {t('beet:buy.beetConnect')}
                   </Text>
                   <Connect nftPage={true} backCallback={() => setChosen()} />
                 </span>
     } else if (!isLinked) {
       response = <span>
                   <Text size="md">
-                    To continue purchase, link with Beet.
+                    {t('beet:buy.beetLink')}
                   </Text>
                   <BeetLink />
                 </span>;
@@ -155,13 +156,13 @@ export default function Buy(properties) {
       response = <span>
                     <Loader variant="dots" />
                     <Text size="md">
-                      Waiting on user response from BEET client
+                      {t('beet:buy.beetWait')}
                     </Text>
                 </span>;
     } else if (bought) {
       response = <span>
                       <Text size="md">
-                        Successfully broadcast a buy limit order for the NFT "{boughtAsset}" in return for {amountToSell ?? '???'} {soldAsset ?? '???'}.
+                        {t('beet:buy.buySuccess', {boughtAsset, amountToSell, soldAsset})}
                       </Text>
                       <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                         <Button
@@ -170,7 +171,7 @@ export default function Buy(properties) {
                             goToBalance();
                           }}
                         >
-                          View portfolio
+                          {t('beet:buy.viewPortfolio')}
                         </Button>
                         <Button
                           variant="light" 
@@ -178,14 +179,14 @@ export default function Buy(properties) {
                             back()
                           }}
                         >
-                          Back
+                          {t('beet:buy.backButton')}
                         </Button>
                       </Group>
                   </span>;
     } else {
       response = <span>
                     <Text size="md">
-                      Instruct BEET to purchase the NFT "{boughtAsset}" for {amountToSell ?? '???'} {soldAsset ?? '???'}?
+                      {t('beet:buy.beetBuyPrompt')}
                     </Text>
                     <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                       <Button
@@ -194,7 +195,7 @@ export default function Buy(properties) {
                           attemptPurchase()
                         }}
                       >
-                        Yes
+                        {t('beet:buy.confirmPurchase')}
                       </Button>  
                       <Button
                       variant="light"
@@ -202,7 +203,7 @@ export default function Buy(properties) {
                           back()
                         }}
                       >
-                        No
+                        {t('beet:buy.rejectPurchase')}
                       </Button>
                     </Group>
                   </span>;
@@ -217,7 +218,7 @@ export default function Buy(properties) {
                         setChosen()
                       }}
                     >
-                      Back
+                      {t('beet:buy.backButton')}
                     </Button>
                   </span>
     } else {
@@ -230,7 +231,7 @@ export default function Buy(properties) {
                           generateContents()
                         }}
                       >
-                        Generate QR code
+                        {t('beet:buy.generateQR')}
                       </Button>
                       <Button
                         variant="light"
@@ -238,14 +239,14 @@ export default function Buy(properties) {
                           setChosen()
                         }}
                       >
-                        Back
+                        {t('beet:buy.backButton')}
                       </Button>
                     </Group>
                   </span>;
       } else if (qrContents) {
         response = <span>
                     <Text size="md">
-                      To buy this NFT scan the below QR code
+                      {t('beet:buy.scanQR')}
                     </Text>
                     <QRCode
                       value={JSON.stringify(qrContents)}
@@ -261,13 +262,13 @@ export default function Buy(properties) {
                         setChosen()
                       }}
                     >
-                      Back
+                      {t('beet:buy.backButton')}
                     </Button>
                   </span>;
       } else if (inProgress) {
         response = <span>
                     <Text size="md">
-                      Please wait whilst your QR code is generated
+                      {t('beet:buy.waitQR')}
                     </Text>
                     <Loader variant="dots" />
                   </span>;

@@ -1,0 +1,94 @@
+{
+    "issuerDetails": {
+        "tooltip1": "Asset ownership has been 'burned' by being sent to 'null-account'; this NFT's settings are now final.",
+        "tooltip2": "Warning: Asset ownership has not been transfered to 'null-account' yet; the settings and quantity issued could change after purchase.",
+        "issuer": "Issuer"
+    },
+    "nft": {
+        "by": " by ",
+        "back": "Go back",
+        "tabs": {
+            "nft": "NFT",
+            "asset": "Asset",
+            "tags": "Tags",
+            "buy": "Buy",
+            "flags": "Flags",
+            "permissions": "Permissions",
+            "signature": "Signature",
+            "license": "License",
+            "json": "JSON"
+        },
+        "nft": {
+            "attestation": "Attestation",
+            "narrative": "Narrative",
+            "acknowledgements": "Acknowledgments"
+        },
+        "asset": {
+            "name": "Name: {{name}}",
+            "filetype": "File type: {{filetype}}",
+            "onChain": "on chain",
+            "offChain": "off chain",
+            "encoding": "Encoding: {{encoding}}",
+            "precision0": "With a precision of 0, '{{short_name}}' is a non-fungible token!",
+            "precision1": "Due to not having a precision of 0, this is a fungible token.",
+            "precisionVal": "Precision: {{precision}}"
+        },
+        "tags": {
+            "noTags": "No topic/interest tags",
+            "noFlags": "No NFT tags"
+        },
+        "buy": {
+            "buyHeader": "This NFT can be traded/transfered using the following Bitshares DEX wallets",
+            "desktopTooltip": "Within the desktop app search for the asset '{{symbol}}'",
+            "desktopApp": "Desktop app",
+            "explorerHeader": "View this NFT on the following explorers:"
+        },
+        "flags": {
+            "none": "No flags are currently enabled."
+        },
+        "permissions": {
+            "permissionTips": {
+                "enabled": {
+                    "charge_market_fee" : "Aktivudstederen kan aktivere markedsgebyrer.",
+                    "white_list" : "Atudstederen kan oprette en liste over godkendte markeder",
+                    "override_authority" : "Atudstederen kan overføre denne NFT tilbage til sig selv.",
+                    "transfer_restricted" : "Dette aktiv må kun overføres til/fra udstederen eller markedsordrer",
+                    "disable_force_settle": "Brugere kan anmode om tvangsafregning af dette markedsudstedte aktiv.",
+                    "global_settle": "Udstederen af ​​dette markedsudstedte aktiv har mulighed for at afvikle aktivet globalt",
+                    "disable_confidential": "Udstederen af ​​dette aktiv kan deaktivere stealth-transaktioner.",
+                    "witness_fed_asset": "Dette markedsudstedte aktiv kan få sine prisfeeds leveret af Bitshares vidner.",
+                    "committee_fed_asset": "Dette markedsudstedte aktiv kan få sine prisfeeds leveret af Bitshares udvalgsmedlemmer."
+                },
+                "disabled": {
+                    "charge_market_fee" : "Der kan ikke opkræves nogen markedsgebyrer for dette aktiv; kun BTS-gebyrer vil blive påkrævet.",
+                    "white_list" : "Der er ingen godkendt liste over markeder for dette aktiv. Du er velkommen til at bytte det for noget på Bitshares decentraliserede børs.",
+                    "override_authority" : "Atudstederen er ikke i stand til at overføre denne NFT tilbage til sig selv.",
+                    "transfer_restricted" : "Dette aktivs overførsler er ubegrænsede.",
+                    "disable_force_settle": "Dette aktiv kan ikke tvangsafregnes.",
+                    "global_settle": "Dette aktiv kan ikke afregnes globalt.",
+                    "disable_confidential": "Fortrolige transaktioner af dette aktiv er permanent mulige.",
+                    "witness_fed_asset": "Vidnerne kan ikke give en pris for dette aktiv.",
+                    "committee_fed_asset": "Komitéen kan ikke give en pris for dette aktiv."
+                }
+            },
+            "none": "All permissions have been disabled."
+        },
+        "signature": {
+            "address": "Pubkey or address",
+            "label": "NFT Signature",
+            "pwd": "password multihash"
+        },
+        "license": {
+            "header1": "License:",
+            "header2": "Holder license:",
+            "noLicense": "The license under which this NFT has been released has not been provied.",
+            "noHoldLicense": "Holder license information has not been provided."
+        },
+        "json": {
+            "label": "NFT JSON",
+            "copy": "Copy",
+            "copied": "Copied"
+        }
+    },
+    "quantity": "Quantity"
+}

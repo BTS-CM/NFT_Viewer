@@ -14,11 +14,12 @@ import {
   SimpleGrid
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconAlertCircle } from '@tabler/icons';
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
 import { accountSearch } from '../../lib/queries';
 
 export default function AccountSearch(properties) {
   const theme = useMantineTheme();
+  const t= translationStore((state) => state.t);
 
   let setAccount = appStore((state) => state.setAccount);
   let nodes = appStore((state) => state.nodes);
@@ -70,26 +71,26 @@ export default function AccountSearch(properties) {
   if (!searchInput || !attempted) {
     topText = <span>
                 <Text size="md">
-                  Enter your blockchain account ID/name to proceed
+                  {t('blockchain:accountSearch.inputPrompt')}
                 </Text>
               </span>
   } else if (inProgress) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="md">
-                  Looking up account
+                  {t('blockchain:accounts.fetchingAccount')}
                 </Text>
               </span>;
   } else if (!inProgress && !result && attempted) {
     topText = <span>
                 <Text size="md">
-                  No such account could be found, check input and try again.
+                  {t('blockchain:accounts.noAccount')}
                 </Text>
               </span>
   } else if (attempted && result) {
     topText = <span>
                 <Text size="md">
-                  Search results
+                  {t('blockchain:accounts.searchResults')}
                 </Text>
               </span>
   }
@@ -98,7 +99,7 @@ export default function AccountSearch(properties) {
     return <span>
             <Loader variant="dots" />
             <Text size="md">
-              Loading...
+              {t('blockchain:accounts.loading')}
             </Text>
           </span>
   }
@@ -133,7 +134,7 @@ export default function AccountSearch(properties) {
                         <IconArrowRight size={18} stroke={1.5} />
                     </ActionIcon>
                   }
-                  placeholder="Account ID (e.g. 1.2.0)"
+                  placeholder={t('blockchain:accounts.accountID')}
                   rightSectionWidth={42}
                 />
               : null

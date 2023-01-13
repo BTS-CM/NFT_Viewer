@@ -13,10 +13,11 @@ import {
   SimpleGrid
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons';
-import { appStore } from '../../lib/states';
+import { appStore, translationStore } from '../../lib/states';
 
 
 export default function Search(properties) {
+  const t= translationStore((state) => state.t);
   const theme = useMantineTheme();
 
   let assets = appStore((state) => state.assets);
@@ -66,25 +67,25 @@ export default function Search(properties) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="md">
-                  Searching
+                  {t('blockchain:search.inProgress')}
                 </Text>
               </span>;
   } else if (!assets) {
     topText = <span>
                 <Text size="md">
-                  Search for NFTs
+                  {t('blockchain:search.searchPrompt')}
                 </Text>
               </span>
   } else if (!inProgress && !assets.length) {
     topText = <span>
                 <Text size="md">
-                  No search results for input
+                  {t('blockchain:search.noResults')}
                 </Text>
               </span>
   } else {
     topText = <span>
                 <Text size="md">
-                  NFT search results
+                  {t('blockchain:search.resultHeader')}
                 </Text>
               </span>
   }
@@ -150,7 +151,7 @@ export default function Search(properties) {
               back()
             }}
           >
-            Back
+            {t('blockchain:search.back')}
           </Button>
         </Box>
       </Paper>

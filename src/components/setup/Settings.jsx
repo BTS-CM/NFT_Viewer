@@ -1,7 +1,8 @@
 import { Button, Badge, Box, Text, Col, Paper, ScrollArea, Table } from '@mantine/core';
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
 
 export default function Mode(properties) {
+  const t= translationStore((state) => state.t);
   const setMode = appStore((state) => state.setMode); 
   const environment = appStore((state) => state.environment); 
   const identities = identitiesStore((state) => state.identities);
@@ -36,7 +37,7 @@ export default function Mode(properties) {
                     remove(row)
                   }}
                 >
-                  Remove
+                  {t('setup:settings.remove')}
                 </Button>
               </td>
             </tr>)
@@ -51,7 +52,7 @@ export default function Mode(properties) {
     <Col span={12}>
       <Paper padding="sm" shadow="xs">
             <Text size="md">
-              Settings
+              {t('setup:settings.settings')}
             </Text>
 
             <Paper padding="sm" shadow="xs">
@@ -59,7 +60,7 @@ export default function Mode(properties) {
                   identities && identities.length
                     ? <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
                         <Text size="md">
-                          Here are your currently linked acounts
+                          {t('setup:settings.linked')}
                         </Text>
                         <ScrollArea sx={{ height: rows.length > 1 && rows.length < 3 ? rows.length * 55 : 120 }}>
                           <Table sx={{ minWidth: 700 }}>
@@ -71,7 +72,7 @@ export default function Mode(properties) {
                       </Box>
                     : <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
                         <Text size="md">
-                          Beet not linked.
+                          {t('setup:settings.notLinked')}
                         </Text>
                       </Box>                     
                 }
@@ -82,7 +83,7 @@ export default function Mode(properties) {
                     back()
                   }}
                 >
-                  Back
+                  {t('setup:settings.back')}
                 </Button>
             </Paper>
       </Paper>

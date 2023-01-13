@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Button, Box, Text, Loader, Col, Paper, SimpleGrid } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore, beetStore, translationStore } from '../../lib/states';
 
 import Accounts from "./Accounts";
 
 export default function Portfolio(properties) {
+  const t= translationStore((state) => state.t);
   let environment = appStore((state) => state.environment);
   let assets = appStore((state) => state.assets);
   let account = appStore((state) => state.account);
@@ -63,19 +64,19 @@ export default function Portfolio(properties) {
     topText = <span>
                 <Loader variant="dots" />
                 <Text size="sm" weight={600}>
-                    Checking your Bitshares {environment !== 'production' ? 'testnet' : null} account...
+                  {t('blockchain:portfolio.checkingAccount', {environment: environment !== 'production' ? 'testnet' : ''})}
                 </Text>
               </span>;
   } else if (!assets.length) {
     topText = <span>
                 <Text size="sm" weight={600}>
-                    You don't seem to have any NFTs in your portfolio yet.
+                  {t('blockchain:portfolio.emptyPortfolio')}
                 </Text>
               </span>;
   } else {
     topText = <span>
                 <Text size="sm" weight={600}>
-                    Your portfolio contains the following NFTs
+                  {t('blockchain:portfolio.header')}
                 </Text>
                 <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
                   {
@@ -106,7 +107,7 @@ export default function Portfolio(properties) {
                       increaseTries()
                     }}
                   >
-                    Refresh portfolio
+                    {t('blockchain:portfolio.refresh')}
                   </Button>
                 </span>;
   }
@@ -128,7 +129,7 @@ export default function Portfolio(properties) {
               back()
             }}
           >
-            Back
+            {t('blockchain:portfolio.back')}
           </Button>
         </Box>
       </Paper>

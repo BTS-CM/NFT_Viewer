@@ -2,9 +2,10 @@ import { Carousel } from '@mantine/carousel';
 import { Image, Box, Paper, Container, Card, Center } from '@mantine/core';
 import { useId } from '@mantine/hooks';
 
-import { appStore } from '../../lib/states';
+import { appStore, translationStore } from '../../lib/states';
 
 export default function Media(properties) {
+  const t= translationStore((state) => state.t);
   let asset_images = appStore((state) => state.asset_images);
   let ipfsGateway = appStore((state) => state.ipfsGateway);
   

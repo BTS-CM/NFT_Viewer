@@ -1,0 +1,48 @@
+{
+    "accounts": {
+        "enterID": "Enter an account ID to proceed",
+        "fetchingAccount": "Looking up account",
+        "noAccount": "No such account could be found, check input and try again.",
+        "searchResults": "Search results",
+        "loading": "Loading...",
+        "invalidID": "Invalid Account ID - It must begin with '1.2.' and end in a number.",
+        "accountID": "Account ID (e.g. 1.2.0)",
+        "existingID": "Proceed with an existing account ID from linked Beet account?",
+        "beetReq": "Fetch account ID from Beet wallet",
+        "beetLinked": "Proceed with your Beet linked account"
+    },
+    "accountSearch": {
+        "inputPrompt": "Enter your blockchain account ID/name to proceed"
+    },
+    "featured": {
+        "fetching": "Fetching featured assets",
+        "issue": "An issue was encountered whilst fetching featured assets, please try again.",
+        "retry": "Try again",
+        "heading": "Featured NFTs",
+        "back": "Go back"
+    },
+    "portfolio": {
+        "checkingAccount": "Checking your Bitshares {{environment}} account...",
+        "emptyPortfolio": "You don't seem to have any NFTs in your portfolio yet.",
+        "header": "Your portfolio contains the following NFTs",
+        "refresh": "Refresh portfolio",
+        "back": "Back"
+    },
+    "search": {
+        "inProgress": "Searching",
+        "searchPrompt": "Search for NFTs",
+        "noResults": "No search results for input",
+        "resultHeader": "NFT search results",
+        "back": "Back"
+    },
+    "selectAsset": {
+        "lookup": "Lookup assets issued by an user",
+        "fetching": "Retrieving info on your Bitshares account",
+        "noResultsHeader": "No issued assets found",
+        "noResultsDesc": "This Bitshares account hasn't issued any NFTs on the BTS DEX.",
+        "notice": "Note: Buying and owning an NFT on the BTS DEX doesn't automatically grant you NFT editing rights.",
+        "selection": "Select the NFT you wish to view",
+        "back": "Back",
+        "refresh": "Refresh"
+    }
+}

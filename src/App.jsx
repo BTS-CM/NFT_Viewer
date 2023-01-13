@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-import { Text, Container, Center, Group, Grid, Col, Paper, Button, Divider, Image } from '@mantine/core'
-import { appStore, beetStore, identitiesStore } from './lib/states';
+import { Text, Container, Grid, Col, Button, Divider, Image } from '@mantine/core';
+import { appStore, beetStore, identitiesStore, translationStore } from './lib/states';
 
 import Mode from "./components/setup/Mode";
 import Environment from "./components/setup/Environment";
 import Settings from "./components/setup/Settings";
-
-import Connect from "./components/beet/Connect";
-import BeetLink from "./components/beet/BeetLink";
-import Buy from "./components/beet/Buy";
 
 import SelectAsset from "./components/blockchain/SelectAsset";
 import Search from "./components/blockchain/Search";
@@ -44,6 +40,8 @@ function App() {
   let resetApp = appStore((state) => state.reset);
   let resetBeet = beetStore((state) => state.reset);
   let resetNodes = appStore((state) => state.reset);
+
+  let t = translationStore((state) => state.t);
 
   function openSettings() {
     setMode('settings');
@@ -126,7 +124,9 @@ function App() {
     // An NFT has been selected
     initPrompt = <NFT />
   } else {
-    initPrompt = <Text size="md">An issue was encountered, reset and try again.</Text>
+    initPrompt = <Text size="md">
+                  {t('setup:app.error')}
+                 </Text>
   }
 
   useEffect(() => {
@@ -181,7 +181,7 @@ function App() {
                           openSettings()
                         }}
                       >
-                        Settings
+                        {t('setup:settings.settings')}
                       </Button>
                     : null
                 }
@@ -195,7 +195,7 @@ function App() {
                         reset()
                       }}
                     >
-                      Reset app
+                      {t('setup:app.reset')}
                     </Button>
                   : null
                 }

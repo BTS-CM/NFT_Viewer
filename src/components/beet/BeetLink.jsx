@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, Group, Box, Text, Divider, Loader, Col, Paper,
 } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore, beetStore, translationStore } from '../../lib/states';
 
 export default function BeetLink(properties) {
+  const t= translationStore((state) => state.t);
   const environment = appStore((state) => state.environment);
   const setMode = appStore((state) => state.setMode);
 
@@ -37,21 +38,27 @@ export default function BeetLink(properties) {
 
   const linkContents = inProgress === false ? (
     <span>
-      <Text size="md">Connected to Beet wallet successfully.</Text>
-      <Text size="md">Proceed with linking this app to your Beet wallet below.</Text>
+      <Text size="md">
+        {t('beet:beetlink.connected')}
+      </Text>
+      <Text size="md">
+        {t('beet:beetlink.linkPrompt')}
+      </Text>
       <Button
         sx={{ marginTop: '15px', marginRight: '5px' }}
         onClick={() => {
           _linkToBeet();
         }}
       >
-        Link to Beet
+        {t('beet:beetlink.linkButton')}
       </Button>
     </span>
   ) : (
     <span>
       <Loader variant="dots" />
-      <Text size="md">Waiting on response from BEET prompt</Text>
+      <Text size="md">
+        {t('beet:beetlink.beetWait')}
+      </Text>
     </span>
   );
 
@@ -66,7 +73,7 @@ export default function BeetLink(properties) {
               back();
             }}
           >
-            Back
+            {t('beet:beetlink.backButton')}
           </Button>
         </Box>
       </Paper>

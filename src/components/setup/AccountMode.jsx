@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Button, Box, Text, Col, Paper, Group, Divider } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
+import { appStore, beetStore, translationStore } from '../../lib/states';
 
 import Connect from "../beet/Connect";
 import BeetLink from "../beet/BeetLink";
 import AccountSearch from "../blockchain/AccountSearch";
 
 export default function AccountMode(properties) {
+  const t= translationStore((state) => state.t);
   const setMode = appStore((state) => state.setMode); 
   const setAccount = appStore((state) => state.setAccount); 
   const setNodes = appStore((state) => state.setNodes);
@@ -36,7 +37,7 @@ export default function AccountMode(properties) {
 
   const prompt = <span>
                     <Text size="md">
-                      For the account "{account ?? '???'}" what do you want to do?
+                      {t('setup:accountMode.header', {account: account ?? '???'})}
                     </Text>
                     <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                       <Button
@@ -46,7 +47,7 @@ export default function AccountMode(properties) {
                           setMode('balance');
                         }}
                       >
-                        View NFT portfolio
+                        {t('setup:accountMode.balance')}
                       </Button>
                       <Button
                         variant="outline"
@@ -55,7 +56,7 @@ export default function AccountMode(properties) {
                           setMode('issued');
                         }}
                       >
-                        View issued NFTs
+                        {t('setup:accountMode.issued')}
                       </Button>
                     </Group>
                     <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
@@ -65,7 +66,7 @@ export default function AccountMode(properties) {
                           backCallback()
                         }}
                       >
-                        Back
+                        {t('setup:accountMode.back')}
                       </Button>
                     </Group>
                   </span>;
@@ -74,7 +75,8 @@ export default function AccountMode(properties) {
   if (!chosen) {
     response = <span>
                   <Text size="md">
-                    Please provide an account id/name:
+                    {t('setup:accountMode.header2')}
+                    
                   </Text>
                   <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                     <Button
@@ -84,7 +86,7 @@ export default function AccountMode(properties) {
                         setChosen('BEET');
                       }}
                     >
-                      Ask BEET
+                      {t('setup:accountMode.chooseBEET')}
                     </Button>
                     <Button
                       sx={{m: 0.25}}
@@ -95,7 +97,7 @@ export default function AccountMode(properties) {
                         reset();
                       }}
                     >
-                      Lookup account manually
+                      {t('setup:accountMode.chooseSearch')}
                     </Button>
                   </Group>
                   <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
@@ -105,7 +107,7 @@ export default function AccountMode(properties) {
                         backCallback()
                       }}
                     >
-                      Back
+                      {t('setup:accountMode.back')}
                     </Button>
                   </Group>
                 </span>;
@@ -113,14 +115,14 @@ export default function AccountMode(properties) {
     if (!connection) {
       response = <span>
                   <Text size="md">
-                    To continue please connect to Beet.
+                    {t('setup:accountMode.beetPrompt')}
                   </Text>
                   <Connect nftPage={false} backCallback={() => setChosen()} />
                 </span>
     } else if (!isLinked) {
       response = <span>
                   <Text size="md">
-                    To continue please link with Beet.
+                    {t('setup:accountMode.linkPrompt')}
                   </Text>
                   <BeetLink />
                 </span>;
@@ -128,7 +130,7 @@ export default function AccountMode(properties) {
       response = <span>
                     <Loader variant="dots" />
                     <Text size="md">
-                      Waiting on user response from BEET client
+                      {t('setup:accountMode.waiting')}
                     </Text>
                 </span>;
     } else {
@@ -143,7 +145,7 @@ export default function AccountMode(properties) {
                       setChosen()
                     }}
                   >
-                    Back
+                    {t('setup:accountMode.back')}
                   </Button>
                 </span>
     } else {
