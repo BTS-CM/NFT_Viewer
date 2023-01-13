@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import { connect, checkBeet, link } from 'beet-js';

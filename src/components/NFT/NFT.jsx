@@ -30,11 +30,16 @@ export default function NFT(properties) {
   const t= translationStore((state) => state.t);
   let asset = appStore((state) => state.asset);
 
+  let setAccount = appStore((state) => state.setAccount);
+  let resetBeet = beetStore((state) => state.reset);
+
   let back = appStore((state) => state.back);
   let environment = appStore((state) => state.environment);
   let setMode = appStore((state) => state.setMode);
 
   function goBack() {
+    setAccount();
+    resetBeet();
     back();
   }
 
