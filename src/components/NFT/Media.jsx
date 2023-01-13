@@ -1,11 +1,12 @@
+import React from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Image, Box, Paper, Container, Card, Center } from '@mantine/core';
 import { useId } from '@mantine/hooks';
-
-import { appStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+import { appStore } from '../../lib/states';
 
 export default function Media(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let asset_images = appStore((state) => state.asset_images);
   let ipfsGateway = appStore((state) => state.ipfsGateway);
   

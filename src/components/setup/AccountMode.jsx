@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Box, Text, Col, Paper, Group, Divider } from '@mantine/core';
-import { appStore, beetStore, translationStore } from '../../lib/states';
-
+import { useTranslation } from 'react-i18next';
+import { appStore, beetStore } from '../../lib/states';
 import Connect from "../beet/Connect";
 import BeetLink from "../beet/BeetLink";
 import AccountSearch from "../blockchain/AccountSearch";
 
 export default function AccountMode(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   const setMode = appStore((state) => state.setMode); 
   const setAccount = appStore((state) => state.setAccount); 
   const setNodes = appStore((state) => state.setNodes);

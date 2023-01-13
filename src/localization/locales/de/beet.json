@@ -1,0 +1,41 @@
+{
+    "beetlink": {
+        "connected": "Erfolgreich mit Beet Wallet verbunden.",
+        "linkPrompt": "Fahren Sie fort, indem Sie diese App unten mit Ihrer Beet-Wallet verknüpfen.",
+        "linkButton": "Link zu Rübe",
+        "beetWait": "Warten auf Antwort von der BEET-Eingabeaufforderung",
+        "backButton": "Der Rücken"
+    },
+    "buy": {
+        "unavailable": "Dieses NFT steht derzeit nicht zum Verkauf.",
+        "buyPrompt": "Wie möchten Sie dieses NFT kaufen?",
+        "beetBuy": "Kaufen Sie über BEET Wallet",
+        "qrCodes": "Verwendung von QR-Codes",
+        "beetConnect": "Um den Kauf fortzusetzen, verbinden Sie sich mit Beet.",
+        "beetLink": "Um den Kauf fortzusetzen, verknüpfen Sie mit Beet.",
+        "beetWait": "Warten auf Benutzerantwort vom BEET-Client.",
+        "buySuccess": "Senden Sie erfolgreich eine Buy-Limit-Order für die NFT \"{{boughtAsset}}\" im Gegenzug für {{amountToSell}} {{soldAsset}}",
+        "viewPortfolio": "Portfolio ansehen",
+        "backButton": "Der Rücken",
+        "beetBuyPrompt": "Beauftragen Sie BEET mit dem Kauf des NFT \"{{boughtAsset}}\" Pro {{amountToSell}} {{soldAsset}}?",
+        "confirmPurchase": "Ja",
+        "rejectPurchase": "Nein",
+        "generateQR": "QR-Code generieren",
+        "scanQR": "Um dieses NFT zu kaufen, scannen Sie den untenstehenden QR-Code",
+        "waitQR": "Bitte warten Sie, während Ihr QR-Code generiert wird"
+    },
+    "connect": {
+        "remove": "Entfernen",
+        "previousBEET": "Welches zuvor verknüpfte BEET-Konto möchten Sie verwenden?",
+        "newBEET": "Möchten Sie ein anderes Konto verwenden?",
+        "newBtn": "Mit neuem Konto verbinden",
+        "back": "Geh zurück",
+        "beetHeader": "Dieses Tool ist für die Verwendung mit dem Bitshares BEET Wallet konzipiert.",
+        "beetSubheading": "Starten und entsperren Sie es und klicken Sie dann unten auf die Schaltfläche „Verbinden“, um fortzufahren.",
+        "beetConnect": "Verbinden Sie sich mit Rübe",
+        "btsPrompt": "Du hast das Bitshares BEET Wallet noch nicht installiert? ",
+        "btsGuide": "Erstellen Sie nach der Installation eine Brieftasche und fahren Sie fort, um sich oben zu verbinden.",
+        "beetDownload": "Rübe herunterladen",
+        "connecting": "Verbindung zu BEET"
+    }
+  }

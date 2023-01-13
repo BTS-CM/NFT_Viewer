@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Box, Text, Col, Group, Paper } from '@mantine/core';
-import { appStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+import { appStore } from '../../lib/states';
 
 export default function Mode(properties) {
-  const t= translationStore((state) => state.t);
+
+
+
+  const { t, i18n } = useTranslation();
   const setMode = appStore((state) => state.setMode); 
   const setNodes = appStore((state) => state.setNodes);
 

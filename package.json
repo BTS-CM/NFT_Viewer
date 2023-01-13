@@ -67,12 +67,13 @@
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^12.1.4",
     "react-qrcode-logo": "^2.8.0",
     "simple-websocket": "^9.1.0",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.5",
     "vite": "^3.1.8",
-    "zustand": "^4.1.2"
+    "zustand": "^4.3.1"
   },
   "devDependencies": {
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",

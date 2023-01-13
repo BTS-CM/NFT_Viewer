@@ -1,13 +1,37 @@
-import { Button, Badge, Box, Text, Col, Paper, ScrollArea, Table } from '@mantine/core';
-import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
+import React from 'react';
+import { Button, Select, Badge, Box, Text, Col, Paper, ScrollArea, Table } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
+import { appStore, beetStore, identitiesStore, localePreferenceStore } from '../../lib/states';
 
 export default function Mode(properties) {
-  const t= translationStore((state) => state.t);
   const setMode = appStore((state) => state.setMode); 
   const environment = appStore((state) => state.environment); 
   const identities = identitiesStore((state) => state.identities);
   const removeIdentity = identitiesStore((state) => state.removeIdentity);
   const reset = beetStore((state) => state.reset);
+
+  const changeLocale = localePreferenceStore((state) => state.changeLocale);
+
+  const { t, i18n } = useTranslation();
+
+  /**
+   * Set the i18n locale
+   * @param {String} newLocale 
+   */
+  function setLanguage(newLocale) {
+    try {
+      i18n.changeLanguage(newLocale);
+    } catch (error) {
+      console.log(error)
+      return;
+    }
+
+    try {
+      changeLocale(newLocale);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   /**
    * Removing a previously linked identity from the identity store
@@ -51,41 +75,53 @@ export default function Mode(properties) {
   return (
     <Col span={12}>
       <Paper padding="sm" shadow="xs">
-            <Text size="md">
-              {t('setup:settings.settings')}
-            </Text>
+        <Text size="md">
+          {t('setup:settings.settings')}
+        </Text>
 
-            <Paper padding="sm" shadow="xs">
-                {
-                  identities && identities.length
-                    ? <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
-                        <Text size="md">
-                          {t('setup:settings.linked')}
-                        </Text>
-                        <ScrollArea sx={{ height: rows.length > 1 && rows.length < 3 ? rows.length * 55 : 120 }}>
-                          <Table sx={{ minWidth: 700 }}>
-                            <tbody>
-                              {rows}
-                            </tbody>
-                          </Table>
-                        </ScrollArea>
-                      </Box>
-                    : <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
-                        <Text size="md">
-                          {t('setup:settings.notLinked')}
-                        </Text>
-                      </Box>                     
-                }
-                <Button
-                  sx={{marginBottom: '15px'}}
-                  variant="subtle" color="red" compact
-                  onClick={() => {
-                    back()
-                  }}
-                >
-                  {t('setup:settings.back')}
-                </Button>
-            </Paper>
+        {
+          identities && identities.length
+            ? <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
+                <Text size="md">
+                  {t('setup:settings.linked')}
+                </Text>
+                <ScrollArea sx={{ height: rows.length > 1 && rows.length < 3 ? rows.length * 55 : 120 }}>
+                  <Table sx={{ minWidth: 700 }}>
+                    <tbody>
+                      {rows}
+                    </tbody>
+                  </Table>
+                </ScrollArea>
+              </Box>
+            : <Box mx="auto" sx={{padding: '10px', paddingTop: '10px'}}>
+                <Text size="md">
+                  {t('setup:settings.notLinked')}
+                </Text>
+              </Box>                     
+        }
+        <br/>
+        <Select
+          label={t('setup:settings.language')}
+          placeholder="Pick one"
+          onChange={(value) => {
+            setLanguage(value)
+          }}
+          sx={{paddingLeft: '150px', maxWidth: '400px'}}
+          data={[
+            { value: 'en', label: 'English' },
+            { value: 'de', label: 'Deutsche' }
+          ]}
+        />
+        <br/>
+        <Button
+          sx={{marginBottom: '15px'}}
+          variant="light"
+          onClick={() => {
+            back()
+          }}
+        >
+          {t('setup:settings.back')}
+        </Button>
       </Paper>
     </Col>
   );

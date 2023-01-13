@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { 
   TextInput,
   ActionIcon,
@@ -14,12 +14,14 @@ import {
   SimpleGrid
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconAlertCircle } from '@tabler/icons';
-import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+
+import { appStore, beetStore, identitiesStore } from '../../lib/states';
 import { accountSearch } from '../../lib/queries';
 
 export default function AccountSearch(properties) {
   const theme = useMantineTheme();
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
 
   let setAccount = appStore((state) => state.setAccount);
   let nodes = appStore((state) => state.nodes);

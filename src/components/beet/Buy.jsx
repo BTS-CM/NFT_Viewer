@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Text, Col, Group, Loader } from '@mantine/core';
 import { QRCode } from 'react-qrcode-logo';
+import { useTranslation } from 'react-i18next';
 
-import { appStore, beetStore, translationStore } from '../../lib/states';
+import { appStore, beetStore } from '../../lib/states';
 import { generateQRContents, purchaseNFT } from '../../lib/broadcasts';
 
 import Connect from "./Connect";
@@ -10,7 +11,7 @@ import BeetLink from "./BeetLink";
 import AccountSearch from "../blockchain/AccountSearch";
 
 export default function Buy(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let connection = beetStore((state) => state.connection);
   let isLinked = beetStore((state) => state.isLinked);
   let identity = beetStore((state) => state.identity);

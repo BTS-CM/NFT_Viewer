@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Text, Container, Grid, Col, Button, Divider, Image } from '@mantine/core';
-import { appStore, beetStore, identitiesStore, translationStore } from './lib/states';
+import { appStore, beetStore, identitiesStore } from './lib/states';
+
 
 import Mode from "./components/setup/Mode";
 import Environment from "./components/setup/Environment";
@@ -14,7 +15,7 @@ import NFT from "./components/NFT/NFT";
 import Loading from "./components/setup/Loading";
 import AccountMode from "./components/setup/AccountMode";
 import Offline from "./components/setup/Offline";
-
+import { useTranslation } from 'react-i18next';
 import './App.css'
 
 function openURL() {
@@ -22,6 +23,7 @@ function openURL() {
 }
 
 function App() {
+  const { t, i18n } = useTranslation();
   let environment = appStore((state) => state.environment);
   let mode = appStore((state) => state.mode);
   let asset = appStore((state) => state.asset);
@@ -40,8 +42,6 @@ function App() {
   let resetApp = appStore((state) => state.reset);
   let resetBeet = beetStore((state) => state.reset);
   let resetNodes = appStore((state) => state.reset);
-
-  let t = translationStore((state) => state.t);
 
   function openSettings() {
     setMode('settings');

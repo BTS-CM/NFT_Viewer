@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   TextInput,
   Checkbox,
@@ -19,15 +20,16 @@ import {
   Textarea,
   Code
 } from '@mantine/core';
-import { appStore, beetStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
 
+import { appStore, beetStore } from '../../lib/states';
 import IssuerDetails from './IssuerDetails';
 import Quantity from './Quantity';
 import Media from './Media';
 import Buy from "../beet/Buy";
 
 export default function NFT(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let asset = appStore((state) => state.asset);
 
   let setAccount = appStore((state) => state.setAccount);

@@ -9,14 +9,16 @@ import {
   Col,
   Paper,
 } from '@mantine/core';
-import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+
+import { appStore, beetStore, identitiesStore } from '../../lib/states';
 
 export default function Connect(properties) {
   let lite = properties.lite ?? null;
   let nftPage = properties.nftPage ?? null;
   let backCallback = properties.backCallback ?? null;
   
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   
   const connect = beetStore((state) => state.connect);
   const setIdentity = beetStore((state) => state.setIdentity);

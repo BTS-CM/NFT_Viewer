@@ -1,11 +1,14 @@
+import React from 'react';
 import {
   Tooltip,
   Badge
 } from '@mantine/core';
-import { appStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+
+import { appStore } from '../../lib/states';
 
 export default function IssuerDetails(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let asset_issuer = appStore((state) => state.asset_issuer);
 
   return (

@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   TextInput,
   ActionIcon,
@@ -14,7 +14,9 @@ import {
   SimpleGrid
 } from '@mantine/core';
 import { IconSearch, IconArrowRight, IconAlertCircle } from '@tabler/icons';
-import { appStore, beetStore, identitiesStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+
+import { appStore, beetStore, identitiesStore } from '../../lib/states';
 import { fetchObject } from '../../lib/queries';
 
 import Connect from '../beet/Connect'
@@ -22,7 +24,7 @@ import BeetLink from '../beet/BeetLink'
 
 export default function Accounts(properties) {
   const theme = useMantineTheme();
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
 
   let identities = identitiesStore((state) => state.identities);
   let setAccount = appStore((state) => state.setAccount);

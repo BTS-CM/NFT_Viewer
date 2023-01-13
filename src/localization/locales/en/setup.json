@@ -35,7 +35,8 @@
         "settings": "Settings",
         "linked": "Here are your currently linked acounts",
         "notLinked": "Beet not linked.",
-        "back": "Back"
+        "back": "Back",
+        "language": "Change language?"
     },
     "app": {
         "error": "An issue was encountered, reset and try again.",

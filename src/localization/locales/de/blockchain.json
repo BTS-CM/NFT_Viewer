@@ -1,0 +1,48 @@
+{
+    "accounts": {
+        "enterID": "Geben Sie eine Konto-ID ein, um fortzufahren",
+        "fetchingAccount": "Konto nachschlagen",
+        "noAccount": "Es konnte kein solches Konto gefunden werden, überprüfen Sie die Eingabe und versuchen Sie es erneut.",
+        "searchResults": "Suchergebnisse",
+        "loading": "Wird geladen...",
+        "invalidID": "Ungültige Konto-ID – Sie muss mit „1.2“ beginnen. ",
+        "accountID": "Konto-ID (z. B. 1.2.0)",
+        "existingID": "Mit einer bestehenden Konto-ID aus dem verknüpften Beet-Konto fortfahren?",
+        "beetReq": "Holen Sie sich die Konto-ID aus der Beet-Wallet",
+        "beetLinked": "Fahren Sie mit Ihrem verknüpften Beet-Konto fort"
+    },
+    "accountSearch": {
+        "inputPrompt": "Geben Sie Ihre Blockchain-Konto-ID/Name ein, um fortzufahren"
+    },
+    "featured": {
+        "fetching": "Vorgestellte Assets werden abgerufen",
+        "issue": "Beim Abrufen der vorgestellten Assets ist ein Problem aufgetreten. Bitte versuchen Sie es erneut.",
+        "retry": "Versuchen Sie es nochmal",
+        "heading": "Ausgewählte NFTs",
+        "back": "Geh zurück"
+    },
+    "portfolio": {
+        "checkingAccount": "Überprüfen Sie Ihre Bitshares {{environment}} Konto...",
+        "emptyPortfolio": "Sie scheinen noch keine NFTs in Ihrem Portfolio zu haben.",
+        "header": "Ihr Portfolio enthält die folgenden NFTs",
+        "refresh": "Portfolio auffrischen",
+        "back": "Der Rücken"
+    },
+    "search": {
+        "inProgress": "Suchen",
+        "searchPrompt": "Suchen Sie nach NFTs",
+        "noResults": "Keine Suchergebnisse für die Eingabe",
+        "resultHeader": "NFT-Suchergebnisse",
+        "back": "Der Rücken"
+    },
+    "selectAsset": {
+        "lookup": "Suchen Sie nach Assets, die von einem Benutzer ausgegeben wurden",
+        "fetching": "Abrufen von Informationen zu Ihrem Bitshares-Konto",
+        "noResultsHeader": "Keine ausgegebenen Assets gefunden",
+        "noResultsDesc": "Dieses Bitshares-Konto hat keine NFTs auf dem BTS DEX ausgegeben.",
+        "notice": "Hinweis: Der Kauf und Besitz eines NFT auf dem BTS DEX gewährt Ihnen nicht automatisch NFT-Bearbeitungsrechte.",
+        "selection": "Wählen Sie die NFT aus, die Sie anzeigen möchten",
+        "back": "Der Rücken",
+        "refresh": "Aktualisierung"
+    }
+  }

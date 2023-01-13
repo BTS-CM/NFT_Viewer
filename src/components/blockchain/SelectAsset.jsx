@@ -1,11 +1,12 @@
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
-import { appStore, beetStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+import { appStore, beetStore } from '../../lib/states';
 import Accounts from "./Accounts";
 
 export default function SelectAsset(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let setAsset = appStore((state) => state.setAsset);
   let setMode = appStore((state) => state.setMode);
   let changeURL = appStore((state) => state.changeURL);

@@ -1,6 +1,6 @@
 import i18next from 'i18next';
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { connect, checkBeet, link } from 'beet-js';
 
 import { getImage } from './images';
@@ -12,27 +12,20 @@ import {
   fetchDynamicData
 } from './queries';
 
-import locales from '../localization';
-
-const translationStore = create(
-  persist((set, get) => ({
-    t: null,
-    i18n: i18next.init(locales, (err, t) => {
-      if (err) {
-        console.log('something went wrong loading', err);
-        return;
-      };
-      console.log('loaded localization');
-      set({ t: t });
+const localePreferenceStore = create(
+  persist(
+    (set, get) => ({
+      locale: 'en',
+      changeLocale: (lng) => {
+        console.log(`Saving preferred locale: ${lng}`);
+        set({ locale: lng });
+      }
     }),
-    changeLanguage: (lng) => {
-      const i18n = get().i18n;
-      i18n.changeLanguage(lng);
-      set({ i18n: i18n });
+    {
+      name: 'locale-preference'
     }
-  }))
+  )
 );
-
 
 const identitiesStore = create(
   persist((set, get) => ({
@@ -85,7 +78,10 @@ const identitiesStore = create(
       let newIdentities = currentIdentities.filter(x => x.requested.account.id != accountID);
       set({identities: newIdentities});
     }
-  }))
+  }),
+  {
+    name: 'identities',
+  })
 );
 
 /**
@@ -357,5 +353,5 @@ export {
   appStore,
   beetStore,
   identitiesStore,
-  translationStore
+  localePreferenceStore
 };

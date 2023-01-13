@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Text, Col, Paper, Group, Tooltip, Loader, SimpleGrid } from '@mantine/core';
-import { appStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+
+import { appStore } from '../../lib/states';
 
 import config from "../../config/config.json";
 
 export default function Featured(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let environment = appStore((state) => state.environment);
   let target = environment === 'production' ? 'BTS' : 'BTS_TEST';
   let assets = appStore((state) => state.assets);

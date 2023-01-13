@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Box, Text, Loader, Col, Paper, SimpleGrid } from '@mantine/core';
-import { appStore, beetStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+import { appStore, beetStore } from '../../lib/states';
 
 import Accounts from "./Accounts";
 
 export default function Portfolio(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   let environment = appStore((state) => state.environment);
   let assets = appStore((state) => state.assets);
   let account = appStore((state) => state.account);

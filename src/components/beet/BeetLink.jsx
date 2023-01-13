@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, Group, Box, Text, Divider, Loader, Col, Paper,
 } from '@mantine/core';
-import { appStore, beetStore, translationStore } from '../../lib/states';
+import { appStore, beetStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
 
 export default function BeetLink(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
+
   const environment = appStore((state) => state.environment);
   const setMode = appStore((state) => state.setMode);
 

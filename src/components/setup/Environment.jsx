@@ -1,10 +1,13 @@
 import { Button, Box, Text, Col, Paper } from '@mantine/core';
-import { appStore, beetStore, translationStore } from '../../lib/states';
+import { useTranslation } from 'react-i18next';
+
+import { appStore, beetStore } from '../../lib/states';
+import React, { useEffect } from 'react';
 
 export default function Mode(properties) {
-  const t= translationStore((state) => state.t);
+  const { t, i18n } = useTranslation();
   const setEnvironment = appStore((state) => state.setEnvironment); 
-  
+
   return (
     <Col span={12}>
       <Paper padding="sm" shadow="xs">
