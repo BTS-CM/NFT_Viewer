@@ -44,5 +44,10 @@
         "selection": "Select the NFT you wish to view",
         "back": "Back",
         "refresh": "Refresh"
+    },
+    "favourites": {
+        "noFavourites": "No favourites found",
+        "noFavouritesDesc": "You don't seem to have any favourites yet. You can add an NFT or an account to your favourites by clicking the heart icon on their respective pages.",
+        "selection": "Select your favourite item below"
     }
 }

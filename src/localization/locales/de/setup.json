@@ -1,5 +1,5 @@
 {
-    "accountMode": {
+  "accountMode": {
       "header": "Für das Konto \"{{account}}\" Was möchten Sie tun?",
       "balance": "Sehen Sie sich das NFT-Portfolio an",
       "issued": "Ausgestellte NFTs anzeigen",
@@ -9,37 +9,40 @@
       "chooseSearch": "Konto manuell suchen",
       "beetPrompt": "Um fortzufahren, verbinden Sie sich bitte mit Beet.",
       "linkPrompt": "Um fortzufahren, verlinken Sie bitte mit Beet.",
-      "waiting": "Warten auf Benutzerantwort vom BEET-Client"
-    },
-    "environment": {
+      "waiting": "Warten auf Benutzerantwort vom BEET-Client",
+      "save": "Lieblingskonto",
+      "remove": "Favorit entfernen"
+  },
+  "environment": {
       "header": "Welche Bitshares-Blockchain möchten Sie verwenden?",
       "testnet": "Netzwerk testen",
       "production": "Hauptnetz"
-    },
-    "loading": {
+  },
+  "loading": {
       "message": "Suche nach schnellster Blockchain-Verbindung, bitte warten.."
-    },
-    "mode": {
+  },
+  "mode": {
       "header": "Was möchten Sie tun?",
       "searchBtn": "Suchen Sie nach NFT",
       "lookupBtn": "Suchen Sie die NFTs eines Kontos",
       "featuredBtn": "Vorgestellte NFTs anzeigen",
+      "favouritesBtn": "Favoriten anzeigen",
       "back": "Der Rücken"
-    },
-    "offline": {
+  },
+  "offline": {
       "header": "Du scheinst offline zu sein? ",
       "exit": "Ausgang"
-    },
-    "settings": {
+  },
+  "settings": {
       "remove": "Entfernen",
       "settings": "Einstellungen",
       "linked": "Hier sind Ihre derzeit verknüpften Konten",
       "notLinked": "Rübe nicht verbunden.",
       "back": "Der Rücken",
       "language": "Sprache ändern?"
-    },
-    "app": {
+  },
+  "app": {
       "error": "Ein Problem ist aufgetreten, setzen Sie es zurück und versuchen Sie es erneut.",
       "reset": "App zurücksetzen"
-    }
   }
+}

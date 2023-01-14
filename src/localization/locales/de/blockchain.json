@@ -44,5 +44,10 @@
         "selection": "Wählen Sie die NFT aus, die Sie anzeigen möchten",
         "back": "Der Rücken",
         "refresh": "Aktualisierung"
+    },
+    "favourites": {
+        "noFavourites": "Keine Favoriten gefunden",
+        "noFavouritesDesc": "Du scheinst noch keine Favoriten zu haben. ",
+        "selection": "Wählen Sie unten Ihren Lieblingsartikel aus"
     }
   }

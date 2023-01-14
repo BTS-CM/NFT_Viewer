@@ -9,7 +9,9 @@
         "chooseSearch": "Lookup account manually",
         "beetPrompt": "To continue please connect to Beet.",
         "linkPrompt": "To continue please link with Beet.",
-        "waiting": "Waiting on user response from BEET client"
+        "waiting": "Waiting on user response from BEET client",
+        "save": "Favourite account",
+        "remove": "Remove favourite"
     },
     "environment": {
         "header": "Which Bitshares blockchain do you want to use?",
@@ -24,6 +26,7 @@
         "searchBtn": "Search for NFT",
         "lookupBtn": "Lookup an account's NFTs",
         "featuredBtn": "View featured NFTs",
+        "favouritesBtn": "View favourites",
         "back": "Back"
     },
     "offline": {

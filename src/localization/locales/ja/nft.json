@@ -1,0 +1,98 @@
+{
+    "issuerDetails": {
+      "tooltip1": "資産の所有権は、'null-account' に送られることによって '焼却' されました。",
+      "tooltip2": "警告: アセットの所有権はまだ 'null-account' に転送されていません。",
+      "issuer": "発行者"
+    },
+    "nft": {
+      "by": " に ",
+      "back": "戻る",
+      "tabs": {
+        "nft": "NFT",
+        "asset": "資産",
+        "tags": "タグ",
+        "buy": "買う",
+        "flags": "フラグ",
+        "permissions": "権限",
+        "signature": "サイン",
+        "license": "ライセンス",
+        "json": "JSON"
+      },
+      "nft": {
+        "attestation": "証明",
+        "narrative": "物語",
+        "acknowledgements": "謝辞"
+      },
+      "asset": {
+        "name": "名前： {{name}}",
+        "filetype": "ファイルの種類： {{filetype}}",
+        "onChain": "オンチェーン",
+        "offChain": "オフチェーン",
+        "encoding": "エンコーディング： {{encoding}}",
+        "precision0": "0 の精度で、'{{short_name}}' は代替不可能なトークンです!",
+        "precision1": "精度が 0 ではないため、これは代替可能なトークンです。",
+        "precisionVal": "精度： {{precision}}"
+      },
+      "tags": {
+        "noTags": "トピック/インタレスト タグなし",
+        "noFlags": "NFTタグなし"
+      },
+      "buy": {
+        "buyHeader": "このNFTは、次のBitshares DEXウォレットを使用して取引/転送できます",
+        "desktopTooltip": "デスクトップ アプリ内でアセット ' を検索します{{symbol}}'",
+        "desktopApp": "デスクトップ アプリ",
+        "explorerHeader": "次のエクスプローラーでこの NFT を表示します。"
+      },
+      "flags": {
+        "none": "現在有効になっているフラグはありません。"
+      },
+      "permissions": {
+        "permissionTips": {
+          "enabled": {
+            "charge_market_fee": "Aktivudstederen kan aktivere Marksgebyrer.",
+            "white_list": "Atudstederen kan oprette en liste over godkendte マーカー",
+            "override_authority": "Atudstederen kan overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "Dette aktiv må kun overføres til/fra udstederen ellermarksordrer",
+            "disable_force_settle": "Brugere kan anmode om tvangsafregning af dette marksudstedte aktiv.",
+            "global_settle": "Udstederen af dette marksudstedte aktiv har mulighed for at afvikle aktivet globalt",
+            "disable_confidential": "Udstederen af dette aktiv kan deaktivere Stealth-transaktioner.",
+            "witness_fed_asset": "Dette marksudstedte aktiv kan få sine prisfeeds Leveret af Bitshares vidner.",
+            "committee_fed_asset": "Dette marksudstedte aktiv kan få sine prisfeeds Leveret af Bitshares udvalgsmedlemmer."
+          },
+          "disabled": {
+            "charge_market_fee": "Der kan ikke opkræves nogenmarksgebyrer for dette aktiv;",
+            "white_list": "Der ingen godkendt liste over marker for dette aktiv. ",
+            "override_authority": "Atudstederen er ikke i stand til at overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "Dette aktivs overforsler er ubegrænsede.",
+            "disable_force_settle": "Dette aktiv kan ikke tvangsafregnes.",
+            "global_settle": "Dette aktiv kan ikke afregnes globalt.",
+            "disable_confidential": "Fortrolige transaktioner af dette aktiv er perperent mulige.",
+            "witness_fed_asset": "Vidnerne kan ikke give en pris for dette aktiv.",
+            "committee_fed_asset": "Komitéen kan ikke give en pris for dette aktiv."
+          }
+        },
+        "none": "すべての権限が無効になっています。"
+      },
+      "signature": {
+        "address": "公開鍵またはアドレス",
+        "label": "NFT署名",
+        "pwd": "パスワードマルチハッシュ"
+      },
+      "license": {
+        "header1": "ライセンス：",
+        "header2": "所有者ライセンス:",
+        "noLicense": "この NFT がリリースされたライセンスは提供されていません。",
+        "noHoldLicense": "ホルダー ライセンス情報が提供されていません。"
+      },
+      "json": {
+        "label": "NFT JSON",
+        "copy": "コピー",
+        "copied": "コピーしました"
+      }
+    },
+    "quantity": "量",
+    "favourite": {
+      "save": "お気に入りのアセット",
+      "remove": "お気に入りから削除"
+    }
+  }

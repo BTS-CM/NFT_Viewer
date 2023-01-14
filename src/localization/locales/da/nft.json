@@ -1,0 +1,98 @@
+{
+    "issuerDetails": {
+      "tooltip1": "Aktivejerskab er blevet 'brændt' ved at blive sendt til 'null-konto'; ",
+      "tooltip2": "Advarsel: Aktivejerskab er ikke blevet overført til 'null-konto' endnu; ",
+      "issuer": "Udsteder"
+    },
+    "nft": {
+      "by": " ved ",
+      "back": "Gå tilbage",
+      "tabs": {
+        "nft": "NFT",
+        "asset": "Aktiv",
+        "tags": "Tags",
+        "buy": "Købe",
+        "flags": "Flag",
+        "permissions": "Tilladelser",
+        "signature": "Underskrift",
+        "license": "Licens",
+        "json": "JSON"
+      },
+      "nft": {
+        "attestation": "Attestation",
+        "narrative": "Fortælling",
+        "acknowledgements": "Anerkendelser"
+      },
+      "asset": {
+        "name": "Navn: {{name}}",
+        "filetype": "Filtype: {{filetype}}",
+        "onChain": "på kæde",
+        "offChain": "ud af kæden",
+        "encoding": "Indkodning: {{encoding}}",
+        "precision0": "Med en præcision på 0, '{{short_name}}' er et ikke-fungibelt token!",
+        "precision1": "På grund af ikke at have en præcision på 0, er dette en fungibel token.",
+        "precisionVal": "Præcision: {{precision}}"
+      },
+      "tags": {
+        "noTags": "Ingen emne-/interesse-tags",
+        "noFlags": "Ingen NFT-tags"
+      },
+      "buy": {
+        "buyHeader": "Denne NFT kan handles/overføres ved hjælp af følgende Bitshares DEX tegnebøger",
+        "desktopTooltip": "Søg efter aktivet i desktop-appen '{{symbol}}'",
+        "desktopApp": "Desktop app",
+        "explorerHeader": "Se denne NFT på følgende opdagelsesrejsende:"
+      },
+      "flags": {
+        "none": "Ingen flag er aktiveret i øjeblikket."
+      },
+      "permissions": {
+        "permissionTips": {
+          "enabled": {
+            "charge_market_fee": "Aktivudstederen kan aktivere markedsgebyrer.",
+            "white_list": "Atudstederen kan oprette en liste over godkendte markører",
+            "override_authority": "Atudstederen kan overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "Dette aktiv må kun overføres til/fra udstederen eller markedsordrer",
+            "disable_force_settle": "Brugere kan anmode om tvangsafregning af denne markedsudstedte aktiv.",
+            "global_settle": "Udstederen af ​​dette markedsudstedte aktiv har mulighed for at afvikle aktivet globalt",
+            "disable_confidential": "Udstederen af ​​dette aktiv kan deaktivere stealth-transaktioner.",
+            "witness_fed_asset": "Denne markedsudstedte aktiv kan få sine prisfeeds leveret af Bitshares vidner.",
+            "committee_fed_asset": "Denne markedsudstedte aktiv kan få sine prisfeeds leveret af Bitshares udvalgsmedlemmer."
+          },
+          "disabled": {
+            "charge_market_fee": "Der kan ikke opkræves nogen markedsgebyrer for dette aktiv; ",
+            "white_list": "Der er ingen godkendt liste over markeret for denne aktiv. ",
+            "override_authority": "Atudstederen er ikke i stand til at overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "Dette aktive overførsler er ubegrænset.",
+            "disable_force_settle": "Dette aktiv kan ikke tvangsafregnes.",
+            "global_settle": "Denne aktiv kan ikke afregnes globalt.",
+            "disable_confidential": "Fortrolige transaktioner af denne aktiv er permanent mulige.",
+            "witness_fed_asset": "Vidnerne kan ikke give en pris for denne aktiv.",
+            "committee_fed_asset": "Komitéen kan ikke give en pris for denne aktiv."
+          }
+        },
+        "none": "Alle tilladelser er blevet deaktiveret."
+      },
+      "signature": {
+        "address": "Pubkey eller adresse",
+        "label": "NFT signatur",
+        "pwd": "adgangskode multihash"
+      },
+      "license": {
+        "header1": "Licens:",
+        "header2": "Indehaverlicens:",
+        "noLicense": "Licensen, hvorunder denne NFT er blevet frigivet, er ikke blevet udleveret.",
+        "noHoldLicense": "Indehaverlicensoplysninger er ikke givet."
+      },
+      "json": {
+        "label": "NFT JSON",
+        "copy": "Kopi",
+        "copied": "Kopieret"
+      }
+    },
+    "quantity": "Antal",
+    "favourite": {
+      "save": "Yndlingsaktiv",
+      "remove": "Fjern fra favoritter"
+    }
+  }

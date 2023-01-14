@@ -184,6 +184,11 @@ export default function Accounts(properties) {
                     setSearchInput(e.target.value)
                     setAttempted();
                   }}
+                  onKeyUp={e => {
+                    if (e.key === 'Enter') {
+                      performSearch();
+                    }
+                  }}
                   rightSection={
                     <ActionIcon
                       size={32}

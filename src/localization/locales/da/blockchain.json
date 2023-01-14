@@ -1,0 +1,53 @@
+{
+    "accounts": {
+      "enterID": "Indtast et konto-id for at fortsætte",
+      "fetchingAccount": "Søger konto",
+      "noAccount": "Der blev ikke fundet en sådan konto, tjek input og prøv igen.",
+      "searchResults": "Søgeresultater",
+      "loading": "Indlæser...",
+      "invalidID": "Ugyldigt konto-id - det skal begynde med '1.2'. ",
+      "accountID": "Konto-id (f.eks. 1.2.0)",
+      "existingID": "Vil du fortsætte med et eksisterende konto-id fra den linkede Beet-konto?",
+      "beetReq": "Hent konto-id fra Beet wallet",
+      "beetLinked": "Fortsæt med din Beet-linkede konto"
+    },
+    "accountSearch": {
+      "inputPrompt": "Indtast dit blockchain-konto-id/navn for at fortsætte"
+    },
+    "featured": {
+      "fetching": "Henter fremhævede aktiver",
+      "issue": "Der opstod et problem under hentning af fremhævede aktiver. Prøv igen.",
+      "retry": "Prøv igen",
+      "heading": "Udvalgte NFT'er",
+      "back": "Gå tilbage"
+    },
+    "portfolio": {
+      "checkingAccount": "Tjek dine Bitshares {{environment}} konto...",
+      "emptyPortfolio": "Du ser ikke ud til at have nogen NFT'er i din portefølje endnu.",
+      "header": "Din portefølje indeholder følgende NFT'er",
+      "refresh": "Opdater portefølje",
+      "back": "Tilbage"
+    },
+    "search": {
+      "inProgress": "Søger",
+      "searchPrompt": "Søg efter NFT'er",
+      "noResults": "Ingen søgeresultater for input",
+      "resultHeader": "NFT søgeresultater",
+      "back": "Tilbage"
+    },
+    "selectAsset": {
+      "lookup": "Opslagsaktiver udstedt af en bruger",
+      "fetching": "Henter oplysninger på din Bitshares-konto",
+      "noResultsHeader": "Ingen udstedte aktiver fundet",
+      "noResultsDesc": "Denne Bitshares-konto har ikke udstedt nogen NFT'er på BTS DEX.",
+      "notice": "Bemærk: At købe og eje en NFT på BTS DEX giver dig ikke automatisk NFT-redigeringsrettigheder.",
+      "selection": "Vælg den NFT, du ønsker at se",
+      "back": "Tilbage",
+      "refresh": "Opdater"
+    },
+    "favourites": {
+      "noFavourites": "Ingen favoritter fundet",
+      "noFavouritesDesc": "Du ser ikke ud til at have nogen favoritter endnu. ",
+      "selection": "Vælg din favoritvare nedenfor"
+    }
+  }

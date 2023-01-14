@@ -1,0 +1,53 @@
+{
+    "accounts": {
+      "enterID": "Inserisci un ID account per procedere",
+      "fetchingAccount": "Ricerca del conto",
+      "noAccount": "Non è stato possibile trovare alcun account di questo tipo, controllare l'input e riprovare.",
+      "searchResults": "Risultati di ricerca",
+      "loading": "Caricamento in corso...",
+      "invalidID": "ID account non valido: deve iniziare con \"1.2\". ",
+      "accountID": "ID account (ad es. 1.2.0)",
+      "existingID": "Procedere con un ID account esistente dall'account Beet collegato?",
+      "beetReq": "Recupera l'ID dell'account dal portafoglio Beet",
+      "beetLinked": "Procedi con il tuo account collegato a Beet"
+    },
+    "accountSearch": {
+      "inputPrompt": "Inserisci il tuo ID/nome dell'account blockchain per procedere"
+    },
+    "featured": {
+      "fetching": "Recupero delle risorse in primo piano",
+      "issue": "Si è verificato un problema durante il recupero delle risorse in primo piano, riprova.",
+      "retry": "Riprova",
+      "heading": "NFT in primo piano",
+      "back": "Torna indietro"
+    },
+    "portfolio": {
+      "checkingAccount": "Controllo delle tue Bitshare {{environment}} account...",
+      "emptyPortfolio": "Sembra che tu non abbia ancora nessun NFT nel tuo portafoglio.",
+      "header": "Il tuo portfolio contiene i seguenti NFT",
+      "refresh": "Aggiorna portafoglio",
+      "back": "Di ritorno"
+    },
+    "search": {
+      "inProgress": "Ricerca",
+      "searchPrompt": "Cerca NFT",
+      "noResults": "Nessun risultato di ricerca per input",
+      "resultHeader": "Risultati della ricerca NFT",
+      "back": "Di ritorno"
+    },
+    "selectAsset": {
+      "lookup": "Cerca asset emessi da un utente",
+      "fetching": "Recupero delle informazioni sul tuo account Bitshares",
+      "noResultsHeader": "Nessun asset emesso trovato",
+      "noResultsDesc": "Questo account Bitshares non ha emesso alcun NFT sul BTS DEX.",
+      "notice": "Nota: l'acquisto e il possesso di un NFT su BTS DEX non ti garantisce automaticamente i diritti di modifica NFT.",
+      "selection": "Seleziona l'NFT che desideri visualizzare",
+      "back": "Di ritorno",
+      "refresh": "ricaricare"
+    },
+    "favourites": {
+      "noFavourites": "Nessun preferito trovato",
+      "noFavouritesDesc": "Sembra che tu non abbia ancora dei preferiti. ",
+      "selection": "Seleziona il tuo articolo preferito qui sotto"
+    }
+  }

@@ -1,0 +1,98 @@
+{
+    "issuerDetails": {
+      "tooltip1": "자산 소유권은 'null-account'로 전송되어 '소각'되었습니다. ",
+      "tooltip2": "경고: 자산 소유권이 아직 'null-account'로 이전되지 않았습니다. ",
+      "issuer": "발급자"
+    },
+    "nft": {
+      "by": " ~에 의해 ",
+      "back": "돌아가기",
+      "tabs": {
+        "nft": "NFT",
+        "asset": "유산",
+        "tags": "태그",
+        "buy": "구입",
+        "flags": "플래그",
+        "permissions": "권한",
+        "signature": "서명",
+        "license": "특허",
+        "json": "JSON"
+      },
+      "nft": {
+        "attestation": "증명",
+        "narrative": "이야기",
+        "acknowledgements": "감사의 말"
+      },
+      "asset": {
+        "name": "이름: {{name}}",
+        "filetype": "파일 유형: {{filetype}}",
+        "onChain": "체인에",
+        "offChain": "오프 체인",
+        "encoding": "부호화: {{encoding}}",
+        "precision0": "정밀도가 0이면 '{{short_name}}'는 대체 불가능한 토큰입니다!",
+        "precision1": "정밀도가 0이 아니므로 대체 가능한 토큰입니다.",
+        "precisionVal": "정도: {{precision}}"
+      },
+      "tags": {
+        "noTags": "주제/관심 태그 없음",
+        "noFlags": "NFT 태그 없음"
+      },
+      "buy": {
+        "buyHeader": "이 NFT는 다음 Bitshares DEX 지갑을 사용하여 거래/전송할 수 있습니다.",
+        "desktopTooltip": "데스크탑 앱 내에서 자산 '{{symbol}}'",
+        "desktopApp": "데스크톱 앱",
+        "explorerHeader": "다음 탐색기에서 이 NFT를 봅니다."
+      },
+      "flags": {
+        "none": "현재 활성화된 플래그가 없습니다."
+      },
+      "permissions": {
+        "permissionTips": {
+          "enabled": {
+            "charge_market_fee": "Aktivudstederen kan aktivere marksgebyrer.",
+            "white_list": "Atudstederen kan oprette en liste over godkendte 마커",
+            "override_authority": "Atudstederen kan overføre denne NFT tibage til sig selv.",
+            "transfer_restricted": "Dette aktiv må kun overføres til/fra udstederen eller marksorderrer",
+            "disable_force_settle": "Brugere kan anmode om tvangsafregning af dette marksudstedte aktiv.",
+            "global_settle": "Udstederen af ​​dette marksudstedte aktiv har muliged for at afvikle aktivet globalt",
+            "disable_confidential": "Udstederen af ​​dette aktiv kan deaktivere 스텔스 트랜잭션.",
+            "witness_fed_asset": "Dette는 Bitshares 비디오의 사인 피드 레버에 대한 활동을 표시합니다.",
+            "committee_fed_asset": "Dette marksudstedte aktiv kan få sine prisfeeds leveret af Bitshares udvalgsmedlemmer."
+          },
+          "disabled": {
+            "charge_market_fee": "Der kan ikke opkræves nogen marksgebyrer for dette aktiv; ",
+            "white_list": "Der er ingen godkendt liste over marker for dette aktiv. ",
+            "override_authority": "Atudstederen er ikke i stand til at overføre denne NFT tibage til sig selv.",
+            "transfer_restricted": "Dette ativs overførsler er ubegrænsede.",
+            "disable_force_settle": "Dette ativ kan ikke tvangsafregnes.",
+            "global_settle": "Dette aktiv kan ikke afregnes globalt.",
+            "disable_confidential": "Fortrolige transaktioner af dette ativ er permanent mulige.",
+            "witness_fed_asset": "Vidnerne kan ikke give en pris for dette aktiv.",
+            "committee_fed_asset": "Komitéen kan ikke give en pris for dette aktiv."
+          }
+        },
+        "none": "모든 권한이 비활성화되었습니다."
+      },
+      "signature": {
+        "address": "공개키 또는 주소",
+        "label": "NFT 서명",
+        "pwd": "비밀번호 멀티해시"
+      },
+      "license": {
+        "header1": "특허:",
+        "header2": "보유자 라이선스:",
+        "noLicense": "이 NFT가 출시된 라이선스가 제공되지 않았습니다.",
+        "noHoldLicense": "보유자 라이센스 정보가 제공되지 않았습니다."
+      },
+      "json": {
+        "label": "NFT JSON",
+        "copy": "복사",
+        "copied": "복사됨"
+      }
+    },
+    "quantity": "수량",
+    "favourite": {
+      "save": "좋아하는 자산",
+      "remove": "즐겨찾기에서 제거"
+    }
+  }

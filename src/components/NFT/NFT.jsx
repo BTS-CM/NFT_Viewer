@@ -22,7 +22,9 @@ import {
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-import { appStore, beetStore } from '../../lib/states';
+import { IconHeart, IconHeartBroken } from '@tabler/icons';
+
+import { appStore, beetStore, favouritesStore } from '../../lib/states';
 import IssuerDetails from './IssuerDetails';
 import Quantity from './Quantity';
 import Media from './Media';
@@ -39,6 +41,10 @@ export default function NFT(properties) {
   let environment = appStore((state) => state.environment);
   let setMode = appStore((state) => state.setMode);
 
+  const favourites = favouritesStore((state) => state.favourites);
+  const removeFavourite = favouritesStore((state) => state.removeFavourite);
+  const addFavourite = favouritesStore((state) => state.addFavourite);
+
   function goBack() {
     setAccount();
     resetBeet();
@@ -47,6 +53,11 @@ export default function NFT(properties) {
 
   function beetBuy() {
     setMode('buy');
+  }
+
+  function favouriteAsset() {
+    const relevantChain = environment === 'production' ? 'BTS' : 'BTS_TEST';
+    addFavourite({name: asset.symbol, id: asset.id, chain: relevantChain});
   }
 
   function launchDEX(args) {
@@ -476,14 +487,37 @@ export default function NFT(properties) {
 
             </Col>,
             <Col span={12} key="back">
-              <Button
-                variant="light"
-                onClick={() => {
-                  goBack()
-                }}
-              >
-                {t('nft:nft.back')}
-              </Button>   
+              <Group position="center">
+              {
+                favourites && favourites.length && favourites.find(f => (f.id === asset.id))
+                ? <Button
+                    leftIcon={<IconHeartBroken />}
+                    variant="light"
+                    onClick={() => {
+                      removeFavourite(asset.id);
+                    }}
+                  >
+                    {t('nft:favourite.remove')}
+                  </Button>
+                : <Button
+                    leftIcon={<IconHeart />}
+                    variant="light"
+                    onClick={() => {
+                      favouriteAsset();
+                    }}
+                  >
+                    {t('nft:favourite.save')}
+                  </Button>
+                }
+                <Button
+                  variant="light"
+                  onClick={() => {
+                    goBack()
+                  }}
+                >
+                  {t('nft:nft.back')}
+                </Button>  
+              </Group>
             </Col>
           ])
 

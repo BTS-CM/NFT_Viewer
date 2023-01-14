@@ -1,0 +1,98 @@
+{
+    "issuerDetails": {
+      "tooltip1": "ความเป็นเจ้าของเนื้อหาถูก 'เผา' โดยถูกส่งไปยัง 'null-account'; ",
+      "tooltip2": "คำเตือน: ยังไม่ได้โอนความเป็นเจ้าของเนื้อหาไปยัง 'null-account' ",
+      "issuer": "ผู้ออก"
+    },
+    "nft": {
+      "by": " โดย ",
+      "back": "ย้อนกลับ",
+      "tabs": {
+        "nft": "เอ็นเอฟที",
+        "asset": "สินทรัพย์",
+        "tags": "แท็ก",
+        "buy": "ซื้อ",
+        "flags": "ธง",
+        "permissions": "สิทธิ์",
+        "signature": "ลายเซ็น",
+        "license": "ใบอนุญาต",
+        "json": "เจสัน"
+      },
+      "nft": {
+        "attestation": "การรับรอง",
+        "narrative": "เรื่องเล่า",
+        "acknowledgements": "กิตติกรรมประกาศ"
+      },
+      "asset": {
+        "name": "ชื่อ: {{name}}",
+        "filetype": "ประเภทไฟล์: {{filetype}}",
+        "onChain": "บนโซ่",
+        "offChain": "ปิดห่วงโซ่",
+        "encoding": "การเข้ารหัส: {{encoding}}",
+        "precision0": "ด้วยความแม่นยำ 0, '{{short_name}}' เป็นโทเค็นที่ไม่สามารถรวมกันได้!",
+        "precision1": "เนื่องจากไม่มีความแม่นยำเป็น 0 นี่เป็นโทเค็นที่ใช้งานได้",
+        "precisionVal": "ความแม่นยำ: {{precision}}"
+      },
+      "tags": {
+        "noTags": "ไม่มีแท็กหัวข้อ/ความสนใจ",
+        "noFlags": "ไม่มีแท็ก NFT"
+      },
+      "buy": {
+        "buyHeader": "NFT นี้สามารถแลกเปลี่ยน/โอนโดยใช้กระเป๋าเงิน Bitshares DEX ต่อไปนี้",
+        "desktopTooltip": "ภายในแอปเดสก์ท็อปให้ค้นหาเนื้อหา '{{symbol}}'",
+        "desktopApp": "แอปเดสก์ท็อป",
+        "explorerHeader": "ดู NFT นี้กับนักสำรวจต่อไปนี้:"
+      },
+      "flags": {
+        "none": "ไม่มีการเปิดใช้งานแฟล็กในขณะนี้"
+      },
+      "permissions": {
+        "permissionTips": {
+          "enabled": {
+            "charge_market_fee": "Aktivudstederen kan aktivere Marksgebyrer.",
+            "white_list": "Atudstederen kan oprette en liste over godkendte marker",
+            "override_authority": "Atudstederen kan overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "ดำเนินการต่อ må kun overføres til/fra udstederen eller markersordrer",
+            "disable_force_settle": "Brugere kan anmode om tvangsafregning af dettemarksudstedte aktiv.",
+            "global_settle": "ใช้เครื่องหมายถูก sudstedte aktiv har mulighed for at afvikle aktivet globalt",
+            "disable_confidential": "Udstederen af ​​dette aktiv kan deaktivere Stealth-transaktioner.",
+            "witness_fed_asset": "ทำเครื่องหมายไว้บน Bitshares บนวิดีโอ Bitshares",
+            "committee_fed_asset": "เครื่องหมายถูกทำเครื่องหมายไว้ sudstedte aktiv kan få sine prisfeeds leveret af Bitshares udvalgsmedlemmer."
+          },
+          "disabled": {
+            "charge_market_fee": "Der kan ikke opkræves nogen markersgebyrer for dette aktiv; ",
+            "white_list": "Der er ingen godkendt liste over marker for dette aktiv. ",
+            "override_authority": "Atudstederen er ikke i stand til at overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "บัญชีผู้ใช้เพิ่มเติม er ubegrænsede.",
+            "disable_force_settle": "ยกเลิก aktiv kan ikke tvangsafregnes.",
+            "global_settle": "Dette aktiv kan ikke afregnes globalt.",
+            "disable_confidential": "ทรานส์แอคชันเนอร์ของ Fortrolige และผู้โจมตีถาวร",
+            "witness_fed_asset": "Vidnerne kan ikke ให้เงินสำหรับ dette aktiv",
+            "committee_fed_asset": "Komitéen kan ikke give en pris for dette aktiv."
+          }
+        },
+        "none": "สิทธิ์ทั้งหมดถูกปิดใช้งาน"
+      },
+      "signature": {
+        "address": "Pubkey หรือที่อยู่",
+        "label": "ลายเซ็น NFT",
+        "pwd": "รหัสผ่านมัลติแฮช"
+      },
+      "license": {
+        "header1": "ใบอนุญาต:",
+        "header2": "ผู้ถือใบอนุญาต:",
+        "noLicense": "ใบอนุญาตภายใต้การเผยแพร่ NFT นี้ยังไม่ได้รับการอนุญาต",
+        "noHoldLicense": "ไม่ได้ระบุข้อมูลใบอนุญาตของผู้ถือ"
+      },
+      "json": {
+        "label": "เอ็นเอฟที JSON",
+        "copy": "สำเนา",
+        "copied": "คัดลอก"
+      }
+    },
+    "quantity": "ปริมาณ",
+    "favourite": {
+      "save": "ทรัพย์สินที่ชื่นชอบ",
+      "remove": "ลบออกจากรายการโปรด"
+    }
+  }

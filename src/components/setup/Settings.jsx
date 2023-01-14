@@ -106,10 +106,19 @@ export default function Mode(properties) {
           onChange={(value) => {
             setLanguage(value)
           }}
-          sx={{paddingLeft: '150px', maxWidth: '400px'}}
+          sx={{paddingLeft: '25%', paddingRight: '25%'}}
           data={[
             { value: 'en', label: 'English' },
-            { value: 'de', label: 'Deutsche' }
+            { value: 'da', label: 'Dansk' },
+            { value: 'de', label: 'Deutsche' },
+            { value: 'et', label: 'Eesti' },
+            { value: 'es', label: 'Español' },
+            { value: 'fr', label: 'Français' },
+            { value: 'it', label: 'Italiano' },
+            { value: 'ja', label: '日本語' },
+            { value: 'ko', label: '한국어' },
+            { value: 'pt', label: 'Português' },
+            { value: 'th', label: 'ไทย' }
           ]}
         />
         <br/>

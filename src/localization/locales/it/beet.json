@@ -1,0 +1,41 @@
+{
+    "beetlink": {
+      "connected": "Connesso al portafoglio Beet con successo.",
+      "linkPrompt": "Procedi con il collegamento di questa app al tuo portafoglio Beet di seguito.",
+      "linkButton": "Collegamento a barbabietola",
+      "beetWait": "In attesa di risposta dal prompt BEET",
+      "backButton": "Di ritorno"
+    },
+    "buy": {
+      "unavailable": "Questo NFT non è attualmente in vendita.",
+      "buyPrompt": "Come vorresti acquistare questo NFT?",
+      "beetBuy": "Acquista tramite il portafoglio BEET",
+      "qrCodes": "Utilizzando i codici QR",
+      "beetConnect": "Per continuare l'acquisto, connettiti a Beet.",
+      "beetLink": "Per continuare l'acquisto, collega a Beet.",
+      "beetWait": "In attesa della risposta dell'utente dal client BEET.",
+      "buySuccess": "Trasmissione riuscita di un ordine limite di acquisto per l'NFT \"{{boughtAsset}}\" In cambio di {{amountToSell}} {{soldAsset}}",
+      "viewPortfolio": "Visualizza portafoglio",
+      "backButton": "Di ritorno",
+      "beetBuyPrompt": "Chiedi a BEET di acquistare l'NFT \"{{boughtAsset}}\" per {{amountToSell}} {{soldAsset}}?",
+      "confirmPurchase": "sì",
+      "rejectPurchase": "No",
+      "generateQR": "Genera codice QR",
+      "scanQR": "Per acquistare questo NFT scansiona il codice QR sottostante",
+      "waitQR": "Attendi mentre viene generato il tuo codice QR"
+    },
+    "connect": {
+      "remove": "Rimuovere",
+      "previousBEET": "Quale account BEET precedentemente collegato desideri utilizzare?",
+      "newBEET": "Vuoi usare un account diverso?",
+      "newBtn": "Connettiti con un nuovo account",
+      "back": "Torna indietro",
+      "beetHeader": "Questo strumento è progettato per essere utilizzato con Bitshares BEET Wallet.",
+      "beetSubheading": "Avvialo e sbloccalo, quindi fai clic sul pulsante di connessione in basso per procedere.",
+      "beetConnect": "Connettiti a barbabietola",
+      "btsPrompt": "Non hai ancora installato il portafoglio Bitshares BEET? ",
+      "btsGuide": "Una volta installato, crea un portafoglio e procedi alla connessione sopra.",
+      "beetDownload": "Scarica BARBABIETOLA",
+      "connecting": "Connessione a BEET"
+    }
+  }

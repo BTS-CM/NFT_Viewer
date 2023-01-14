@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Text, Container, Grid, Col, Button, Divider, Image } from '@mantine/core';
-import { appStore, beetStore, identitiesStore } from './lib/states';
+import { useTranslation } from 'react-i18next';
 
+import { appStore, beetStore, identitiesStore } from './lib/states';
 
 import Mode from "./components/setup/Mode";
 import Environment from "./components/setup/Environment";
@@ -15,7 +16,7 @@ import NFT from "./components/NFT/NFT";
 import Loading from "./components/setup/Loading";
 import AccountMode from "./components/setup/AccountMode";
 import Offline from "./components/setup/Offline";
-import { useTranslation } from 'react-i18next';
+import Favourites from "./components/blockchain/Favourites";
 import './App.css'
 
 function openURL() {
@@ -86,7 +87,7 @@ function App() {
     initPrompt = <Loading />
   } else if (!loadingNodes && !nodes || !nodes.length) {
     initPrompt = <Offline />
-  } else if (!mode) {
+  } else if (!mode && !asset) {
     // What would you like to do?
     initPrompt = <Mode 
                     backCallback={() => {
@@ -120,6 +121,9 @@ function App() {
   } else if (!asset && mode === 'issued') {
     // Show NFTs the account has created
     initPrompt = <SelectAsset />
+  } else if (mode === 'favourites') {
+    // Show NFTs the account has favorited
+    initPrompt = <Favourites />
   } else if (asset) {
     // An NFT has been selected
     initPrompt = <NFT />

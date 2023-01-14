@@ -1,0 +1,41 @@
+{
+    "beetlink": {
+      "connected": "Conectado à carteira Beet com sucesso.",
+      "linkPrompt": "Prossiga com a vinculação deste aplicativo à sua carteira Beet abaixo.",
+      "linkButton": "Link para Beterraba",
+      "beetWait": "Aguardando a resposta do prompt do BEET",
+      "backButton": "Voltar"
+    },
+    "buy": {
+      "unavailable": "Este NFT não está à venda no momento.",
+      "buyPrompt": "Como você gostaria de comprar este NFT?",
+      "beetBuy": "Compre via carteira BEET",
+      "qrCodes": "Usando códigos QR",
+      "beetConnect": "Para continuar a compra, conecte-se ao Beet.",
+      "beetLink": "Para continuar a compra, vincule-se à Beet.",
+      "beetWait": "Aguardando a resposta do usuário do cliente BEET.",
+      "buySuccess": "Transmitir com sucesso uma ordem de limite de compra para o NFT \"{{boughtAsset}}\" em troca de {{amountToSell}} {{soldAsset}}",
+      "viewPortfolio": "Ver portfólio",
+      "backButton": "Voltar",
+      "beetBuyPrompt": "Instrua o BEET a comprar o NFT \"{{boughtAsset}}\" para {{amountToSell}} {{soldAsset}}?",
+      "confirmPurchase": "Sim",
+      "rejectPurchase": "Não",
+      "generateQR": "Gerar código QR",
+      "scanQR": "Para comprar este NFT digitalize o código QR abaixo",
+      "waitQR": "Aguarde enquanto seu código QR é gerado"
+    },
+    "connect": {
+      "remove": "Retirar",
+      "previousBEET": "Qual conta BEET vinculada anteriormente você deseja usar?",
+      "newBEET": "Quer usar uma conta diferente?",
+      "newBtn": "Conectar com nova conta",
+      "back": "Volte",
+      "beetHeader": "Esta ferramenta foi projetada para uso com a Carteira Bitshares BEET.",
+      "beetSubheading": "Inicie e desbloqueie-o e, em seguida, clique no botão de conexão abaixo para prosseguir.",
+      "beetConnect": "Conecte-se à Beterraba",
+      "btsPrompt": "Ainda não tem a carteira Bitshares BEET instalada? ",
+      "btsGuide": "Depois de instalado, crie uma carteira e prossiga para conectar-se acima.",
+      "beetDownload": "Baixar BEET",
+      "connecting": "Conectando ao BEET"
+    }
+  }

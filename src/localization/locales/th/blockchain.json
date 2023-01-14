@@ -1,0 +1,53 @@
+{
+    "accounts": {
+      "enterID": "ป้อน ID บัญชีเพื่อดำเนินการต่อ",
+      "fetchingAccount": "กำลังค้นหาบัญชี",
+      "noAccount": "ไม่พบบัญชีดังกล่าว ตรวจสอบข้อมูลที่ป้อนแล้วลองอีกครั้ง",
+      "searchResults": "ผลการค้นหา",
+      "loading": "กำลังโหลด...",
+      "invalidID": "ID บัญชีไม่ถูกต้อง - ต้องขึ้นต้นด้วย '1.2' ",
+      "accountID": "รหัสบัญชี (เช่น 1.2.0)",
+      "existingID": "ดำเนินการต่อด้วย ID บัญชีที่มีอยู่จากบัญชี Beet ที่เชื่อมโยงหรือไม่",
+      "beetReq": "ดึง ID บัญชีจาก Beet wallet",
+      "beetLinked": "ดำเนินการกับบัญชีที่เชื่อมโยงกับ Beet ของคุณ"
+    },
+    "accountSearch": {
+      "inputPrompt": "ป้อน ID/ชื่อบัญชี blockchain ของคุณเพื่อดำเนินการต่อ"
+    },
+    "featured": {
+      "fetching": "กำลังเรียกเนื้อหาเด่น",
+      "issue": "พบปัญหาขณะเรียกเนื้อหาแนะนำ โปรดลองอีกครั้ง",
+      "retry": "ลองอีกครั้ง",
+      "heading": "NFT ที่โดดเด่น",
+      "back": "ย้อนกลับ"
+    },
+    "portfolio": {
+      "checkingAccount": "ตรวจสอบ Bitshares ของคุณ {{environment}} บัญชีผู้ใช้...",
+      "emptyPortfolio": "ดูเหมือนว่าคุณยังไม่มี NFT ในพอร์ตโฟลิโอของคุณ",
+      "header": "พอร์ตโฟลิโอของคุณมี NFT ต่อไปนี้",
+      "refresh": "รีเฟรชพอร์ตโฟลิโอ",
+      "back": "กลับ"
+    },
+    "search": {
+      "inProgress": "กำลังค้นหา",
+      "searchPrompt": "ค้นหา NFT",
+      "noResults": "ไม่มีผลการค้นหาสำหรับอินพุต",
+      "resultHeader": "ผลการค้นหา NFT",
+      "back": "กลับ"
+    },
+    "selectAsset": {
+      "lookup": "ค้นหาเนื้อหาที่ออกโดยผู้ใช้",
+      "fetching": "กำลังดึงข้อมูลในบัญชี Bitshares ของคุณ",
+      "noResultsHeader": "ไม่พบสินทรัพย์ที่ออก",
+      "noResultsDesc": "บัญชี Bitshares นี้ไม่ได้ออก NFT ใดๆ บน BTS DEX",
+      "notice": "หมายเหตุ: การซื้อและเป็นเจ้าของ NFT บน BTS DEX ไม่ได้ให้สิทธิ์ในการแก้ไข NFT แก่คุณโดยอัตโนมัติ",
+      "selection": "เลือก NFT ที่คุณต้องการดู",
+      "back": "กลับ",
+      "refresh": "รีเฟรช"
+    },
+    "favourites": {
+      "noFavourites": "ไม่พบรายการโปรด",
+      "noFavouritesDesc": "ดูเหมือนคุณยังไม่มีรายการโปรดเลย ",
+      "selection": "เลือกรายการโปรดของคุณด้านล่าง"
+    }
+  }

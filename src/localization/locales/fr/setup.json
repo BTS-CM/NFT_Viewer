@@ -1,0 +1,48 @@
+{
+    "accountMode": {
+      "header": "Pour le compte \"{{account}}\" Qu'est-ce que tu veux faire?",
+      "balance": "Voir le portefeuille NFT",
+      "issued": "Afficher les NFT émis",
+      "back": "Dos",
+      "header2": "Veuillez fournir un identifiant/nom de compte :",
+      "chooseBEET": "Demandez BEET",
+      "chooseSearch": "Rechercher un compte manuellement",
+      "beetPrompt": "Pour continuer, veuillez vous connecter à Beet.",
+      "linkPrompt": "Pour continuer, veuillez créer un lien avec Beet.",
+      "waiting": "Attente de la réponse de l'utilisateur du client BEET",
+      "save": "Compte favori",
+      "remove": "Supprimer le favori"
+    },
+    "environment": {
+      "header": "Quelle blockchain Bitshares souhaitez-vous utiliser ?",
+      "testnet": "Réseau d'essai",
+      "production": "Réseau principal"
+    },
+    "loading": {
+      "message": "Recherche de la connexion blockchain la plus rapide, veuillez patienter."
+    },
+    "mode": {
+      "header": "Qu'est-ce que vous voulez faire?",
+      "searchBtn": "Rechercher NFT",
+      "lookupBtn": "Rechercher les NFT d'un compte",
+      "featuredBtn": "Voir les NFT en vedette",
+      "favouritesBtn": "Afficher les favoris",
+      "back": "Dos"
+    },
+    "offline": {
+      "header": "Vous semblez être hors ligne ? ",
+      "exit": "Sortir"
+    },
+    "settings": {
+      "remove": "Éliminer",
+      "settings": "Paramètres",
+      "linked": "Voici vos comptes actuellement liés",
+      "notLinked": "Betterave non liée.",
+      "back": "Dos",
+      "language": "Changer de langue?"
+    },
+    "app": {
+      "error": "Un problème a été rencontré, réinitialisez et réessayez.",
+      "reset": "Réinitialiser l'application"
+    }
+  }

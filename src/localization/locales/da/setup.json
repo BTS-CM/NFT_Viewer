@@ -1,0 +1,48 @@
+{
+    "accountMode": {
+      "header": "For kontoen \"{{account}}\" hvad vil du lave?",
+      "balance": "Se NFT-portefølje",
+      "issued": "Se udstedte NFT'er",
+      "back": "Tilbage",
+      "header2": "Angiv venligst et konto-id/navn:",
+      "chooseBEET": "Spørg BEET",
+      "chooseSearch": "Slå konto manuelt",
+      "beetPrompt": "For at fortsætte skal du oprette forbindelse til Beet.",
+      "linkPrompt": "For at fortsætte skal du linke til Beet.",
+      "waiting": "Venter på brugersvar fra BEET-klient",
+      "save": "Yndlingskonto",
+      "remove": "Fjern favorit"
+    },
+    "environment": {
+      "header": "Hvilken Bitshares blockchain vil du bruge?",
+      "testnet": "Test netværk",
+      "production": "Hovednetværk"
+    },
+    "loading": {
+      "message": "Finder den hurtigste blockchain-forbindelse, vent venligst.."
+    },
+    "mode": {
+      "header": "Hvad vil du lave?",
+      "searchBtn": "Søg efter NFT",
+      "lookupBtn": "Slå en kontos NFT'er op",
+      "featuredBtn": "Se fremhævede NFT'er",
+      "favouritesBtn": "Se favoritter",
+      "back": "Tilbage"
+    },
+    "offline": {
+      "header": "Du ser ud til at være offline? ",
+      "exit": "Afslut"
+    },
+    "settings": {
+      "remove": "Fjerne",
+      "settings": "Indstillinger",
+      "linked": "Her er dine aktuelt linkede konti",
+      "notLinked": "Roer ikke forbundet.",
+      "back": "Tilbage",
+      "language": "Skift sprog?"
+    },
+    "app": {
+      "error": "Der opstod et problem, nulstil og prøv igen.",
+      "reset": "Nulstil app"
+    }
+  }

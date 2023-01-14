@@ -63,14 +63,7 @@ export default function Search(properties) {
   }
 
   let topText;
-  if (inProgress) {
-    topText = <span>
-                <Loader variant="dots" />
-                <Text size="md">
-                  {t('blockchain:search.inProgress')}
-                </Text>
-              </span>;
-  } else if (!assets) {
+  if (!assets) {
     topText = <span>
                 <Text size="md">
                   {t('blockchain:search.searchPrompt')}
@@ -108,53 +101,69 @@ export default function Search(properties) {
 
 
 
-  return (
-    <Col span={12}>
+  return !inProgress 
+    ? (
+      <Col span={12}>
+        <Paper padding="sm" shadow="xs">
+          <Box mx="auto" sx={{padding: '10px'}}>
+            {
+              topText
+            }
+
+            <TextInput
+              icon={<IconSearch size={18} stroke={1.5} />}
+              radius="xl"
+              size="md"
+              onChange={e => setSearchInput(e.target.value)}
+              onKeyUp={e => {
+                if (e.key === 'Enter') {
+                  performSearch();
+                }
+              }}
+              rightSection={
+                <ActionIcon
+                  size={32}
+                  radius="xl"
+                  color={theme.primaryColor}
+                  onClick={() => {
+                    performSearch()
+                  }}
+                  variant="filled"
+                >
+                    <IconArrowRight size={18} stroke={1.5} />
+                </ActionIcon>
+              }
+              placeholder="1.3.x or symbol"
+              rightSectionWidth={42}
+            />
+
+            <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
+              {
+                buttonList
+              }
+            </SimpleGrid>
+
+            <Button
+              variant="light"
+              sx={{marginTop: '15px'}}
+              onClick={() => {
+                back()
+              }}
+            >
+              {t('blockchain:search.back')}
+            </Button>
+          </Box>
+        </Paper>
+      </Col>
+    )
+  : <Col span={12}>
       <Paper padding="sm" shadow="xs">
         <Box mx="auto" sx={{padding: '10px'}}>
-          {
-            topText
-          }
-
-          <TextInput
-            icon={<IconSearch size={18} stroke={1.5} />}
-            radius="xl"
-            size="md"
-            onChange={e => setSearchInput(e.target.value)}
-            rightSection={
-              <ActionIcon
-                size={32}
-                radius="xl"
-                color={theme.primaryColor}
-                onClick={() => {
-                  performSearch()
-                }}
-                variant="filled"
-              >
-                  <IconArrowRight size={18} stroke={1.5} />
-              </ActionIcon>
-            }
-            placeholder="1.3.x or symbol"
-            rightSectionWidth={42}
-          />
-
-          <SimpleGrid cols={3} sx={{marginTop: '10px'}}>
-            {
-              buttonList
-            }
-          </SimpleGrid>
-
-          <Button
-            variant="light"
-            sx={{marginTop: '15px'}}
-            onClick={() => {
-              back()
-            }}
-          >
-            {t('blockchain:search.back')}
-          </Button>
+          <Loader variant="dots" />
+          <Text size="md">
+            {t('blockchain:search.inProgress')}
+          </Text>
         </Box>
       </Paper>
     </Col>
-  );
 }

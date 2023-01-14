@@ -54,6 +54,15 @@ export default function Mode(properties) {
               >
                 {t('setup:mode.featuredBtn')}
               </Button>
+              <Button
+                variant="outline"
+                sx={{marginTop: '15px', marginRight: '5px'}}
+                onClick={() => {
+                  setMode('favourites');
+                }}
+              >
+                {t('setup:mode.favouritesBtn')}
+              </Button>
             </Group>
 
             <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>

@@ -1,0 +1,53 @@
+{
+    "accounts": {
+      "enterID": "계속하려면 계정 ID를 입력하세요.",
+      "fetchingAccount": "계정 조회",
+      "noAccount": "해당 계정을 찾을 수 없습니다. 입력 내용을 확인하고 다시 시도하십시오.",
+      "searchResults": "검색 결과",
+      "loading": "로드 중...",
+      "invalidID": "잘못된 계정 ID - '1.2'로 시작해야 합니다. ",
+      "accountID": "계정 ID(예: 1.2.0)",
+      "existingID": "연결된 Beet 계정의 기존 계정 ID로 진행하시겠습니까?",
+      "beetReq": "비트 지갑에서 계정 ID 가져오기",
+      "beetLinked": "Beet 연결 계정으로 진행"
+    },
+    "accountSearch": {
+      "inputPrompt": "계속 진행하려면 블록체인 계정 ID/이름을 입력하세요."
+    },
+    "featured": {
+      "fetching": "추천 자산을 가져오는 중",
+      "issue": "추천 자산을 가져오는 중에 문제가 발생했습니다. 다시 시도해 주세요.",
+      "retry": "다시 시도하십시오",
+      "heading": "주요 NFT",
+      "back": "돌아가기"
+    },
+    "portfolio": {
+      "checkingAccount": "비트쉐어 확인하기 {{environment}} 계정...",
+      "emptyPortfolio": "아직 포트폴리오에 NFT가 없는 것 같습니다.",
+      "header": "귀하의 포트폴리오에는 다음 NFT가 포함되어 있습니다.",
+      "refresh": "포트폴리오 새로 고침",
+      "back": "뒤쪽에"
+    },
+    "search": {
+      "inProgress": "수색",
+      "searchPrompt": "NFT 검색",
+      "noResults": "입력에 대한 검색 결과가 없습니다",
+      "resultHeader": "NFT 검색 결과",
+      "back": "뒤쪽에"
+    },
+    "selectAsset": {
+      "lookup": "사용자가 발행한 자산 조회",
+      "fetching": "Bitshares 계정에서 정보 검색",
+      "noResultsHeader": "발행된 자산이 없습니다.",
+      "noResultsDesc": "이 Bitshares 계정은 BTS DEX에서 NFT를 발행하지 않았습니다.",
+      "notice": "참고: BTS DEX에서 NFT를 구매하고 소유한다고 해서 자동으로 NFT 편집 권한이 부여되는 것은 아닙니다.",
+      "selection": "보려는 NFT를 선택합니다.",
+      "back": "뒤쪽에",
+      "refresh": "새로 고치다"
+    },
+    "favourites": {
+      "noFavourites": "즐겨찾기 없음",
+      "noFavouritesDesc": "아직 즐겨찾기가 없는 것 같습니다. ",
+      "selection": "아래에서 마음에 드는 항목을 선택하세요."
+    }
+  }

@@ -1,0 +1,98 @@
+{
+    "issuerDetails": {
+      "tooltip1": "Varade omandiõigus on põletatud, kuna need saadeti nullkontole; ",
+      "tooltip2": "Hoiatus: varade omandiõigust ei ole veel nullkontole üle antud; ",
+      "issuer": "Väljaandja"
+    },
+    "nft": {
+      "by": " kõrval ",
+      "back": "Mine tagasi",
+      "tabs": {
+        "nft": "NFT",
+        "asset": "Vara",
+        "tags": "Sildid",
+        "buy": "Osta",
+        "flags": "Lipud",
+        "permissions": "load",
+        "signature": "Allkiri",
+        "license": "Litsents",
+        "json": "JSON"
+      },
+      "nft": {
+        "attestation": "Atesteerimine",
+        "narrative": "Narratiiv",
+        "acknowledgements": "Tänuavaldused"
+      },
+      "asset": {
+        "name": "Nimi: {{name}}",
+        "filetype": "Faili tüüp: {{filetype}}",
+        "onChain": "keti peal",
+        "offChain": "ketist maha",
+        "encoding": "Kodeering: {{encoding}}",
+        "precision0": "Täpsusega 0 \"{{short_name}}' on mitteasendatav märk!",
+        "precision1": "Kuna täpsus ei ole 0, on see asendatav märk.",
+        "precisionVal": "Täpsus: {{precision}}"
+      },
+      "tags": {
+        "noTags": "Teema-/huvimärgenditeta",
+        "noFlags": "NFT-silte pole"
+      },
+      "buy": {
+        "buyHeader": "Selle NFT-ga saab kaubelda / üle kanda järgmiste Bitshares DEX rahakottide abil",
+        "desktopTooltip": "Otsige töölauarakendusest vara \"{{symbol}}'",
+        "desktopApp": "Töölauarakendus",
+        "explorerHeader": "Vaadake seda NFT-d järgmistes uurijates:"
+      },
+      "flags": {
+        "none": "Ükski lipp pole praegu lubatud."
+      },
+      "permissions": {
+        "permissionTips": {
+          "enabled": {
+            "charge_market_fee": "Aktivudstederen kan aktivere markedsgebyrer.",
+            "white_list": "Atudstederen kan oprette en liste over godkendte markeder",
+            "override_authority": "Atudstederen kan overføre NFT tilbage til sig Selv.",
+            "transfer_restricted": "Dette aktiv må kun overføres til/fra udstederen eller markedsordrer",
+            "disable_force_settle": "Brugere kan anmode om tvangsafregning af dette markedsudstedte aktiv.",
+            "global_settle": "Udstederen af ​​​​dette markedsudstedte aktiv har mulighed for at afvikle aktivet globalt",
+            "disable_confidential": "Kasutage varjatud tehinguid.",
+            "witness_fed_asset": "Dette markedsudstedte aktiv kan få sine prisfeeds leveret af Bitshares Vidner.",
+            "committee_fed_asset": "Dette markedsudstedte aktiv kan få sine prisfeeds leveret af Bitshares udvalgsmedlemmer."
+          },
+          "disabled": {
+            "charge_market_fee": "Der kan ikke opkræves nogen markedsgebyrer for dette aktiv; ",
+            "white_list": "Der er ingen godkendt list over markeder for dette aktiv. ",
+            "override_authority": "Atudstederen er ikke i stand til at overføre denne NFT tilbage til sig selv.",
+            "transfer_restricted": "Dette aktivs overførsler er ubegrænsede.",
+            "disable_force_settle": "Dette aktiv kan ikke tvangsafregnes.",
+            "global_settle": "Dette aktiv kan ikke afregnes globalt.",
+            "disable_confidential": "Fortrolige transaktioner af dette aktiv er permanent mulige.",
+            "witness_fed_asset": "Vidnerne kan ikke give en pris for dette aktiv.",
+            "committee_fed_asset": "Komitéen kan ikke give en pris for dette aktiv."
+          }
+        },
+        "none": "Kõik load on keelatud."
+      },
+      "signature": {
+        "address": "Pubkey või aadress",
+        "label": "NFT allkiri",
+        "pwd": "parool multihash"
+      },
+      "license": {
+        "header1": "Litsents:",
+        "header2": "Litsentsi omanik:",
+        "noLicense": "Litsentsi, mille alusel see NFT välja anti, ei ole esitatud.",
+        "noHoldLicense": "Litsentsi omaniku teavet ei ole esitatud."
+      },
+      "json": {
+        "label": "NFT JSON",
+        "copy": "Kopeeri",
+        "copied": "Kopeeritud"
+      }
+    },
+    "quantity": "Kogus",
+    "favourite": {
+      "save": "Lemmikvara",
+      "remove": "Eemalda lemmikutest"
+    }
+  }

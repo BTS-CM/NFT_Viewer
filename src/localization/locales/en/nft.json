@@ -90,5 +90,9 @@
             "copied": "Copied"
         }
     },
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "favourite": {
+        "save": "Favourite asset",
+        "remove": "Remove from favourites"
+    }
 }

@@ -1,0 +1,53 @@
+{
+    "accounts": {
+      "enterID": "アカウント ID を入力して続行します",
+      "fetchingAccount": "アカウントの検索",
+      "noAccount": "そのようなアカウントは見つかりませんでした。入力を確認して、もう一度お試しください。",
+      "searchResults": "の検索結果",
+      "loading": "読み込んでいます...",
+      "invalidID": "無効なアカウント ID - 「1.2」で始まる必要があります。",
+      "accountID": "アカウント ID (例: 1.2.0)",
+      "existingID": "リンクされた Beet アカウントの既存のアカウント ID で続行しますか?",
+      "beetReq": "Beet ウォレットからアカウント ID を取得する",
+      "beetLinked": "Beet にリンクされたアカウントで続行します"
+    },
+    "accountSearch": {
+      "inputPrompt": "ブロックチェーン アカウント ID/名前を入力して続行します"
+    },
+    "featured": {
+      "fetching": "注目のアセットの取得",
+      "issue": "注目のアセットの取得中に問題が発生しました。もう一度お試しください。",
+      "retry": "再試行",
+      "heading": "注目のNFT",
+      "back": "戻る"
+    },
+    "portfolio": {
+      "checkingAccount": "Bitshare の確認 {{environment}} アカウント...",
+      "emptyPortfolio": "あなたのポートフォリオにはまだ NFT がないようです。",
+      "header": "あなたのポートフォリオには次のNFTが含まれています",
+      "refresh": "ポートフォリオをリフレッシュ",
+      "back": "戻る"
+    },
+    "search": {
+      "inProgress": "検索中",
+      "searchPrompt": "NFTの検索",
+      "noResults": "入力の検索結果がありません",
+      "resultHeader": "NFT検索結果",
+      "back": "戻る"
+    },
+    "selectAsset": {
+      "lookup": "ユーザーが発行したルックアップ アセット",
+      "fetching": "Bitshares アカウントの情報を取得しています",
+      "noResultsHeader": "発行済みアセットが見つかりません",
+      "noResultsDesc": "この Bitshares アカウントは、BTS DEX で NFT を発行していません。",
+      "notice": "注: BTS DEX で NFT を購入して所有しても、NFT の編集権限が自動的に付与されるわけではありません。",
+      "selection": "見たいNFTを選択",
+      "back": "戻る",
+      "refresh": "リフレッシュ"
+    },
+    "favourites": {
+      "noFavourites": "お気に入りが見つかりません",
+      "noFavouritesDesc": "まだお気に入りがないようです。",
+      "selection": "下記よりお好きな商品をお選びください"
+    }
+  }

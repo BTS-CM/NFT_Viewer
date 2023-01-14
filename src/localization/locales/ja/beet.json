@@ -1,0 +1,41 @@
+{
+    "beetlink": {
+      "connected": "Beet ウォレットに正常に接続されました。",
+      "linkPrompt": "このアプリを以下の Beet ウォレットにリンクしてください。",
+      "linkButton": "ビートへのリンク",
+      "beetWait": "BEETプロンプトからの応答待ち",
+      "backButton": "戻る"
+    },
+    "buy": {
+      "unavailable": "このNFTは現在販売されていません。",
+      "buyPrompt": "このNFTをどのように購入しますか?",
+      "beetBuy": "BEETウォレットで購入",
+      "qrCodes": "QR コードの使用",
+      "beetConnect": "購入を続けるには、Beet に接続してください。",
+      "beetLink": "購入を続けるには、Beet とリンクしてください。",
+      "beetWait": "BEET クライアントからのユーザーの応答を待っています。",
+      "buySuccess": "NFTの買い指値注文のブロードキャストに成功しました」{{boughtAsset}}」と引き換えに {{amountToSell}} {{soldAsset}}",
+      "viewPortfolio": "ポートフォリオを見る",
+      "backButton": "戻る",
+      "beetBuyPrompt": "BEETにNFTの購入を指示する」{{boughtAsset}}\" にとって {{amountToSell}} {{soldAsset}}?",
+      "confirmPurchase": "はい",
+      "rejectPurchase": "いいえ",
+      "generateQR": "QRコードを生成",
+      "scanQR": "このNFTを購入するには、下のQRコードをスキャンしてください",
+      "waitQR": "QR コードが生成されるまでお待ちください"
+    },
+    "connect": {
+      "remove": "削除する",
+      "previousBEET": "以前にリンクしたどの BEET アカウントを使用しますか?",
+      "newBEET": "別のアカウントを使用したいですか？",
+      "newBtn": "新しいアカウントに接続",
+      "back": "戻る",
+      "beetHeader": "このツールは、Bitshares BEET Wallet で使用するために設計されています。",
+      "beetSubheading": "起動してロックを解除し、下の接続ボタンをクリックして続行します。",
+      "beetConnect": "ビートに接続",
+      "btsPrompt": "Bitshares BEET ウォレットをまだインストールしていませんか?",
+      "btsGuide": "インストールしたら、ウォレットを作成し、上記の接続に進みます。",
+      "beetDownload": "ビートをダウンロード",
+      "connecting": "BEETに接続する"
+    }
+  }

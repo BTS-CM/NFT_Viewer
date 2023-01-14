@@ -1,0 +1,41 @@
+{
+    "beetlink": {
+      "connected": "Connecté au portefeuille Beet avec succès.",
+      "linkPrompt": "Continuez en reliant cette application à votre portefeuille Beet ci-dessous.",
+      "linkButton": "Lien vers la betterave",
+      "beetWait": "En attente de réponse de l'invite BEET",
+      "backButton": "Dos"
+    },
+    "buy": {
+      "unavailable": "Ce NFT n'est pas en vente actuellement.",
+      "buyPrompt": "Comment souhaitez-vous acheter ce NFT ?",
+      "beetBuy": "Acheter via le portefeuille BEET",
+      "qrCodes": "Utilisation des codes QR",
+      "beetConnect": "Pour continuer l'achat, connectez-vous à Beet.",
+      "beetLink": "Pour continuer l'achat, créez un lien avec Beet.",
+      "beetWait": "Attente de la réponse de l'utilisateur du client BEET.",
+      "buySuccess": "Diffuser avec succès un ordre d'achat à cours limité pour le NFT \"{{boughtAsset}}\" en échange de {{amountToSell}} {{soldAsset}}",
+      "viewPortfolio": "Voir le portefeuille",
+      "backButton": "Dos",
+      "beetBuyPrompt": "Demandez à BEET d'acheter le NFT \"{{boughtAsset}}\" pour {{amountToSell}} {{soldAsset}}?",
+      "confirmPurchase": "Oui",
+      "rejectPurchase": "Non",
+      "generateQR": "Générer un code QR",
+      "scanQR": "Pour acheter ce NFT, scannez le code QR ci-dessous",
+      "waitQR": "Veuillez patienter pendant que votre code QR est généré"
+    },
+    "connect": {
+      "remove": "Éliminer",
+      "previousBEET": "Quel compte BEET précédemment associé souhaitez-vous utiliser ?",
+      "newBEET": "Vous souhaitez utiliser un autre compte ?",
+      "newBtn": "Connectez-vous avec un nouveau compte",
+      "back": "Retourner",
+      "beetHeader": "Cet outil est conçu pour être utilisé avec le portefeuille Bitshares BEET.",
+      "beetSubheading": "Lancez-le et déverrouillez-le, puis cliquez sur le bouton de connexion ci-dessous pour continuer.",
+      "beetConnect": "Connectez-vous à la betterave",
+      "btsPrompt": "Vous n'avez pas encore installé le portefeuille Bitshares BEET ? ",
+      "btsGuide": "Une fois installé, créez un portefeuille et procédez à la connexion ci-dessus.",
+      "beetDownload": "Télécharger BETTERAVE",
+      "connecting": "Se connecter à BEET"
+    }
+  }

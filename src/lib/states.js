@@ -12,6 +12,45 @@ import {
   fetchDynamicData
 } from './queries';
 
+const favouritesStore = create(
+  persist(
+    (set, get) => ({
+      favourites: [],
+      addFavourite: (newFavourite) => {
+        if (!newFavourite) {
+          return;
+        }
+        let currentFavourites = get().favourites;
+        if (currentFavourites.find(x => x.id === newFavourite.id)) {
+          console.log('Already favourited this item!');
+          return;
+        }
+        currentFavourites.push(newFavourite);
+        set({ favourites: currentFavourites });
+      },
+      removeFavourite: (oldFavourite) => {
+        if (!oldFavourite) {
+          return;
+        }
+        
+        console.log('Removing favourite: ' + oldFavourite)
+
+        let currentFavourites = get().favourites;
+        if (!currentFavourites.find(x => x.id === oldFavourite)) {
+          console.log('This item is not favourited!');
+          return;
+        }
+
+        let newFavourites = currentFavourites.filter(x => x.id != oldFavourite);
+        set({ favourites: newFavourites });
+      }
+    }),
+    {
+      name: 'favourites'
+    }
+  )
+);
+
 const localePreferenceStore = create(
   persist(
     (set, get) => ({
@@ -353,5 +392,6 @@ export {
   appStore,
   beetStore,
   identitiesStore,
-  localePreferenceStore
+  localePreferenceStore,
+  favouritesStore
 };
