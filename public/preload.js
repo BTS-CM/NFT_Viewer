@@ -1,6 +1,8 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-const { ipcRenderer } = require("electron");
+const { 
+    ipcRenderer
+} = require("electron");
 const Socket = require("simple-websocket")
 
 // Note: Changes to this file will require a build before electron:start works
@@ -96,6 +98,25 @@ window.electron = {
     },
     openDEX: async (args) => {
         return _openDEX(args);
+    },
+    fetchLocales: () => {
+        const translations = {};
+        const languages = ['en','da', 'de', 'et', 'es', 'fr', 'it', 'ja', 'ko', 'pt', 'th'];
+        const pages = [
+            'beet',
+            'blockchain',
+            'nft',
+            'setup'
+        ];
+        languages.forEach((language) => {
+            const localPages = {};
+            pages.forEach((page) => {
+                const pageContents = require(`./locales/${language}/${page}.json`);
+                localPages[page] = pageContents;
+            });
+            translations[language] = localPages;
+        });
+        return translations;
     }
 }
 
