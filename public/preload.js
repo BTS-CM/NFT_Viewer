@@ -119,20 +119,3 @@ window.electron = {
         return translations;
     }
 }
-
-/*
-contextBridge.exposeInMainWorld(
-    "electron",
-    {
-        testConnection: async (url) => {
-            return _testConnection(url);
-        },
-        openURL: async (target) => {
-            return _openURL(target);
-        },
-        openDEX: async (args) => {
-            return _openDEX(args);
-        }
-    }
-);
-*/

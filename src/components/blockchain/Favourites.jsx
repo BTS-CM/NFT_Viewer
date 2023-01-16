@@ -19,6 +19,8 @@ export default function Favourites(properties) {
   let environment = appStore((state) => state.environment);
   const relevantChain = environment === 'production' ? 'BTS' : 'BTS_TEST';
 
+  const [inProgress, setInProgress] = useState(false);
+
   function goBack() {
     setMode();
   }
@@ -28,8 +30,10 @@ export default function Favourites(properties) {
    * @param {String} assetID
    */
   async function chosenAsset(assetID) {
+    setInProgress(true);
     if (!assetID.includes('1.3.')) {
       console.log('invalid ID');
+      setInProgress(false);
       return;
     }
     console.log('chosen favourite' + assetID);
@@ -39,15 +43,18 @@ export default function Favourites(properties) {
       searchResult = await fetchObject(nodes[0], assetID);
     } catch (error) {
       console.log(error);
+      setInProgress(false);
       return;
     }
 
     if (!searchResult || !searchResult.length) {
       console.log({msg: "Couldn't find account", account});
+      setInProgress(false);
       return;
     }
 
     setAsset(searchResult[0]);
+    setInProgress(false);
     setMode();
   }
 
@@ -122,6 +129,18 @@ export default function Favourites(properties) {
                                   </span>
                           })
                       : null;
+
+  if (inProgress) {
+    return (
+      <Col span={12}>
+        <Paper padding="sm" shadow="xs">
+          <Box mx="auto" sx={{padding: '10px'}}>
+            <Loader size="lg" />
+          </Box>
+        </Paper>
+      </Col>
+    );
+  }
 
   return (
     <Col span={12}>

@@ -2,7 +2,6 @@ import i18next from 'i18next';
 import { initReactI18next } from "react-i18next";
 import { localePreferenceStore } from '../lib/states';
 
-const languages = ['en','da', 'de', 'et', 'es', 'fr', 'it', 'ja', 'ko', 'pt', 'th'];
 const pages = [
     'beet',
     'blockchain',
