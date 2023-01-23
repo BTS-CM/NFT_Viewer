@@ -265,15 +265,6 @@ export default function NFT(properties) {
                             </Button>
                             <Button
                               onClick={() => {
-                                launchDEX({target: 'ioBanker', symbol: symbol, market: market})
-                              }}
-                              sx={{m: 0.25}}
-                              variant="outline"
-                            >
-                              ioBanker DEX
-                            </Button>
-                            <Button
-                              onClick={() => {
                                 launchDEX({target: 'GDEX', symbol: symbol, market: market})
                               }}
                               sx={{m: 0.25}}

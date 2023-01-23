@@ -55,7 +55,6 @@ ipcMain.on('openURL', (event, arg) => {
 let allowedDEX = {
   "XBTSIO": "https://ex.xbts.io/market/",
   "BitsharesOrg": "https://wallet.bitshares.org/#/market/",
-  "ioBanker": "https://dex.iobanker.com/market/",
   "GDEX": "https://www.gdex.io/market/",
   "lightClient": "https://github.com/bitshares/bitshares-ui/releases"
 };
@@ -96,7 +95,5 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== "darwin") {
     app.quit();
-  } else {
-    i18nextBackend.clearMainBindings(ipcMain);
   }
 })
