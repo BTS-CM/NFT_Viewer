@@ -22,7 +22,7 @@ import {
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-import { IconHeart, IconHeartBroken } from '@tabler/icons';
+import { TbHeart, TbHeartBroken } from 'react-icons/tb';
 
 import { appStore, beetStore, favouritesStore } from '../../lib/states';
 import IssuerDetails from './IssuerDetails';
@@ -263,17 +263,8 @@ export default function NFT(properties) {
                             >
                               XBTS.io
                             </Button>
-                            <Button
-                              onClick={() => {
-                                launchDEX({target: 'GDEX', symbol: symbol, market: market})
-                              }}
-                              sx={{m: 0.25}}
-                              variant="outline"
-                            >
-                              GDEX.io
-                            </Button>
                             <Tooltip
-                              label={t('nft:nft.buy.desktopTooltip')}
+                              label={t('nft:nft.buy.desktopTooltip', {symbol})}
                               withArrow
                             >
                               <Button
@@ -482,7 +473,7 @@ export default function NFT(properties) {
               {
                 favourites && favourites.length && favourites.find(f => (f.id === asset.id))
                 ? <Button
-                    leftIcon={<IconHeartBroken />}
+                    leftIcon={<TbHeartBroken />}
                     variant="light"
                     onClick={() => {
                       removeFavourite(asset.id);
@@ -491,7 +482,7 @@ export default function NFT(properties) {
                     {t('nft:favourite.remove')}
                   </Button>
                 : <Button
-                    leftIcon={<IconHeart />}
+                    leftIcon={<TbHeart />}
                     variant="light"
                     onClick={() => {
                       favouriteAsset();

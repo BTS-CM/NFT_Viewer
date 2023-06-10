@@ -12,7 +12,8 @@ import {
   Paper,
   SimpleGrid
 } from '@mantine/core';
-import { IconSearch, IconArrowRight, IconArrowLeft } from '@tabler/icons';
+import { TbInputSearch, TbArrowNarrowRight } from 'react-icons/tb';
+
 import { useTranslation } from 'react-i18next';
 import { appStore } from '../../lib/states';
 
@@ -111,7 +112,7 @@ export default function Search(properties) {
             }
 
             <TextInput
-              icon={<IconSearch size={18} stroke={1.5} />}
+              icon={<TbInputSearch size={18} stroke={1.5} />}
               radius="xl"
               size="md"
               onChange={e => setSearchInput(e.target.value)}
@@ -130,7 +131,7 @@ export default function Search(properties) {
                   }}
                   variant="filled"
                 >
-                    <IconArrowRight size={18} stroke={1.5} />
+                    <TbArrowNarrowRight size={18} stroke={1.5} />
                 </ActionIcon>
               }
               placeholder="1.3.x or symbol"

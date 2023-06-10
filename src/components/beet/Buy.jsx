@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Text, Col, Group, Loader } from '@mantine/core';
+import React, { useState, useEffect } from 'react';
+import { Button, Text, Col, Group, Loader, Accordion, JsonInput, } from '@mantine/core';
 import { QRCode } from 'react-qrcode-logo';
 import { useTranslation } from 'react-i18next';
 
 import { appStore, beetStore } from '../../lib/states';
 import { generateQRContents, purchaseNFT } from '../../lib/broadcasts';
+import { generateDeepLink } from '../../lib/generate';
+import { fetchAssets } from '../../lib/queries';
 
 import Connect from "./Connect";
 import BeetLink from "./BeetLink";
@@ -20,12 +22,16 @@ export default function Buy(properties) {
   let nodes = appStore((state) => state.nodes);
   let setMode = appStore((state) => state.setMode);
   let setAsset = appStore((state) => state.setAsset);
-  let setNodes = appStore((state) => state.setNodes);
+  let setAccount = appStore((state) => state.setAccount);
+  let environment = appStore((state) => state.environment);
 
   const [inProgress, setInProgress] = useState(false);
   const [bought, setBought] = useState(false);
   const [chosen, setChosen] = useState();
   const [qrContents, setQRContents] = useState();
+  const [localData, setLocalData] = useState();
+  const [deepLinkItr, setDeepLinkItr] = useState(0);
+  const [tx, setTX] = useState();
 
   function goToBalance() {
     setMode('balance');
@@ -105,6 +111,84 @@ export default function Buy(properties) {
     console.log('Going back')
   }
 
+  useEffect(() => {
+    async function fetchData() {
+      console.log('fetchData')
+      setInProgress(true);
+
+      let soldAssetDetails;
+      try {
+        soldAssetDetails = await fetchAssets(nodes[0], [soldAsset], true);
+      } catch (error) {
+        console.log(error);
+        setInProgress(false);
+        return;
+      }
+
+      console.log({soldAssetDetails})
+  
+      let boughtAssetDetails;
+      try {
+        boughtAssetDetails = await fetchAssets(nodes[0], [boughtAsset], true);
+      } catch (error) {
+        console.log(error);
+        setInProgress(false);
+        return;
+      }
+
+      console.log({boughtAssetDetails})
+
+      let currentDate = new Date();
+      currentDate.setHours(currentDate.getHours() + 24);
+
+      const ops = [{
+          fee: {
+              amount: 0,
+              asset_id: "1.3.0"
+          },
+          seller: account,
+          amount_to_sell: {
+            amount: amountToSell * Math.pow(10, soldAssetDetails[0].precision),
+            asset_id: soldAssetDetails[0].id
+          },
+          min_to_receive: {
+            amount: amountToBuy * Math.pow(10, boughtAssetDetails[0].precision),
+            asset_id: boughtAssetDetails[0].id
+          },
+          fill_or_kill: false,
+          expiration: currentDate
+      }]
+
+      setTX(ops);
+      console.log({ops})
+
+      let payload;
+      try {
+        payload = await generateDeepLink(
+          'airdrop',
+          environment === "production" ? "BTS" : "BTS_TEST",
+          nodes[0],
+          'limit_order_create',
+          ops
+        );
+      } catch (error) {
+        console.log(error);
+        setInProgress(false);
+        return;
+      }
+
+      if (payload && payload.length) {
+        setLocalData(payload);
+      }
+
+      setInProgress(false);
+    }
+
+    if (deepLinkItr && deepLinkItr > 0) {
+      fetchData();
+    }
+  }, [deepLinkItr]);
+
   let response;
   if (!bids || !bids.length) {
     response = <span>
@@ -131,6 +215,24 @@ export default function Buy(properties) {
                       sx={{m: 0.25}}
                       variant="outline"
                       onClick={() => {
+                        setChosen('local');
+                      }}
+                    >
+                      {t('beet:buy.local')}
+                    </Button>
+                    <Button
+                      sx={{m: 0.25}}
+                      variant="outline"
+                      onClick={() => {
+                        setChosen('deepLink');
+                      }}
+                    >
+                      {t('beet:buy.deepLink')}
+                    </Button>
+                    <Button
+                      sx={{m: 0.25}}
+                      variant="outline"
+                      onClick={() => {
                         setChosen('QR');
                       }}
                     >
@@ -138,6 +240,18 @@ export default function Buy(properties) {
                     </Button>
                   </Group>
                 </span>;
+  } else if (chosen && !account) {
+    response = <span>
+                <AccountSearch />
+                <Button
+                  variant="light"
+                  onClick={() => {
+                    setChosen()
+                  }}
+                >
+                  {t('beet:buy.backButton')}
+                </Button>
+              </span>;
   } else if (chosen === "BEET") {
     if (!connection) {
       response = <span>
@@ -197,7 +311,7 @@ export default function Buy(properties) {
                         }}
                       >
                         {t('beet:buy.confirmPurchase')}
-                      </Button>  
+                      </Button>
                       <Button
                       variant="light"
                         onClick={() => {
@@ -210,70 +324,195 @@ export default function Buy(properties) {
                   </span>;
     }
   } else if (chosen === "QR") {
-    if (!account) {
+    if (!qrContents && !inProgress) {
       response = <span>
-                    <AccountSearch />
+                  <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        generateContents()
+                      }}
+                    >
+                      {t('beet:buy.generateQR')}
+                    </Button>
                     <Button
                       variant="light"
                       onClick={() => {
                         setChosen()
+                        setAccount()
                       }}
                     >
                       {t('beet:buy.backButton')}
                     </Button>
-                  </span>
+                  </Group>
+                </span>;
+    } else if (qrContents) {
+      response = <span>
+                  <Text size="md">
+                    {t('beet:buy.scanQR')}
+                  </Text>
+                  <QRCode
+                    value={JSON.stringify(qrContents)}
+                    ecLevel={"M"}
+                    size={250}
+                    quietZone={25}
+                    qrStyle={"dots"}
+                  />
+                  <br/>
+                  <Button
+                    variant="light"
+                    onClick={() => {
+                      setChosen()
+                      setAccount()
+                    }}
+                  >
+                    {t('beet:buy.backButton')}
+                  </Button>
+                </span>;
+    } else if (inProgress) {
+      response = <span>
+                  <Text size="md">
+                    {t('beet:buy.waitQR')}
+                  </Text>
+                  <Loader variant="dots" />
+                </span>;
+    }
+  } else if (chosen === "local") {
+    if (!localData && !inProgress) {
+      response = (
+        <>
+          <Text>{t("beet:buy.method")}</Text>
+          <Text m="sm" fz="xs">
+            {t("beet:buy.preStep1")}
+            <br />
+            {t("beet:buy.preStep2")}
+            <br />
+            {t("beet:buy.preStep3")}
+          </Text>
+          <Button
+            mt="md"
+            variant="outline"
+            onClick={() => setDeepLinkItr(deepLinkItr + 1)}
+          >
+            {t("beet:buy.generate")}
+          </Button>
+          <Button
+            mt="md"
+            ml="sm"
+            variant="outline"
+            onClick={() => {
+              setChosen()
+              setAccount()
+            }}
+          >
+            {t('beet:buy.backButton')}
+          </Button>
+        </>
+      )
+    } else if (inProgress) {
+      response = <Loader size="xs" variant="dots" />
+    } else if (localData && !inProgress) {
+      response = (
+        <>
+          <Text>{t("beet:buy.confirmation")}</Text>
+          <Text fz="xs">
+            {t("beet:buy.download1")}
+            <br />
+            {t("beet:buy.download2")}
+            <br />
+            {t("beet:buy.download3")}
+          </Text>
+  
+          <a
+            href={`data:text/json;charset=utf-8,${localData}`}
+            download={`buy.json`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Button mt="md" variant="outline">
+              {t("beet:buy.downloadButton")}
+            </Button>
+          </a>
+          <Button
+            mt="md"
+            ml="sm"
+            variant="outline"
+            onClick={() => {
+              setChosen()
+              setAccount()
+            }}
+          >
+            {t('beet:buy.backButton')}
+          </Button>
+
+          <Accordion mt="xs">
+            <Accordion.Item key="json" value="operation_json">
+              <Accordion.Control>
+                {t("beet:buy.viewJSON")}
+              </Accordion.Control>
+              <Accordion.Panel style={{ backgroundColor: '#FAFAFA' }}>
+                <JsonInput
+                  placeholder="Textarea will autosize to fit the content"
+                  defaultValue={JSON.stringify(tx)}
+                  validationError="Invalid JSON"
+                  formatOnBlur
+                  autosize
+                  minRows={4}
+                  maxRows={15}
+                />
+              </Accordion.Panel>
+            </Accordion.Item>
+          </Accordion>
+        </>
+      )
+    }
+  } else if (chosen === "deepLink") {
+    if (!localData) {
+      response = (
+        <>
+          <Text>{t("beet:buy.noDL.title")}</Text>
+          <Text m="sm" fz="xs">
+            1. {t("beet:buy.noDL.step1")}
+            <br />
+            2. {t("beet:buy.noDL.step2")}
+            <br />
+            3. {t("beet:buy.noDL.step3")}
+          </Text>
+          <Button
+            m="xs"
+            onClick={() => setDeepLinkItr(deepLinkItr + 1)}
+          >
+            {t("beet:buy.noDL.btn")}
+          </Button>
+        </>
+      );
     } else {
-      if (!qrContents && !inProgress) {
-        response = <span>
-                    <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
-                      <Button
-                        variant="outline"
-                        onClick={() => {
-                          generateContents()
-                        }}
-                      >
-                        {t('beet:buy.generateQR')}
-                      </Button>
-                      <Button
-                        variant="light"
-                        onClick={() => {
-                          setChosen()
-                        }}
-                      >
-                        {t('beet:buy.backButton')}
-                      </Button>
-                    </Group>
-                  </span>;
-      } else if (qrContents) {
-        response = <span>
-                    <Text size="md">
-                      {t('beet:buy.scanQR')}
-                    </Text>
-                    <QRCode
-                      value={JSON.stringify(qrContents)}
-                      ecLevel={"M"}
-                      size={250}
-                      quietZone={25}
-                      qrStyle={"dots"}
-                    />
-                    <br/>
-                    <Button
-                      variant="light"
-                      onClick={() => {
-                        setChosen()
-                      }}
-                    >
-                      {t('beet:buy.backButton')}
-                    </Button>
-                  </span>;
-      } else if (inProgress) {
-        response = <span>
-                    <Text size="md">
-                      {t('beet:buy.waitQR')}
-                    </Text>
-                    <Loader variant="dots" />
-                  </span>;
-      }
+      response = (
+        <>
+          <Text>{t("beet:buy.DL.title")}</Text>
+          <Text fz="xs">
+            1. {t("beet:buy.DL.step1")}
+            <br />
+            2. {t("beet:buy.DL.step2")}
+            <br />
+            3. {t("beet:buy.DL.step3")}
+          </Text>
+          <a href={`rawbeet://api?chain=${environment === "production" ? "BTS" : "BTS_TEST"}&request=${localData}`}>
+            <Button m="xs">
+              {t("beet:buy.DL.beetBTN")}
+            </Button>
+          </a>
+          <Button
+            m="xs"
+            onClick={() => {
+              setChosen()
+              setAccount()
+            }}
+          >
+            {t("beet:buy.DL.back")}
+          </Button>
+        </>
+      )
     }
   }
   

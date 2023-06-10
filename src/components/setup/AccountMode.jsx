@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Box, Text, Col, Paper, Group, Divider } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import { IconHeart, IconHeartBroken } from '@tabler/icons';
+import { TbHeart, TbHeartBroken } from 'react-icons/tb';
 
 import { appStore, beetStore, favouritesStore } from '../../lib/states';
 import Connect from "../beet/Connect";
@@ -11,8 +11,8 @@ import { fetchObject } from '../../lib/queries';
 
 export default function AccountMode(properties) {
   const { t, i18n } = useTranslation();
-  const setMode = appStore((state) => state.setMode); 
-  const setAccount = appStore((state) => state.setAccount); 
+  const setMode = appStore((state) => state.setMode);
+  const setAccount = appStore((state) => state.setAccount);
   const setNodes = appStore((state) => state.setNodes);
   const nodes = appStore((state) => state.nodes);
   const account = appStore((state) => state.account);
@@ -99,7 +99,7 @@ export default function AccountMode(properties) {
                         favourites && favourites.length && favourites.find(f => (f.id === account || f.id === identity?.account?.id))
                         ? <Button
                             sx={{marginTop: '15px', marginRight: '5px'}}
-                            leftIcon={<IconHeartBroken />}
+                            leftIcon={<TbHeartBroken />}
                             variant="outline"
                             onClick={() => {
                               removeFavourite(account ?? identity?.account?.id);
@@ -109,7 +109,7 @@ export default function AccountMode(properties) {
                           </Button>
                         : <Button
                             sx={{marginTop: '15px', marginRight: '5px'}}
-                            leftIcon={<IconHeart />}
+                            leftIcon={<TbHeart />}
                             variant="outline"
                             onClick={() => {
                               favouriteAccount();

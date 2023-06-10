@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import { IconUser, IconPhotoHeart } from '@tabler/icons';
+import { TbUser, TbPhotoHeart } from 'react-icons/tb';
 
 import { fetchObject } from '../../lib/queries';
 
@@ -95,7 +95,7 @@ export default function Favourites(properties) {
                         .map(favourite => {
                           return <Button
                                     compact
-                                    leftIcon={<IconPhotoHeart />}
+                                    leftIcon={<TbPhotoHeart />}
                                     sx={{margin: '2px'}}
                                     variant="outline"
                                     key={`button.${favourite.id}`}
@@ -116,7 +116,7 @@ export default function Favourites(properties) {
                             return <span>
                                     <Button
                                       compact
-                                      leftIcon={<IconUser />}
+                                      leftIcon={<TbUser />}
                                       sx={{margin: '2px'}}
                                       variant="outline"
                                       key={`button.${favourite.id}`}

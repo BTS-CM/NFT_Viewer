@@ -13,7 +13,8 @@ import {
   Paper,
   SimpleGrid
 } from '@mantine/core';
-import { IconSearch, IconArrowRight, IconAlertCircle } from '@tabler/icons';
+import { TbInputSearch, TbArrowNarrowRight } from 'react-icons/tb';
+
 import { useTranslation } from 'react-i18next';
 
 import { appStore, beetStore, identitiesStore } from '../../lib/states';
@@ -116,7 +117,7 @@ export default function AccountSearch(properties) {
           {
             !inProgress
               ? <TextInput
-                  icon={<IconSearch size={18} stroke={1.5} />}
+                  icon={<TbInputSearch size={18} stroke={1.5} />}
                   radius="xl"
                   size="md"
                   onChange={e => {
@@ -138,7 +139,7 @@ export default function AccountSearch(properties) {
                       }}
                       variant="filled"
                     >
-                        <IconArrowRight size={18} stroke={1.5} />
+                        <TbArrowNarrowRight size={18} stroke={1.5} />
                     </ActionIcon>
                   }
                   placeholder={t('blockchain:accounts.accountID')}
