@@ -1,41 +1,69 @@
 {
-    "beetlink": {
-      "connected": "Conectado à carteira Beet com sucesso.",
-      "linkPrompt": "Prossiga com a vinculação deste aplicativo à sua carteira Beet abaixo.",
-      "linkButton": "Link para Beterraba",
-      "beetWait": "Aguardando a resposta do prompt do BEET",
-      "backButton": "Voltar"
+  "beetlink": {
+    "connected": "เชื่อมต่อกับ Beet wallet เรียบร้อยแล้ว",
+    "linkPrompt": "ดำเนินการต่อโดยเชื่อมโยงแอพนี้กับกระเป๋าเงิน Beet ของคุณด้านล่าง",
+    "linkButton": "เชื่อมโยงไปยังบีท",
+    "beetWait": "กำลังรอการตอบกลับจาก BEET พรอมต์",
+    "backButton": "กลับ"
+  },
+  "buy": {
+    "unavailable": "NFT นี้ยังไม่มีขายในขณะนี้",
+    "buyPrompt": "คุณต้องการซื้อ NFT นี้ด้วยวิธีใด",
+    "beetBuy": "โดยตรงกับกระเป๋าสตางค์",
+    "qrCodes": "คิวอาร์โค้ด",
+    "local": "JSON ท้องถิ่น",
+    "confirmation": "ซื้อธุรกรรม JSON ที่สร้างขึ้น",
+    "download1": "1. สร้างการดำเนินการซื้อที่คุณร้องขอแล้ว คลิกปุ่มเพื่อดาวน์โหลด",
+    "download2": "2. จากหน้า BEET Local ให้อัปโหลดไฟล์ JSON ข้อความแจ้งจะปรากฏขึ้น",
+    "download3": "3. ตรวจสอบเนื้อหาของพรอมต์ก่อนที่จะอนุมัติ airdrop เพื่อทำธุรกรรมให้เสร็จสมบูรณ์",
+    "downloadButton": "ดาวน์โหลด JSON",
+    "viewJSON": "JSON การดำเนินการที่เสนอ",
+    "method": "ผ่านการอัพโหลดไฟล์ในเครื่อง",
+    "preStep1": "1. เปิด BEET wallet และไปที่ 'Local' ในเมนู",
+    "preStep2": "2. ที่หน้านี้อนุญาตทั้งหมดหรืออนุญาตเฉพาะการดำเนินการ 1 'limit_order_create'",
+    "preStep3": "3. เมื่ออยู่ที่หน้าอัปโหลดในเครื่อง ให้คลิกปุ่มด้านล่างเพื่อดำเนินการต่อ",
+    "generate": "สร้างไฟล์ JSON",
+    "deepLink": "ลิงก์ลึก",
+    "noDL": {
+      "title": "ผ่าน Deep Link แบบ Raw",
+      "step1": "เปิดกระเป๋าเงิน BEET และไปที่ 'Raw Link' ในเมนู",
+      "step2": "จากหน้านี้ คุณสามารถอนุญาตการดำเนินการทั้งหมด หรืออนุญาตเฉพาะการดำเนินการ 1 'จำกัดการสร้างคำสั่ง' (จากนั้นคลิกบันทึก)",
+      "step3": "เมื่อ 'พร้อมสำหรับลิงก์ดิบ' แสดงในกระเป๋าเงิน ให้ส่งคำขอนี้",
+      "btn": "สร้าง Deep Link แบบ Raw"
     },
-    "buy": {
-      "unavailable": "Este NFT não está à venda no momento.",
-      "buyPrompt": "Como você gostaria de comprar este NFT?",
-      "beetBuy": "Compre via carteira BEET",
-      "qrCodes": "Usando códigos QR",
-      "beetConnect": "Para continuar a compra, conecte-se ao Beet.",
-      "beetLink": "Para continuar a compra, vincule-se à Beet.",
-      "beetWait": "Aguardando a resposta do usuário do cliente BEET.",
-      "buySuccess": "Transmitir com sucesso uma ordem de limite de compra para o NFT \"{{boughtAsset}}\" em troca de {{amountToSell}} {{soldAsset}}",
-      "viewPortfolio": "Ver portfólio",
-      "backButton": "Voltar",
-      "beetBuyPrompt": "Instrua o BEET a comprar o NFT \"{{boughtAsset}}\" para {{amountToSell}} {{soldAsset}}?",
-      "confirmPurchase": "Sim",
-      "rejectPurchase": "Não",
-      "generateQR": "Gerar código QR",
-      "scanQR": "Para comprar este NFT digitalize o código QR abaixo",
-      "waitQR": "Aguarde enquanto seu código QR é gerado"
+    "DL": {
+      "title": "สร้าง Deep Link ดิบแล้ว",
+      "step1": "สร้าง Deep Link ของคุณแล้ว คลิกปุ่มเพื่อดำเนินการต่อ",
+      "step2": "ข้อความแจ้งจะปรากฏขึ้น ตรวจสอบเนื้อหา จากนั้นอนุมัติข้อความแจ้งการสร้างตั๋ว",
+      "step3": "ไปที่หน้า 'ดึงตั๋ว' เพื่อดาวน์โหลดตั๋วของคุณสำหรับการวิเคราะห์",
+      "beetBTN": "ออกอากาศ",
+      "back": "กลับ"
     },
-    "connect": {
-      "remove": "Retirar",
-      "previousBEET": "Qual conta BEET vinculada anteriormente você deseja usar?",
-      "newBEET": "Quer usar uma conta diferente?",
-      "newBtn": "Conectar com nova conta",
-      "back": "Volte",
-      "beetHeader": "Esta ferramenta foi projetada para uso com a Carteira Bitshares BEET.",
-      "beetSubheading": "Inicie e desbloqueie-o e, em seguida, clique no botão de conexão abaixo para prosseguir.",
-      "beetConnect": "Conecte-se à Beterraba",
-      "btsPrompt": "Ainda não tem a carteira Bitshares BEET instalada? ",
-      "btsGuide": "Depois de instalado, crie uma carteira e prossiga para conectar-se acima.",
-      "beetDownload": "Baixar BEET",
-      "connecting": "Conectando ao BEET"
-    }
+    "beetConnect": "หากต้องการซื้อต่อ ให้เชื่อมต่อกับ Beet",
+    "beetLink": "หากต้องการซื้อต่อ ให้เชื่อมโยงกับ Beet",
+    "beetWait": "กำลังรอการตอบสนองของผู้ใช้จากไคลเอนต์ BEET",
+    "buySuccess": "เผยแพร่คำสั่งจำกัดการซื้อสำหรับ NFT สำเร็จ \"{{boughtAsset}}\"เพื่อตอบแทน {{amountToSell}} {{soldAsset}}",
+    "viewPortfolio": "ดูผลงาน",
+    "backButton": "กลับ",
+    "beetBuyPrompt": "สั่งให้ BEET ซื้อ NFT \"{{boughtAsset}}\" สำหรับ {{amountToSell}} {{soldAsset}}?",
+    "confirmPurchase": "ใช่",
+    "rejectPurchase": "เลขที่",
+    "generateQR": "สร้างรหัส QR",
+    "scanQR": "หากต้องการซื้อ NFT นี้ให้สแกนรหัส QR ด้านล่าง",
+    "waitQR": "โปรดรอสักครู่ในขณะที่สร้างรหัส QR ของคุณ"
+  },
+  "connect": {
+    "remove": "ลบ",
+    "previousBEET": "คุณต้องการใช้บัญชี BEET ที่เชื่อมโยงไว้ก่อนหน้านี้ใด",
+    "newBEET": "ต้องการใช้บัญชีอื่นหรือไม่?",
+    "newBtn": "เชื่อมต่อกับบัญชีใหม่",
+    "back": "กลับไป",
+    "beetHeader": "เครื่องมือนี้ออกแบบมาเพื่อใช้กับ Bitshares BEET Wallet",
+    "beetSubheading": "เปิดและปลดล็อค จากนั้นคลิกปุ่มเชื่อมต่อด้านล่างเพื่อดำเนินการต่อ",
+    "beetConnect": "เชื่อมต่อกับบีท",
+    "btsPrompt": "ยังไม่ได้ติดตั้งกระเป๋าเงิน Bitshares BEET? ",
+    "btsGuide": "เมื่อติดตั้งแล้ว ให้สร้างกระเป๋าเงินและดำเนินการเชื่อมต่อด้านบน",
+    "beetDownload": "ดาวน์โหลดบีท",
+    "connecting": "กำลังเชื่อมต่อกับบีท"
   }
+}
