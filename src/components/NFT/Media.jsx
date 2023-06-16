@@ -57,8 +57,8 @@ export default function Media(properties) {
                 />;
   } else if (updatedImages.length > 1) {
     response = <Carousel
-                 slideSize="33%"
-                 sx={{ maxWidth: 680 }}
+                 slideSize="25%"
+                 sx={{ maxWidth: 925 }}
                  slideGap="xs"
                  controlsOffset="xs"
                  align="center"

@@ -6,7 +6,9 @@ const pages = [
     'beet',
     'blockchain',
     'nft',
-    'setup'
+    'setup',
+    'getAccount',
+    'modal'
 ];
 
 const oldLocale = localePreferenceStore.getState().locale;

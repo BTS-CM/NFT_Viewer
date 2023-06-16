@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextInput,
   Checkbox,
@@ -24,11 +24,13 @@ import { useTranslation } from 'react-i18next';
 
 import { TbHeart, TbHeartBroken } from 'react-icons/tb';
 
+import { fetchAssets } from '../../lib/queries';
 import { appStore, beetStore, favouritesStore } from '../../lib/states';
 import IssuerDetails from './IssuerDetails';
 import Quantity from './Quantity';
 import Media from './Media';
-import Buy from "../beet/Buy";
+import BeetModal from "../beet/BeetModal";
+import GetAccount from '../beet/GetAccount';
 
 export default function NFT(properties) {
   const { t, i18n } = useTranslation();
@@ -40,11 +42,17 @@ export default function NFT(properties) {
   let back = appStore((state) => state.back);
   let environment = appStore((state) => state.environment);
   let setMode = appStore((state) => state.setMode);
+  let nodes = appStore((state) => state.nodes);
+  let account = appStore((state) => state.account);
 
   const favourites = favouritesStore((state) => state.favourites);
   const removeFavourite = favouritesStore((state) => state.removeFavourite);
   const addFavourite = favouritesStore((state) => state.addFavourite);
 
+  const [operation, setOperation] = useState();
+  const [inProgress, setInProgress] = useState(false);
+  const [btnItr, setBtnItr] = useState(0);
+  
   function goBack() {
     setAccount();
     resetBeet();
@@ -99,6 +107,83 @@ export default function NFT(properties) {
   let license = nft_object && nft_object.license ? nft_object.license : undefined;
   let holder_license = nft_object && nft_object.holder_license ? nft_object.holder_license : undefined;
   let password_multihash = nft_object && nft_object.password_multihash ? nft_object.password_multihash : undefined;
+
+  let asset_order_book = appStore((state) => state.asset_order_book);
+
+  //let asks = asset_order_book ? asset_order_book.asks : null;
+  let bids = asset_order_book ? asset_order_book.bids : null;
+  let soldAsset = asset_order_book ? asset_order_book.quote : null;
+  let boughtAsset = asset_order_book ? asset_order_book.base : null;
+  let amountToBuy = bids && bids.length ? bids[0].base : null;
+  let amountToSell = bids && bids.length ? bids[0].quote : null;
+
+  /**
+   * Given fetched asset details, store the operation
+   * @param {Object} assetDetails
+   */
+  function storeOperation(assetDetails) {
+    const soldAssetDetails = assetDetails.find((x) => x.symbol === soldAsset);
+    const boughtAssetDetails = assetDetails.find((x) => x.symbol === boughtAsset);
+
+    let currentDate = new Date();
+    currentDate.setHours(currentDate.getHours() + 24);
+
+    setOperation([{
+        fee: {
+            amount: 0,
+            asset_id: "1.3.0"
+        },
+        seller: account,
+        amount_to_sell: {
+          amount: amountToSell * Math.pow(10, soldAssetDetails.precision),
+          asset_id: soldAssetDetails.id
+        },
+        min_to_receive: {
+          amount: amountToBuy * Math.pow(10, boughtAssetDetails.precision),
+          asset_id: boughtAssetDetails.id
+        },
+        fill_or_kill: false,
+        expiration: currentDate
+    }]);
+  }
+
+  useEffect(() => {
+    async function fetchData() {
+      let assetDetails;
+      try {
+        assetDetails = await fetchAssets(nodes[0], [soldAsset, boughtAsset], true);
+      } catch (error) {
+        console.log(error);
+        setInProgress(false);
+        return;
+      }
+  
+      storeOperation(assetDetails);
+    }
+    if (account && account.length) {
+      console.log("creating operation for account")
+      fetchData();
+    }
+  }, [account]);
+
+  useEffect(() => {
+    async function fetchData() {
+      let assetDetails;
+      try {
+        assetDetails = await fetchAssets(nodes[0], [soldAsset, boughtAsset], true);
+      } catch (error) {
+        console.log(error);
+        setInProgress(false);
+        return;
+      }
+  
+      storeOperation(assetDetails)
+    }
+    if (btnItr > 0) {
+      console.log("creating balance from refresh")
+      fetchData();
+    }
+  }, [btnItr]); // refresh button trigger
 
   return ([
             <Col span={12} key="media">
@@ -235,9 +320,48 @@ export default function NFT(properties) {
                     </Tabs.Panel>
                     
                     <Tabs.Panel value="Buy" pt="xs">
-                      <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
-                        <Buy />
-                      </Group>
+                      {
+                        !bids || !bids.length
+                          ? <span>
+                              <Text size="md">
+                                {t('beet:buy.unavailable')}
+                              </Text>
+                            </span>
+                          : null
+                      }
+                      {
+                        bids && bids.length && !inProgress && !account
+                          ? (
+                            <>
+                              <GetAccount
+                                basic
+                                token={environment === 'production' ? 'bitshares' : 'bitshares_testnet'}
+                                env={environment === 'production' ? 'bitshares' : 'bitshares_testnet'}
+                              />
+                            </>
+                          )
+                          : null
+                      }
+                      {
+                        bids && bids.length && !inProgress && account && operation
+                          ? <BeetModal
+                              value={environment === 'production' ? 'bitshares' : 'bitshares_testnet'}
+                              opContents={operation}
+                              opType="limit_order_create"
+                              opNum={57}
+                              opName="Limit order create"
+                              appName="NFT_Viewer"
+                              requestedMethods={["BEET", "DEEPLINK", "LOCAL", "QR", "JSON"]}
+                              filename={`buy_${symbol}.json`}
+                              symbol={boughtAsset}
+                            />
+                          : null
+                      }
+                      {
+                        bids && bids.length && !inProgress && account && !operation
+                          ? <Button onClick={() => setBtnItr(btnItr + 1)}>Refresh</Button>
+                          : null
+                      }
                       {
                         environment === 'production'
                         ? [
@@ -247,12 +371,21 @@ export default function NFT(properties) {
                           <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                             <Button
                               onClick={() => {
-                                launchDEX({target: 'BitsharesOrg', symbol: symbol, market: market})
+                                launchDEX({target: 'btsExchange', symbol: symbol, market: market})
                               }}
                               sx={{m: 0.25}}
                               variant="outline"
                             >
-                              Bitshares.org
+                              BTS.Exchange
+                            </Button>
+                            <Button
+                              onClick={() => {
+                                launchDEX({target: 'bit20', symbol: symbol, market: market})
+                              }}
+                              sx={{m: 0.25}}
+                              variant="outline"
+                            >
+                              BTWTY
                             </Button>
                             <Button
                               onClick={() => {

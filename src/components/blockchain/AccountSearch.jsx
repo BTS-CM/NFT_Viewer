@@ -117,7 +117,7 @@ export default function AccountSearch(properties) {
           {
             !inProgress
               ? <TextInput
-                  icon={<TbInputSearch size={18} stroke={1.5} />}
+                  icon={<TbInputSearch />}
                   radius="xl"
                   size="md"
                   onChange={e => {
@@ -139,7 +139,7 @@ export default function AccountSearch(properties) {
                       }}
                       variant="filled"
                     >
-                        <TbArrowNarrowRight size={18} stroke={1.5} />
+                        <TbArrowNarrowRight />
                     </ActionIcon>
                   }
                   placeholder={t('blockchain:accounts.accountID')}

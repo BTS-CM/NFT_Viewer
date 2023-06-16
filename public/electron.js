@@ -54,7 +54,8 @@ ipcMain.on('openURL', (event, arg) => {
 
 let allowedDEX = {
   "XBTSIO": "https://ex.xbts.io/market/",
-  "BitsharesOrg": "https://wallet.bitshares.org/#/market/",
+  "btsExchange": "https://bts.exchange/#/market/",
+  "bit20": "https://wallet.btwty.com/market/",
   "lightClient": "https://github.com/bitshares/bitshares-ui/releases"
 };
 

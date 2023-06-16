@@ -331,9 +331,29 @@ const beetStore = create((set, get) => ({
         return;
       }
 
+      if (identity && identity.identityhash) {
+        const { storedConnections } = identitiesStore.getState();
+  
+        const storedConnection = storedConnections[identity.identityhash];
+        if (storedConnection) {
+          connected.beetkey = storedConnection.beetkey;
+          connected.next_identification = storedConnection.next_identification;
+          connected.secret = storedConnection.secret;
+          connected.id = storedConnection.next_identification;
+          console.log('updated connected');
+  
+          set({
+            connection: connected,
+            authenticated: true,
+            isLinked: true,
+          });
+          return;
+        }
+      }
+
       set({
         connection: connected,
-        authenticated: true,
+        authenticated: connected.authenticated,
         isLinked: false
       });
     },

@@ -39,7 +39,8 @@ async function testNodes(target, itr = 0) {
  * Lookup asset details, return NFTs
  * @param {Apis} api 
  * @param {Array} asset_ids 
- * @param {Boolean} nonNFT 
+ * @param {Boolean} nonNFT
+ * @returns {Array}
  */
 async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
     return new Promise(async (resolve, reject) => {
@@ -84,6 +85,7 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
  * @param {String} node
  * @param {Array} asset_ids 
  * @param {Boolean} nonNFT 
+ * @returns {Array}
  */
  async function fetchAssets(node, asset_ids, nonNFT = false) {
     return new Promise(async (resolve, reject) => {
@@ -111,7 +113,8 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
 /**
  * Fetch the user's NFT balances from the blockchain
  * @param {String} node 
- * @param {String} accountID 
+ * @param {String} accountID
+ * @returns {Array}
  */
 async function fetchUserNFTBalances(node, accountID) {
     return new Promise(async (resolve, reject) => {
@@ -148,6 +151,7 @@ async function fetchUserNFTBalances(node, accountID) {
 /**
  * Fetch any NFTs the user has created
  * @param {String} accountID 
+ * @returns {Array}
  */
 async function fetchIssuedAssets(node, accountID) {
     return new Promise(async (resolve, reject) => {
@@ -190,7 +194,7 @@ async function fetchIssuedAssets(node, accountID) {
  * Retrieve the object contents
  * @param {String} node 
  * @param {String} objectID 
- * @returns 
+ * @returns {Array}
  */
 async function fetchObject(node, objectID) {
     return new Promise(async (resolve, reject) => {
@@ -231,7 +235,9 @@ async function fetchObject(node, objectID) {
             console.log(error);
             let changeURL = appStore.getState().changeURL;
             changeURL();
-            return reject();
+            let nodes = appStore.getState().nodes;
+            return accountSearch(nodes[0], search_string);
+            //return reject();
         }
 
         let object;
@@ -239,7 +245,7 @@ async function fetchObject(node, objectID) {
             object = await Apis.instance().db_api().exec("get_accounts", [[search_string]])
         } catch (error) {
             console.log(error);
-            return reject();
+            return reject(error);
         }
 
         return resolve(object);

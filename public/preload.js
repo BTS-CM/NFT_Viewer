@@ -68,7 +68,15 @@ const Socket = require("simple-websocket")
         let socket = new Socket(url);
 
         socket.on('connect', () => {
-            return _exitTest(true, socket);
+            socket.send('{"method": "call", "params": [1, "database", []], "id": 3}')
+            socket.on('data', (data) => {
+                const socketResponse = JSON.parse(data.toString());
+                if (socketResponse.result !== 2) {
+                    // database not available
+                    return _exitTest(false, socket);
+                }
+                return _exitTest(true, socket);
+            })
         });
 
         socket.on('error', (error) => {
@@ -106,7 +114,9 @@ window.electron = {
             'beet',
             'blockchain',
             'nft',
-            'setup'
+            'setup',
+            'getAccount',
+            'modal'
         ];
         languages.forEach((language) => {
             const localPages = {};
