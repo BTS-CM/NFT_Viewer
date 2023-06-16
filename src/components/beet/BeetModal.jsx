@@ -9,6 +9,8 @@ import {
   Title,
   Modal,
   Button,
+  Select,
+  ColorInput,
   Group,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -49,6 +51,13 @@ export default function BeetModal(properties) {
 
   const [qrItr, setQRItr] = useState(0);
   const [qrContents, setQRContents] = useState();
+
+  const [qrECL, setQRECL] = useState("M");
+  const [qrSize, setQRSize] = useState("250");
+  const [qrQZ, setQRQZ] = useState("25");
+  const [qrStyle, setQRStyle] = useState("dots");
+  const [qrBGC, setQRBGC] = useState("#ffffff");
+  const [qrFGC, setQRFGC] = useState("#000000");
 
   const currentNodes = appStore((state) => state.nodes);
 
@@ -417,11 +426,19 @@ export default function BeetModal(properties) {
                 </Text>
                 <QRCode
                   value={JSON.stringify(qrContents)}
-                  ecLevel={"M"}
-                  size={250}
-                  quietZone={25}
-                  qrStyle={"dots"}
+                  ecLevel={qrECL}
+                  size={parseInt(qrSize, 10)}
+                  quietZone={parseInt(qrQZ, 10)}
+                  qrStyle={qrStyle}
+                  bgColor={qrBGC}
+                  fgColor={qrFGC}
                 />
+               <Select label={t("modal:qr.ecl")} value={qrECL} onChange={setQRECL} data={["L", "M", "Q", "H"]} />
+               <Select label={t("modal:qr.size")} value={qrSize} onChange={setQRSize} data={["150", "250", "300", "350", "385"]} />
+               <Select label={t("modal:qr.padding")} value={qrQZ} onChange={setQRQZ} data={["5", "10", "25", "50"]} />
+               <Select label={t("modal:qr.style")} value={qrStyle} onChange={setQRStyle} data={["dots", "squares"]} />
+               <ColorInput placeholder="Pick color" label={t("modal:qr.bgc")} value={qrBGC} onChange={setQRBGC} />
+               <ColorInput placeholder="Pick color" label={t("modal:qr.fgc")} value={qrFGC} onChange={setQRFGC} />
               </span>
             : null
         }

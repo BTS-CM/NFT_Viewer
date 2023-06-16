@@ -14,6 +14,14 @@
     "text": "Valmis edastama operatsiooni BEET rahakotti",
     "init": "Valmis suhtlema PEEDIGA"
   },
+  "qr": {
+    "ecl": "Veaparanduse tase",
+    "size": "QR-koodi suurus",
+    "padding": "Polsterdus",
+    "style": "Punkti stiil",
+    "bgc": "Taustavärv",
+    "fgc": "Esiplaani värv"
+  },
   "deeplink": {
     "noDL": {
       "title": "Toores peedi sügavlingi kaudu",

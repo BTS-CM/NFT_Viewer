@@ -14,6 +14,14 @@
     "text": "Bereit zur Übertragung des Vorgangs an die BEET-Wallet",
     "init": "Bereit zur Kommunikation mit BEET"
   },
+  "qr": {
+    "ecl": "Fehlerkorrekturstufe",
+    "size": "Größe des QR-Codes",
+    "padding": "Polsterung",
+    "style": "Punktstil",
+    "bgc": "Hintergrundfarbe",
+    "fgc": "Vordergrundfarbe"
+  },
   "deeplink": {
     "noDL": {
       "title": "Über den Deeplink zu Rohrüben",

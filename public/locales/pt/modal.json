@@ -14,6 +14,14 @@
     "text": "Pronto para transmitir a operação para a carteira BEET",
     "init": "Pronto para se comunicar com BEET"
   },
+  "qr": {
+    "ecl": "Nível de correção de erro",
+    "size": "tamanho do código QR",
+    "padding": "Preenchimento",
+    "style": "estilo ponto",
+    "bgc": "Cor de fundo",
+    "fgc": "Cor de primeiro plano"
+  },
   "deeplink": {
     "noDL": {
       "title": "Via deeplink de beterraba crua",

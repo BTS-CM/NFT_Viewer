@@ -14,6 +14,14 @@
     "text": "Operazione pronta per la trasmissione al portafoglio BEET",
     "init": "Pronto a comunicare con BEET"
   },
+  "qr": {
+    "ecl": "Livello di correzione degli errori",
+    "size": "Dimensione del codice QR",
+    "padding": "Imbottitura",
+    "style": "Stile punto",
+    "bgc": "Colore di sfondo",
+    "fgc": "Colore di primo piano"
+  },
   "deeplink": {
     "noDL": {
       "title": "Tramite deeplink crudo di barbabietola",

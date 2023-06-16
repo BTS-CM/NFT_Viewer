@@ -14,6 +14,14 @@
     "text": "BEET 지갑에 작업 브로드캐스트 준비",
     "init": "BEET와 통신 준비 완료"
   },
+  "qr": {
+    "ecl": "오류 수정 수준",
+    "size": "QR 코드 크기",
+    "padding": "심",
+    "style": "도트 스타일",
+    "bgc": "배경색",
+    "fgc": "전경색"
+  },
   "deeplink": {
     "noDL": {
       "title": "원시 비트 딥링크를 통해",

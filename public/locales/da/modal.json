@@ -14,6 +14,14 @@
     "text": "Klar til at sende operation til BEET-pung",
     "init": "Klar til at kommunikere med BEET"
   },
+  "qr": {
+    "ecl": "Fejlkorrektionsniveau",
+    "size": "QR-kode størrelse",
+    "padding": "Polstring",
+    "style": "Prik stil",
+    "bgc": "Baggrundsfarve",
+    "fgc": "Forgrundsfarve"
+  },
   "deeplink": {
     "noDL": {
       "title": "Via rå Beet deeplink",
