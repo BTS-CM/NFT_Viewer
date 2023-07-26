@@ -1,0 +1,43 @@
+{
+    "bug": {
+      "control": "Wie kann ich ein Problem melden?",
+      "panel": "Melden Sie alle Softwareprobleme über das Issue-System an das NFT_Viewer-Github-Repo. "
+    },
+    "featured": {
+      "control": "Wie kann ich vorgestellt werden?",
+      "panel": "Abhängig vom NFT-Medieninhalt können Sie eine Github-Ausgabe öffnen, um Ihr NFT vorzustellen. "
+    },
+    "storage": {
+      "control": "Wo werden NFT-Mediendaten gespeichert?",
+      "panel": "NFT-Mediendaten können sowohl in der Kette als auch auf IPFS gespeichert werden. "
+    },
+    "fileTypes": {
+      "control": "Welche Dateitypen werden unterstützt?",
+      "panel": "Viele Dateitypen werden unterstützt, darunter Bilder, Videos, Audio, Dokumente, 3D-Dateien und mehr."
+    },
+    "why": {
+      "control": "Was kann ich mit einem NFT machen?",
+      "panel": "Sobald Sie ein NFT besitzen, können Sie es handeln, als Sicherheit verwenden, langfristig einsammeln, über seinen Wert spekulieren und vieles mehr, abhängig von der Inhaberlizenz des NFT."
+    },
+    "sell": {
+      "control": "Wie verkaufe ich einen NFT?",
+      "panel": "Diese App unterstützt den Verkauf von NFTs noch nicht, Sie können sie jedoch über die Web-Wallet-Schnittstelle auf dem Bitshares DEX verkaufen. "
+    },
+    "purchase": {
+      "control": "Wie kauft man ein NFT?",
+      "panel": "Wenn sie zum Verkauf angeboten werden, können sie über diese App (überprüfen Sie die Registerkarte „NFT kaufen“) und über alle Web-Wallet-Austauschschnittstellen von Bitshares erworben werden."
+    },
+    "create": {
+      "control": "Wie erstelle ich ein NFT?",
+      "panel": "Mit dem NFT-Ausgabetool von Bitshares können Sie ein NFT mit Ihrem Bitshares-Konto erstellen. "
+    },
+    "beet": {
+      "control": "Was ist die Beet-Wallet?",
+      "panel": "Das BEET-Wallet ist ein Multi-Blockchain-Krypto-Wallet, das zur sicheren Authentifizierung und Netzwerkübertragung von Transaktionen dient."
+    },
+    "blockchains": {
+      "control": "Welche Blockchains werden unterstützt?",
+      "panel": "Derzeit wird nur die Bitshares-Blockchain unterstützt, dieses Tool ist jedoch vollständig Open Source auf Github."
+    },
+    "title": "Häufig gestellte Fragen"
+  }

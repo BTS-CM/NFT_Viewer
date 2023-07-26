@@ -1,98 +1,105 @@
 {
-    "issuerDetails": {
-      "tooltip1": "資産の所有権は、'null-account' に送られることによって '焼却' されました。",
-      "tooltip2": "警告: アセットの所有権はまだ 'null-account' に転送されていません。",
-      "issuer": "発行者"
+  "issuerDetails": {
+    "tooltip1": "資産の所有権は「null-account」に送信されることによって「焼かれ」ました。",
+    "tooltip2": "警告: アセットの所有権はまだ「null-account」に移行されていません。",
+    "issuer": "発行者"
+  },
+  "nft": {
+    "by": " に ",
+    "back": "戻る",
+    "tabs": {
+      "nft": "NFT",
+      "asset": "資産",
+      "tags": "タグ",
+      "buy": "買う",
+      "flags": "フラグ",
+      "permissions": "権限",
+      "signature": "サイン",
+      "license": "ライセンス",
+      "json": "JSON"
     },
     "nft": {
-      "by": " に ",
-      "back": "戻る",
-      "tabs": {
-        "nft": "NFT",
-        "asset": "資産",
-        "tags": "タグ",
-        "buy": "買う",
-        "flags": "フラグ",
-        "permissions": "権限",
-        "signature": "サイン",
-        "license": "ライセンス",
-        "json": "JSON"
-      },
-      "nft": {
-        "attestation": "証明",
-        "narrative": "物語",
-        "acknowledgements": "謝辞"
-      },
-      "asset": {
-        "name": "名前： {{name}}",
-        "filetype": "ファイルの種類： {{filetype}}",
-        "onChain": "オンチェーン",
-        "offChain": "オフチェーン",
-        "encoding": "エンコーディング： {{encoding}}",
-        "precision0": "0 の精度で、'{{short_name}}' は代替不可能なトークンです!",
-        "precision1": "精度が 0 ではないため、これは代替可能なトークンです。",
-        "precisionVal": "精度： {{precision}}"
-      },
-      "tags": {
-        "noTags": "トピック/インタレスト タグなし",
-        "noFlags": "NFTタグなし"
-      },
-      "buy": {
-        "buyHeader": "このNFTは、次のBitshares DEXウォレットを使用して取引/転送できます",
-        "desktopTooltip": "デスクトップ アプリ内でアセット ' を検索します{{symbol}}'",
-        "desktopApp": "デスクトップ アプリ",
-        "explorerHeader": "次のエクスプローラーでこの NFT を表示します。"
-      },
-      "flags": {
-        "none": "現在有効になっているフラグはありません。"
-      },
-      "permissions": {
-        "permissionTips": {
-          "enabled": {
-            "charge_market_fee": "Aktivudstederen kan aktivere Marksgebyrer.",
-            "white_list": "Atudstederen kan oprette en liste over godkendte マーカー",
-            "override_authority": "Atudstederen kan overføre denne NFT tilbage til sig selv.",
-            "transfer_restricted": "Dette aktiv må kun overføres til/fra udstederen ellermarksordrer",
-            "disable_force_settle": "Brugere kan anmode om tvangsafregning af dette marksudstedte aktiv.",
-            "global_settle": "Udstederen af dette marksudstedte aktiv har mulighed for at afvikle aktivet globalt",
-            "disable_confidential": "Udstederen af dette aktiv kan deaktivere Stealth-transaktioner.",
-            "witness_fed_asset": "Dette marksudstedte aktiv kan få sine prisfeeds Leveret af Bitshares vidner.",
-            "committee_fed_asset": "Dette marksudstedte aktiv kan få sine prisfeeds Leveret af Bitshares udvalgsmedlemmer."
-          },
-          "disabled": {
-            "charge_market_fee": "Der kan ikke opkræves nogenmarksgebyrer for dette aktiv;",
-            "white_list": "Der ingen godkendt liste over marker for dette aktiv. ",
-            "override_authority": "Atudstederen er ikke i stand til at overføre denne NFT tilbage til sig selv.",
-            "transfer_restricted": "Dette aktivs overforsler er ubegrænsede.",
-            "disable_force_settle": "Dette aktiv kan ikke tvangsafregnes.",
-            "global_settle": "Dette aktiv kan ikke afregnes globalt.",
-            "disable_confidential": "Fortrolige transaktioner af dette aktiv er perperent mulige.",
-            "witness_fed_asset": "Vidnerne kan ikke give en pris for dette aktiv.",
-            "committee_fed_asset": "Komitéen kan ikke give en pris for dette aktiv."
-          }
-        },
-        "none": "すべての権限が無効になっています。"
-      },
-      "signature": {
-        "address": "公開鍵またはアドレス",
-        "label": "NFT署名",
-        "pwd": "パスワードマルチハッシュ"
-      },
-      "license": {
-        "header1": "ライセンス：",
-        "header2": "所有者ライセンス:",
-        "noLicense": "この NFT がリリースされたライセンスは提供されていません。",
-        "noHoldLicense": "ホルダー ライセンス情報が提供されていません。"
-      },
-      "json": {
-        "label": "NFT JSON",
-        "copy": "コピー",
-        "copied": "コピーしました"
-      }
+      "attestation": "認証",
+      "narrative": "物語",
+      "acknowledgements": "謝辞"
     },
-    "quantity": "量",
-    "favourite": {
-      "save": "お気に入りのアセット",
-      "remove": "お気に入りから削除"
+    "asset": {
+      "name": "名前： {{name}}",
+      "filetype": "ファイルの種類： {{filetype}}",
+      "onChain": "鎖で",
+      "offChain": "オフチェーン",
+      "encoding": "エンコーディング： {{encoding}}",
+      "precision0": "精度 0 の場合、'{{short_name}}' は代替不可能なトークンです。",
+      "precision1": "精度が 0 ではないため、これは代替可能なトークンです。",
+      "precisionVal": "精度： {{precision}}"
+    },
+    "tags": {
+      "noTags": "トピック/興味タグなし",
+      "noFlags": "NFTタグなし"
+    },
+    "buy": {
+      "buyHeader": "このNFTは、次のBitshares DEXウォレットを使用して取引/転送できます。",
+      "desktopTooltip": "デスクトップ アプリ内でアセット ' を検索します{{symbol}}'",
+      "desktopApp": "デスクトップアプリ",
+      "explorerHeader": "この NFT を次のエクスプローラーで表示します。"
+    },
+    "flags": {
+      "none": "現在有効になっているフラグはありません。"
+    },
+    "permissions": {
+      "permissionTips": {
+        "enabled": {
+          "charge_market_fee": "Aktivudstederen kan aktivere marksgebyrer。",
+          "white_list": "Atudstederen kan oprette en liste over godkendte marker",
+          "override_authority": "NFT を確認するまで、すべての情報を確認してください。",
+          "transfer_restricted": "デッテ・アクティヴ・マー・クン・オーバーフォレス・ティル/フラ・ウステデレン・エラー・マークソードラー",
+          "disable_force_settle": "ブルジェールは、活動の中で最も危険な状況に直面しています。",
+          "global_settle": "Udstederen af dette marksudstedte aktiv har mulighed for afvikle aktivet globalt",
+          "disable_confidential": "ステルス取引者としての活動性を発揮します。",
+          "witness_fed_asset": "Bitshares の情報源であるプリズフィードのマークを付けられたアクションが表示されます。",
+          "committee_fed_asset": "Bitshares udvalgsmedlemmer を使用して、プリズフィードのレバーをマークしたアクションを実行します。"
+        },
+        "disabled": {
+          "charge_market_fee": "アクションを実行するために、ノーゲン マークを付けてください。 ",
+          "white_list": "アクションのマーカーを削除してください。 ",
+          "override_authority": "私は、自分が署名するまで NFT を監視するために立っています。",
+          "transfer_restricted": "より多くの活動を行ってください。",
+          "disable_force_settle": "デッテ・アクティヴ・カン・イッケ・トゥヴァンサフレーネス。",
+          "global_settle": "世界中で活動を行っています。",
+          "disable_confidential": "永続的なムリジを実行するための Fortrolige 取引担当者。",
+          "witness_fed_asset": "Vidnerne kan ikke は、活動のために全力を尽くします。",
+          "committee_fed_asset": "活動のために積極的に参加してください。"
+        }
+      },
+      "none": "すべての権限が無効になっています。"
+    },
+    "signature": {
+      "address": "公開鍵またはアドレス",
+      "label": "NFT署名",
+      "pwd": "パスワードマルチハッシュ"
+    },
+    "license": {
+      "header1": "ライセンス：",
+      "header2": "保有者ライセンス:",
+      "noLicense": "このNFTがリリースされたライセンスは提供されていません。",
+      "noHoldLicense": "所有者ライセンス情報は提供されていません。"
+    },
+    "json": {
+      "label": "NFT JSON",
+      "copy": "コピー",
+      "copied": "コピーされました"
+    },
+    "image": {
+      "zoom": "ズーム"
     }
+  },
+  "quantity": "量",
+  "favourite": {
+    "save": "お気に入りのアセット",
+    "remove": "お気に入りからアセットを削除する"
+  },
+  "accountFavourite": {
+    "save": "お気に入りのアカウント",
+    "remove": "アカウントをお気に入りから削除する"
   }
+}

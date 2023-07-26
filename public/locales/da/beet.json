@@ -4,7 +4,7 @@
     "linkPrompt": "Fortsæt med at linke denne app til din Beet-pung nedenfor.",
     "linkButton": "Link til Beet",
     "beetWait": "Afventer svar fra BEET-prompt",
-    "backButton": "Tilbage"
+    "backButton": "Skift kontometode"
   },
   "buy": {
     "unavailable": "Denne NFT er ikke til salg i øjeblikket.",
@@ -42,7 +42,7 @@
     "beetConnect": "For at fortsætte købet skal du oprette forbindelse til Beet.",
     "beetLink": "For at fortsætte købet, link til Beet.",
     "beetWait": "Venter på brugersvar fra BEET-klient.",
-    "buySuccess": "Udsendt en købsgrænseordre for NFT \"{{boughtAsset}}\"til gengæld for {{amountToSell}} {{soldAsset}}",
+    "buySuccess": "Udsendelse af en købsgrænseordre for NFT \"{{boughtAsset}}\"til gengæld for {{amountToSell}} {{soldAsset}}",
     "viewPortfolio": "Se portefølje",
     "backButton": "Tilbage",
     "beetBuyPrompt": "Instruer BEET til at købe NFT \"{{boughtAsset}}\" til {{amountToSell}} {{soldAsset}}?",

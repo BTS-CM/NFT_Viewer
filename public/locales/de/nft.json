@@ -1,48 +1,105 @@
 {
-  "accountMode": {
-      "header": "Für das Konto \"{{account}}\" Was möchten Sie tun?",
-      "balance": "Sehen Sie sich das NFT-Portfolio an",
-      "issued": "Ausgestellte NFTs anzeigen",
-      "back": "Der Rücken",
-      "header2": "Bitte geben Sie eine Konto-ID/einen Namen an:",
-      "chooseBEET": "Frag RÜBE",
-      "chooseSearch": "Konto manuell suchen",
-      "beetPrompt": "Um fortzufahren, verbinden Sie sich bitte mit Beet.",
-      "linkPrompt": "Um fortzufahren, verlinken Sie bitte mit Beet.",
-      "waiting": "Warten auf Benutzerantwort vom BEET-Client",
+    "issuerDetails": {
+      "tooltip1": "Der Vermögensbesitz wurde „vernichtet“, indem er an das „Null-Konto“ gesendet wurde. ",
+      "tooltip2": "Warnung: Der Besitz des Vermögenswerts wurde noch nicht auf „Null-Konto“ übertragen; ",
+      "issuer": "Aussteller"
+    },
+    "nft": {
+      "by": " von ",
+      "back": "Geh zurück",
+      "tabs": {
+        "nft": "NFT",
+        "asset": "Anlage",
+        "tags": "Stichworte",
+        "buy": "Besorgen",
+        "flags": "Flaggen",
+        "permissions": "Berechtigungen",
+        "signature": "Unterschrift",
+        "license": "Lizenz",
+        "json": "JSON"
+      },
+      "nft": {
+        "attestation": "Bescheinigung",
+        "narrative": "Narrativ",
+        "acknowledgements": "Danksagungen"
+      },
+      "asset": {
+        "name": "Name: {{name}}",
+        "filetype": "Dateityp: {{filetype}}",
+        "onChain": "an Kette",
+        "offChain": "außerhalb der Kette",
+        "encoding": "Codierung: {{encoding}}",
+        "precision0": "Mit einer Genauigkeit von 0, '{{short_name}}' ist ein nicht fungibler Token!",
+        "precision1": "Da die Genauigkeit nicht 0 beträgt, handelt es sich um einen fungiblen Token.",
+        "precisionVal": "Präzision: {{precision}}"
+      },
+      "tags": {
+        "noTags": "Keine Themen-/Interessen-Tags",
+        "noFlags": "Keine NFT-Tags"
+      },
+      "buy": {
+        "buyHeader": "Dieser NFT kann mit den folgenden Bitshares DEX-Wallets gehandelt/übertragen werden",
+        "desktopTooltip": "Suchen Sie in der Desktop-App nach dem Asset „{{symbol}}'",
+        "desktopApp": "Desktop-Anwendung",
+        "explorerHeader": "Sehen Sie sich dieses NFT auf den folgenden Explorern an:"
+      },
+      "flags": {
+        "none": "Derzeit sind keine Flags aktiviert."
+      },
+      "permissions": {
+        "permissionTips": {
+          "enabled": {
+            "charge_market_fee": "Aktivisten können aktive Markierer sein.",
+            "white_list": "Sie können eine Liste über gute Marken erstellen",
+            "override_authority": "Sie können diesen NFT-Termin nicht überschreiten, um sich selbst zu registrieren.",
+            "transfer_restricted": "Dies ist eine aktive Maßnahme, die Sie für eine erneute oder markierte Bestellung durchführen können",
+            "disable_force_settle": "Es besteht die Möglichkeit, die Sicherheit dieser markierten Region zu gewährleisten.",
+            "global_settle": "Um sicherzustellen, dass diese markierte Sudstedt-Aktivität aktiviert ist, muss die globale Aktivität aktiviert werden",
+            "disable_confidential": "Wenn Sie diese Option aktivieren, können Sie Stealth-Transaktionen deaktivieren.",
+            "witness_fed_asset": "Diese markierte Sudstedte-Aktivität kann dazu führen, dass Bitshares-Videos kostenlos bereitgestellt werden.",
+            "committee_fed_asset": "Diese markierte Aktion kann dazu führen, dass Bitshares-Aktivisten ihre Dienste nutzen."
+          },
+          "disabled": {
+            "charge_market_fee": "Für diese Aktivität können keine zusätzlichen Gebühren erhoben werden. ",
+            "white_list": "Es gibt keine gute Liste mit Markern für diese Aktivität. ",
+            "override_authority": "Derzeit stehe ich nicht zur Verfügung, um diesen NFT-Antrag zu übernehmen, um mich zu registrieren.",
+            "transfer_restricted": "Diese aktiven Aktivitäten sind äußerst wichtig.",
+            "disable_force_settle": "Diese Aktivität kann nicht sicher sein.",
+            "global_settle": "Diese Aktivität kann nicht global agieren.",
+            "disable_confidential": "Starke Transaktionen, wenn diese aktiv ist, bleiben dauerhaft bestehen.",
+            "witness_fed_asset": "Für diese Aktivität kann kein Preis gewährt werden.",
+            "committee_fed_asset": "Das Komitee kann keinen Preis dafür geben, dass es aktiv ist."
+          }
+        },
+        "none": "Alle Berechtigungen wurden deaktiviert."
+      },
+      "signature": {
+        "address": "Pubkey oder Adresse",
+        "label": "NFT-Signatur",
+        "pwd": "Passwort-Multihash"
+      },
+      "license": {
+        "header1": "Lizenz:",
+        "header2": "Inhaberlizenz:",
+        "noLicense": "Die Lizenz, unter der dieser NFT veröffentlicht wurde, wurde nicht nachgewiesen.",
+        "noHoldLicense": "Informationen zur Inhaberlizenz wurden nicht bereitgestellt."
+      },
+      "json": {
+        "label": "NFT JSON",
+        "copy": "Kopieren",
+        "copied": "Kopiert"
+      },
+      "image": {
+        "zoom": "Zoomen"
+      }
+    },
+    "quantity": "Menge",
+    "favourite": {
+      "save": "Lieblingsgut",
+      "remove": "Asset aus Favoriten entfernen"
+    },
+    "accountFavourite": {
       "save": "Lieblingskonto",
-      "remove": "Favorit entfernen"
-  },
-  "environment": {
-      "header": "Welche Bitshares-Blockchain möchten Sie verwenden?",
-      "testnet": "Netzwerk testen",
-      "production": "Hauptnetz"
-  },
-  "loading": {
-      "message": "Suche nach schnellster Blockchain-Verbindung, bitte warten.."
-  },
-  "mode": {
-      "header": "Was möchten Sie tun?",
-      "searchBtn": "Suchen Sie nach NFT",
-      "lookupBtn": "Suchen Sie die NFTs eines Kontos",
-      "featuredBtn": "Vorgestellte NFTs anzeigen",
-      "favouritesBtn": "Favoriten anzeigen",
-      "back": "Der Rücken"
-  },
-  "offline": {
-      "header": "Du scheinst offline zu sein? ",
-      "exit": "Ausgang"
-  },
-  "settings": {
-      "remove": "Entfernen",
-      "settings": "Einstellungen",
-      "linked": "Hier sind Ihre derzeit verknüpften Konten",
-      "notLinked": "Rübe nicht verbunden.",
-      "back": "Der Rücken",
-      "language": "Sprache ändern?"
-  },
-  "app": {
-      "error": "Ein Problem ist aufgetreten, setzen Sie es zurück und versuchen Sie es erneut.",
-      "reset": "App zurücksetzen"
+      "remove": "Konto aus Favoriten entfernen"
+    }
   }
-}

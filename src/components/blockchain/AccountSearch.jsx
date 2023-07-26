@@ -9,33 +9,26 @@ import {
   Text,
   Loader,
   Col,
-  Alert,
-  Paper,
   SimpleGrid
 } from '@mantine/core';
 import { TbInputSearch, TbArrowNarrowRight } from 'react-icons/tb';
-
 import { useTranslation } from 'react-i18next';
 
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, tempStore, beetStore, identitiesStore } from '../../lib/states';
 import { accountSearch } from '../../lib/queries';
 
 export default function AccountSearch(properties) {
   const theme = useMantineTheme();
   const { t, i18n } = useTranslation();
 
-  let setAccount = appStore((state) => state.setAccount);
-  let nodes = appStore((state) => state.nodes);
-  let goBack = appStore((state) => state.back);
+  const setAccount = tempStore((state) => state.setAccount);
+  const environment = appStore((state) => state.environment);
+  const nodes = appStore((state) => state.nodes);
 
   const [searchInput, setSearchInput] = useState();
   const [inProgress, setInProgress] = useState(false);
   const [result, setResult] = useState();
   const [attempted, setAttempted] = useState();
-
-  function back() {
-    goBack();
-  }
   
   /**
    * @param {Object} account 
@@ -49,14 +42,14 @@ export default function AccountSearch(properties) {
     setInProgress(true);
     setResult();
 
-    if (!nodes || !nodes.length) {
-      console.log('No connected nodes')
+    if (!nodes || !nodes[environment] || !nodes[environment].length) {
+      console.log('No connected nodes');
       return;
     }
 
     let searchResult;
     try {
-      searchResult = await accountSearch(nodes[0], searchInput)
+      searchResult = await accountSearch(nodes[environment][0], searchInput)
     } catch (error) {
       console.log(error);
       setInProgress(false);
@@ -120,14 +113,14 @@ export default function AccountSearch(properties) {
                   icon={<TbInputSearch />}
                   radius="xl"
                   size="md"
-                  onChange={e => {
-                    setSearchInput(e.target.value)
-                    setAttempted();
-                  }}
                   onKeyUp={e => {
                     if (e.key === 'Enter') {
                       performSearch();
                     }
+                  }}
+                  onChange={e => {
+                    setSearchInput(e.target.value)
+                    setAttempted();
                   }}
                   rightSection={
                     <ActionIcon

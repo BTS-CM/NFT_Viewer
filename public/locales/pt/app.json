@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "Cardápio",
+      "label": "Menu principal",
+      "home": "Lar",
+      "language": "Linguagem",
+      "featured": "NFTs em destaque",
+      "issuer": "Pesquisa de emissor de NFT",
+      "issued": "Mais NFTs por {{username}}",
+      "portfolio": "Pesquisa de portfólio NFT",
+      "favourites": "Favoritos",
+      "search": "Procurar",
+      "faq": "Perguntas frequentes",
+      "changeNodes": "Alterar nós"
+    }
+  }

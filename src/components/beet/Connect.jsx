@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, beetStore, identitiesStore, tempStore } from '../../lib/states';
 
 export default function Connect(properties) {
   let lite = properties.lite ?? null;
@@ -24,8 +24,7 @@ export default function Connect(properties) {
   const setIdentity = beetStore((state) => state.setIdentity);
   const setIsLinked = beetStore((state) => state.setIsLinked);
 
-  const setMode = appStore((state) => state.setMode);
-  const setAccount = appStore((state) => state.setAccount);
+  const setAccount = tempStore((state) => state.setAccount);
 
   const environment = appStore((state) => state.environment);
   const setEnvironment = appStore((state) => state.setEnvironment);
@@ -41,7 +40,6 @@ export default function Connect(properties) {
     if (nftPage) {
       backCallback();
     } else {
-      setMode();
       setEnvironment();
     }
     setIsLinked();
@@ -118,7 +116,7 @@ export default function Connect(properties) {
     setInProgress(false);
   }
 
-  const relevantChain = environment === 'production' ? 'BTS' : 'BTS_TEST';
+  const relevantChain = environment === 'bitshares' ? 'BTS' : 'BTS_TEST';
   const relevantIdentities = identities.filter((x) => x.chain === relevantChain);
 
   const rows = relevantIdentities
@@ -194,11 +192,12 @@ export default function Connect(properties) {
             </Button>
             <br />
             <Button
-              variant="subtle"
+              variant="outline"
               compact
               onClick={() => {
                 back();
               }}
+              leftIcon={<HiArrowNarrowLeft />}
             >
               {t('beet:connect.back')}
             </Button>
@@ -227,10 +226,11 @@ export default function Connect(properties) {
               {t('beet:connect.beetConnect')}
             </Button>
             <Button
-              svariant="light"
+              svariant="outline"
               onClick={() => {
                 back();
               }}
+              leftIcon={<HiArrowNarrowLeft />}
             >
               {t('beet:connect.back')}
             </Button>

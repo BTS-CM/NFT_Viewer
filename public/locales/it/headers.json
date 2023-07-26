@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Seleziona la blockchain per la quale desideri visualizzare i tuoi NFT e artisti preferiti.",
+      "offline": "Per visualizzare i tuoi NFT e artisti preferiti, hai bisogno di un nodo funzionante. ",
+      "asset": "Seleziona l'NFT che desideri visualizzare."
+    },
+    "featured": {
+      "environment": "Seleziona la blockchain per la quale desideri visualizzare gli NFT e gli artisti in primo piano.",
+      "asset": "Quale NFT in primo piano vuoi visualizzare?"
+    },
+    "portfolio": {
+      "environment": "Seleziona la blockchain per la quale desideri visualizzare un portafoglio NFT.",
+      "offline": "Per visualizzare un portafoglio NFT, è necessario un nodo funzionante. ",
+      "account": "Seleziona l'account per il quale desideri visualizzare il portafoglio NFT.",
+      "asset": "Quale NFT in questo portafoglio vuoi visualizzare?"
+    },
+    "issuer": {
+      "environment": "Seleziona la blockchain per questa funzione di ricerca dell'emittente NFT.",
+      "offline": "Per visualizzare gli NFT emessi da un account, è necessario un nodo funzionante. ",
+      "account": "Seleziona l'account (artista) che ha emesso gli NFT a cui sei interessato.",
+      "asset": "Quale NFT emesso da questo utente vuoi visualizzare?"
+    },
+    "search": {
+      "environment": "Su quale blochchain vuoi cercare gli NFT?",
+      "offline": "Per cercare NFT, è necessario un nodo funzionante. ",
+      "input": "Per procedere, inserisci il simbolo o l'ID risorsa per l'NFT che desideri cercare."
+    },
+    "load": {
+      "environment": "Scegli la blockchain per cui vuoi caricare una bozza NFT."
+    }
+  }

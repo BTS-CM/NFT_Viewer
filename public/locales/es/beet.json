@@ -4,7 +4,7 @@
     "linkPrompt": "Continúe vinculando esta aplicación a su billetera Beet a continuación.",
     "linkButton": "Enlace a la remolacha",
     "beetWait": "Esperando respuesta del indicador BEET",
-    "backButton": "Atrás"
+    "backButton": "Cambiar método de cuenta"
   },
   "buy": {
     "unavailable": "Este NFT no está actualmente a la venta.",

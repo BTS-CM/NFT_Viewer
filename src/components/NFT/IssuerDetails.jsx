@@ -5,11 +5,11 @@ import {
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-import { appStore } from '../../lib/states';
+import { tempStore } from '../../lib/states';
 
 export default function IssuerDetails(properties) {
   const { t, i18n } = useTranslation();
-  let asset_issuer = appStore((state) => state.asset_issuer);
+  let asset_issuer = tempStore((state) => state.asset_issuer);
 
   return (
     <Tooltip

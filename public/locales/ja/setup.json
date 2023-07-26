@@ -1,48 +1,48 @@
 {
-    "accountMode": {
-      "header": "アカウントの「{{account}}\" 何をしたいですか？",
-      "balance": "NFTポートフォリオを見る",
-      "issued": "発行されたNFTを表示",
-      "back": "戻る",
-      "header2": "アカウント ID/名前を入力してください:",
-      "chooseBEET": "BEETに聞く",
-      "chooseSearch": "アカウントを手動で検索する",
-      "beetPrompt": "続行するには、Beet に接続してください。",
-      "linkPrompt": "続行するには、Beet にリンクしてください。",
-      "waiting": "BEET クライアントからのユーザーの応答を待っています",
-      "save": "お気に入りのアカウント",
-      "remove": "お気に入りを削除"
-    },
-    "environment": {
-      "header": "どの Bitshares ブロックチェーンを使用しますか?",
-      "testnet": "テスト ネットワーク",
-      "production": "主なネットワーク"
-    },
-    "loading": {
-      "message": "最速のブロックチェーン接続を見つけています。お待ちください.."
-    },
-    "mode": {
-      "header": "何をしたいですか？",
-      "searchBtn": "NFTを検索",
-      "lookupBtn": "アカウントの NFT を検索する",
-      "featuredBtn": "注目のNFTを見る",
-      "favouritesBtn": "お気に入りを見る",
-      "back": "戻る"
-    },
-    "offline": {
-      "header": "オフラインのようですか？",
-      "exit": "出口"
-    },
-    "settings": {
-      "remove": "削除する",
-      "settings": "設定",
-      "linked": "現在リンクされているアカウントは次のとおりです",
-      "notLinked": "ビートはリンクされていません。",
-      "back": "戻る",
-      "language": "言語を変更？"
-    },
-    "app": {
-      "error": "問題が発生しました。リセットして、もう一度お試しください。",
-      "reset": "アプリをリセット"
-    }
+  "accountMode": {
+    "header": "アカウントについては「{{account}}\" 何をしたいですか？",
+    "balance": "NFTポートフォリオを見る",
+    "issued": "発行されたNFTを表示する",
+    "back": "戻る",
+    "header2": "アカウント ID/名前を入力してください:",
+    "chooseBEET": "BEETに聞く",
+    "chooseSearch": "アカウントを手動で検索する",
+    "beetPrompt": "続行するには、Beet に接続してください。",
+    "linkPrompt": "続行するには、Beet にリンクしてください。",
+    "waiting": "BEET クライアントからのユーザー応答を待機しています",
+    "save": "お気に入りのアカウント",
+    "remove": "お気に入りを削除"
+  },
+  "environment": {
+    "header": "どの Bitshares ブロックチェーンを使用したいですか?",
+    "testnet": "テストネットワーク",
+    "production": "メインネットワーク"
+  },
+  "loading": {
+    "message": "ブロックチェーン データを処理しています。お待ちください..."
+  },
+  "mode": {
+    "header": "何をしたいですか？",
+    "searchBtn": "NFTを検索する",
+    "lookupBtn": "アカウントのNFTを検索する",
+    "featuredBtn": "注目の NFT を表示する",
+    "favouritesBtn": "お気に入りを表示",
+    "back": "戻る"
+  },
+  "offline": {
+    "header": "オフラインのようですか？",
+    "exit": "出口"
+  },
+  "settings": {
+    "remove": "削除",
+    "settings": "設定",
+    "linked": "現在リンクされているアカウントは次のとおりです",
+    "notLinked": "ビートはリンクされていません。",
+    "back": "戻る",
+    "language": "言語を変えてください？"
+  },
+  "app": {
+    "error": "問題が発生しました。リセットして再試行してください。",
+    "reset": "アプリをリセットする"
   }
+}

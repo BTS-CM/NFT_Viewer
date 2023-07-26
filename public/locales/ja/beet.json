@@ -4,7 +4,7 @@
     "linkPrompt": "以下でこのアプリを Beet ウォレットにリンクしてください。",
     "linkButton": "ビートへのリンク",
     "beetWait": "BEETプロンプトからの応答を待っています",
-    "backButton": "戻る"
+    "backButton": "アカウント方法の変更"
   },
   "buy": {
     "unavailable": "このNFTは現在販売されていません。",

@@ -4,7 +4,7 @@
     "linkPrompt": "Jätkake selle rakenduse linkimist oma Beeti rahakotiga allpool.",
     "linkButton": "Link Peedile",
     "beetWait": "Ootan BEET-viipa vastust",
-    "backButton": "tagasi"
+    "backButton": "Muutke konto meetodit"
   },
   "buy": {
     "unavailable": "See NFT ei ole praegu müügil.",
@@ -27,12 +27,12 @@
     "noDL": {
       "title": "Toores süvalingi kaudu",
       "step1": "Käivitage BEET rahakott ja navigeerige menüüs 'Raw Link'.",
-      "step2": "Sellel lehel saate lubada kõik toimingud või lubada ainult toimingu 1 'limiittellimuse loomine' (seejärel klõpsake nuppu Salvesta).",
+      "step2": "Sellel lehel saate lubada kõik toimingud või ainult toimingu 1 'limiittellimuse loomine' (seejärel klõpsake nuppu Salvesta).",
       "step3": "Kui rahakotis kuvatakse teade „Toorlinkide jaoks valmis”, esitage see taotlus.",
       "btn": "Looge toores süvalink"
     },
     "DL": {
-      "title": "Loodud toores süvalink",
+      "title": "Loodud toores sügavlink",
       "step1": "Teie süvalink on loodud, jätkamiseks klõpsake nuppu.",
       "step2": "Kuvatakse viip, kontrollige sisu ja kinnitage pileti loomise viip.",
       "step3": "Minge lehele Piletite toomine, et oma pilet analüüsiks alla laadida.",
@@ -59,7 +59,7 @@
     "newBtn": "Ühendage uue kontoga",
     "back": "Mine tagasi",
     "beetHeader": "See tööriist on mõeldud kasutamiseks koos Bitshares BEET Walletiga.",
-    "beetSubheading": "Käivitage see ja avage see, seejärel klõpsake jätkamiseks allolevat ühenduse nuppu.",
+    "beetSubheading": "Käivitage ja avage see, seejärel klõpsake jätkamiseks allolevat ühenduse nuppu.",
     "beetConnect": "Ühendage Beetiga",
     "btsPrompt": "Kas teil pole veel Bitshares BEET rahakotti installitud? ",
     "btsGuide": "Pärast installimist looge rahakott ja jätkake ülaltoodud ühenduse loomist.",

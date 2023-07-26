@@ -1,0 +1,35 @@
+{
+  "title": "Bem-vindo ao Bitshares NFT Viewer!",
+  "desc": "Os seguintes recursos estão disponíveis para os blockchains Bitshares!",
+  "footer": "Para fazer uso total do conjunto de recursos disponíveis nesta ferramenta, a multiwallet Bitshares BEET é necessária.",
+  "grid": {
+    "favourites": {
+      "title": "Favoritos",
+      "desc": "Veja seus NFTs e artistas favoritos"
+    },
+    "featured": {
+      "title": "NFTs em destaque",
+      "desc": "Veja os últimos NFTs em destaque"
+    },
+    "portfolio": {
+      "title": "Pesquisa de portfólio NFT",
+      "desc": "Ver o portfólio NFT de uma conta"
+    },
+    "issuer": {
+      "title": "Pesquisa de emissor de NFT",
+      "desc": "Ver as NFTs emitidas de uma conta"
+    },
+    "search": {
+      "title": "Procurar",
+      "desc": "Pesquise por NFTs e artistas"
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "desc": "Saiba mais sobre NFTs, blockchain Bitshares e multiwallet BEET"
+    },
+    "nodes": {
+      "title": "Nós configuráveis",
+      "desc": "Alternar entre nós de blockchain"
+    }
+  }
+}

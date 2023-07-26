@@ -1,0 +1,43 @@
+{
+    "bug": {
+      "control": "¿Cómo puedo reportar un problema?",
+      "panel": "Informe cualquier problema de software al repositorio NFT_Viewer github a través del sistema de problemas. "
+    },
+    "featured": {
+      "control": "¿Cómo puedo ser destacado?",
+      "panel": "Dependiendo del contenido multimedia de NFT, puede abrir un problema de github para que aparezca su NFT. "
+    },
+    "storage": {
+      "control": "¿Dónde se almacenan los datos multimedia de NFT?",
+      "panel": "Los datos de medios NFT se pueden almacenar tanto en cadena como en IPFS. "
+    },
+    "fileTypes": {
+      "control": "¿Qué tipos de archivos son compatibles?",
+      "panel": "Se admiten muchos tipos de archivos, incluidas imágenes, videos, audio, documentos, archivos 3D y más."
+    },
+    "why": {
+      "control": "¿Qué puedo hacer con un NFT?",
+      "panel": "Una vez que posee un NFT, puede negociarlo, usarlo como garantía, cobrarlo a largo plazo, especular sobre su valor y más, según la licencia del titular del NFT."
+    },
+    "sell": {
+      "control": "¿Cómo vendo un NFT?",
+      "panel": "Esta aplicación aún no admite la venta de NFT, sin embargo, puede venderlos en Bitshares DEX a través de la interfaz de billetera web. "
+    },
+    "purchase": {
+      "control": "¿Cómo se compra un NFT?",
+      "panel": "Si están disponibles para la venta, se pueden comprar dentro de esta aplicación (consulte la pestaña comprar nft) y dentro de todas las interfaces de intercambio de billetera web de Bitshares."
+    },
+    "create": {
+      "control": "¿Cómo creo un NFT?",
+      "panel": "La herramienta de emisión de NFT de Bitshares le permite crear un NFT con su cuenta de Bitshares. "
+    },
+    "beet": {
+      "control": "¿Qué es la billetera Beet?",
+      "panel": "La billetera BEET es una billetera criptográfica de múltiples cadenas de bloques, se utiliza para manejar de forma segura la autenticación y la transmisión de transacciones en la red."
+    },
+    "blockchains": {
+      "control": "¿Qué cadenas de bloques son compatibles?",
+      "panel": "Actualmente, solo se admite la cadena de bloques de Bitshares; sin embargo, esta herramienta es completamente de código abierto en github."
+    },
+    "title": "Preguntas frecuentes"
+  }

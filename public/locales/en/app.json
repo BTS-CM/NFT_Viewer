@@ -1,0 +1,16 @@
+{
+    "menu": {
+        "btn": "Menu",
+        "label": "Main menu",
+        "home": "Home",
+        "language": "Language",
+        "featured": "Featured NFTs",
+        "issuer": "NFT Issuer lookup",
+        "issued": "More NFTs by {{username}}",
+        "portfolio": "NFT Portfolio lookup",
+        "favourites": "Favourites",
+        "search": "Search",
+        "faq": "FAQ",
+        "changeNodes": "Change nodes"
+    }
+}

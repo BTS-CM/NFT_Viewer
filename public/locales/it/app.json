@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "Menù",
+      "label": "Menu principale",
+      "home": "Casa",
+      "language": "Lingua",
+      "featured": "NFT in primo piano",
+      "issuer": "Ricerca dell'emittente NFT",
+      "issued": "Più NFT di {{username}}",
+      "portfolio": "Ricerca del portafoglio NFT",
+      "favourites": "Preferiti",
+      "search": "Ricerca",
+      "faq": "FAQ",
+      "changeNodes": "Cambia nodi"
+    }
+  }

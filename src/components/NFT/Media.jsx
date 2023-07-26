@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import { Carousel } from '@mantine/carousel';
 import { 
   Image,
@@ -6,14 +6,16 @@ import {
   CopyButton,
   Paper,
   Group,
+  Modal,
   Badge,
   Button,
   Container,
   Card,
   Center
 } from '@mantine/core';
-import { useId } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
   BsFileImage,
@@ -24,7 +26,7 @@ import {
   BsQuestion,
 } from "react-icons/bs";
 
-import { appStore } from '../../lib/states';
+import { appStore, tempStore, localePreferenceStore } from '../../lib/states';
 
 let imageTypes = ["PNG", "JPEG", "GIF", "TIFF", "BMP"];
 let audioTypes = ["MP3", "MP4", "M4A", "OGG", "FLAC", "WAV", "WMA", "AAC"];
@@ -34,74 +36,79 @@ let modelTypes = ["OBJ", "FBX", "GLTF", "3DS", "STL", "COLLADA", "3MF", "BLEND",
 
 export default function Media(properties) {
   const { t, i18n } = useTranslation();
-  let asset_images = appStore((state) => state.asset_images);
-  let ipfsGateway = appStore((state) => state.ipfsGateway);
-  
+  let asset = tempStore((state) => state.asset);
+  let asset_images = tempStore((state) => state.asset_images);
+  const ipfsGateway = localePreferenceStore((state) => state.ipfsGateway);
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const [zoomIndex, setZoomIndex] = React.useState(0);
+
   const height = 250;
   const width = 250;
-  let response;
 
-  let updatedImages = asset_images.map((img) => {
-    return img.ipfs
-      ? {...img, url: ipfsGateway + img.url}
-      : img
-  });
+  const updatedImages = useMemo(() => {
+    return asset_images.map((img) => {
+      return img.ipfs && img.ipfs === true
+        ? {...img, url: ipfsGateway + img.url}
+        : img
+    });
+  }, [asset_images, ipfsGateway]);
 
-  if (!updatedImages || !updatedImages.length) {
-    response = <Image
-                  width={width}
-                  height={height}
-                  src={null}
-                  alt="NFT Image load failure"
-                  withPlaceholder
-                />;
-  } else if (updatedImages.length > 1) {
-    response = <Carousel
-                 slideSize="25%"
-                 sx={{ maxWidth: 925 }}
-                 slideGap="xs"
-                 controlsOffset="xs"
-                 align="center"
-                 loop
-                >
-                  {
-                    updatedImages.map(image => {
-                      const uuid = useId(image);
+  const response = useMemo(() => {
+    if (!updatedImages || !updatedImages.length) {
+      return <Image
+                    width={width}
+                    height={height}
+                    src={null}
+                    alt="NFT Image load failure"
+                    withPlaceholder
+                  />;
+    } else if (updatedImages.length > 1) {
+      return <Carousel
+                slideSize="25%"
+                sx={{ maxWidth: 925 }}
+                slideGap="xs"
+                controlsOffset="xs"
+                align="center"
+                loop
+              >
+                {
+                  updatedImages.map((image, i) => { 
+                    let icon;
+                    if (imageTypes.includes(image.type)) {
+                        icon = <BsFileImage />;
+                    } else if (audioTypes.includes(image.type)) {
+                        icon = <BsFileEarmarkMusic />;
+                    } else if (documentTypes.includes(image.type)) {
+                        icon = <BsFileRichtext />;
+                    } else if (videoTypes.includes(image.type)) {
+                        icon = <BsFilm />;
+                    } else if (modelTypes.includes(image.type)) {
+                        icon = <BsBadge3D />;
+                    } else {
+                        icon = <BsQuestion />;
+                    }
 
-                      let icon;
-                      if (imageTypes.includes(image.type)) {
-                          icon = <BsFileImage />;
-                      } else if (audioTypes.includes(image.type)) {
-                          icon = <BsFileEarmarkMusic />;
-                      } else if (documentTypes.includes(image.type)) {
-                          icon = <BsFileRichtext />;
-                      } else if (videoTypes.includes(image.type)) {
-                          icon = <BsFilm />;
-                      } else if (modelTypes.includes(image.type)) {
-                          icon = <BsBadge3D />;
-                      } else {
-                          icon = <BsQuestion />;
-                      }
-
-                      return <Carousel.Slide key={uuid}>
-                                <Center>
-                                  <Card shadow="sm" radius="md" withBorder>
-                                    <Card.Section>
-                                      <Image
-                                        width={width}
-                                        height={height}
-                                        fit="contain"
-                                        src={
-                                          imageTypes.includes(image.type)
-                                            ? image.url
-                                            : null
-                                        }
-                                        sx={{border: '1px solid grey'}}
-                                      />
-                                    </Card.Section>
-                                    <Group position="apart" mt="xs">
-                                      <CopyButton value={image.url}>
-                                        {({ copied, copy }) => (
+                    return <Carousel.Slide key={`cs_${uuidv4()}`}>
+                              <Center>
+                                <Card shadow="sm" radius="md" withBorder>
+                                  <Card.Section>
+                                    <Image
+                                      width={width}
+                                      height={height}
+                                      fit="contain"
+                                      src={
+                                        imageTypes.includes(image.type)
+                                          ? image.url
+                                          : null
+                                      }
+                                      sx={{border: '1px solid grey'}}
+                                    />
+                                  </Card.Section>
+                                  <Group position="apart" mt="xs">
+                                    <CopyButton value={image.url}>
+                                      {({ copied, copy }) => (
+                                        <>
                                           <Button
                                             compact
                                             variant="outline"
@@ -115,36 +122,110 @@ export default function Media(properties) {
                                                 : t('nft:nft.json.copy')
                                             }
                                           </Button>
-                                        )}
-                                      </CopyButton>
-                                      <Badge variant="light" leftSection={icon}>
-                                        {image.type}
-                                      </Badge>
-                                    </Group>
-                                  </Card>
-                                </Center>
-                              </Carousel.Slide>;
-                    })
-                  }
-                </Carousel>
-  } else {
-    response = <Image
-                  width={width}
-                  height={height}
-                  fit="contain"
-                  src={updatedImages[0].url}
-                />
-  }
+                                          <Button
+                                            variant='outline'
+                                            compact
+                                            style={{marginTop: '5px'}}
+                                            onClick={() => {
+                                              setZoomIndex(i);
+                                              open();
+                                            }}
+                                          >
+                                            {t("nft:nft.image.zoom")}
+                                          </Button>
+                                        </>
+                                      )}
+                                    </CopyButton>
+                                    <Badge
+                                      variant="light"
+                                      leftSection={icon}
+                                      size="lg"
+                                      style={{marginTop: '5px'}}
+                                    >
+                                      {image.type}
+                                    </Badge>
+                                  </Group>
+                                </Card>
+                              </Center>
+                            </Carousel.Slide>;
+                  })
+                }
+              </Carousel>
+    } else {
+      return (
+        <>
+          <Center>
+            <Image
+              width={width}
+              height={height}
+              fit="contain"
+              src={updatedImages[0].url}
+            />
+          </Center>
+          <Center>
+            <Group position="apart" mt="xs">
+              <CopyButton value={updatedImages[0].url}>
+                {({ copied, copy }) => (
+                  <>
+                    <Button
+                      compact
+                      variant="outline"
+                      color={copied ? 'teal' : 'blue'}
+                      style={{marginTop: '5px'}}
+                      onClick={copy}
+                    >
+                      {copied ? t('nft:nft.json.copied') : t('nft:nft.json.copy')}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      compact
+                      style={{marginTop: '5px'}}
+                      onClick={() => {
+                        setZoomIndex(0);
+                        open();
+                      }}
+                    >
+                      {t('nft:nft.image.zoom')}
+                    </Button>
+                  </>
+                )}
+              </CopyButton>
+            </Group>
+          </Center>
+        </>
+      );
+    }
+  }, [updatedImages]);
 
   return (
-    <Box mx="auto" sx={{padding: '10px'}}>
-      <Paper sx={{padding: '5px'}} shadow="xs">
-        <Center>
+    <>
+      <Box mx="auto" sx={{padding: '10px'}}>
+        <Paper sx={{padding: '5px'}} shadow="xs">
           {
             response
           }
-        </Center>
-      </Paper>
-    </Box>
+        </Paper>
+      </Box>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          close();
+        }}
+        title={`${asset.symbol} ${zoomIndex + 1}/${updatedImages.length}`}
+        size={"xl"}
+      >
+        <Image
+          width="100%"
+          height="100%"
+          fit="contain"
+          src={
+            imageTypes.includes(updatedImages[zoomIndex].type)
+              ? updatedImages[zoomIndex].url
+              : null
+          }
+          sx={{border: '1px solid grey'}}
+        />
+      </Modal>
+    </>
   )
 }

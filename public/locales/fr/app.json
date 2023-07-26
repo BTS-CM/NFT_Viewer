@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "Menu",
+      "label": "Menu principal",
+      "home": "Maison",
+      "language": "Langue",
+      "featured": "NFT en vedette",
+      "issuer": "Recherche d'émetteur NFT",
+      "issued": "Plus de NFT par {{username}}",
+      "portfolio": "Recherche de portefeuille NFT",
+      "favourites": "Favoris",
+      "search": "Recherche",
+      "faq": "FAQ",
+      "changeNodes": "Changer de nœuds"
+    }
+  }

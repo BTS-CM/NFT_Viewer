@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "선호하는 NFT 및 아티스트를 보려는 블록체인을 선택하십시오.",
+      "offline": "좋아하는 NFT와 아티스트를 보려면 작동하는 노드가 필요합니다. ",
+      "asset": "보려는 NFT를 선택합니다."
+    },
+    "featured": {
+      "environment": "추천 NFT 및 아티스트를 보려는 블록체인을 선택합니다.",
+      "asset": "어떤 추천 NFT를 보고 싶으신가요?"
+    },
+    "portfolio": {
+      "environment": "NFT 포트폴리오를 보려는 블록체인을 선택합니다.",
+      "offline": "NFT 포트폴리오를 보려면 작동하는 노드가 필요합니다. ",
+      "account": "NFT 포트폴리오를 보려는 계정을 선택하십시오.",
+      "asset": "이 포트폴리오에서 보고 싶은 NFT는 무엇입니까?"
+    },
+    "issuer": {
+      "environment": "이 NFT 발행자 조회 기능에 대한 블록체인을 선택하십시오.",
+      "offline": "계정이 발행한 NFT를 보려면 작동하는 노드가 필요합니다. ",
+      "account": "관심 있는 NFT를 발행한 계정(아티스트)을 선택합니다.",
+      "asset": "이 사용자가 발행한 NFT를 보고 싶습니까?"
+    },
+    "search": {
+      "environment": "어떤 블록체인에서 NFT를 검색하시겠습니까?",
+      "offline": "NFT를 검색하려면 작동하는 노드가 필요합니다. ",
+      "input": "계속하려면 검색하려는 NFT의 기호 또는 자산 ID를 입력하십시오."
+    },
+    "load": {
+      "environment": "NFT 초안을 로드하려는 블록체인을 선택합니다."
+    }
+  }

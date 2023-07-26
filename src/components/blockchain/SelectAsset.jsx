@@ -2,22 +2,24 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Group, Box, Text, Divider, SimpleGrid, Loader, Col, Paper } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import { appStore, beetStore } from '../../lib/states';
+
+import { HiArrowNarrowLeft, HiOutlineRefresh } from "react-icons/hi";
+
+import { appStore, beetStore, tempStore } from '../../lib/states';
 import Accounts from "./Accounts";
 
 export default function SelectAsset(properties) {
   const { t, i18n } = useTranslation();
-  let setAsset = appStore((state) => state.setAsset);
-  let setMode = appStore((state) => state.setMode);
   let changeURL = appStore((state) => state.changeURL);
 
-  let fetchIssuedAssets = appStore((state) => state.fetchIssuedAssets);
-  let clearAssets = appStore((state) => state.clearAssets);
-  let assets = appStore((state) => state.assets);
+  const fetchIssuedAssets = tempStore((state) => state.fetchIssuedAssets);
+  const clearAssets = tempStore((state) => state.clearAssets);
+  const setAsset = tempStore((state) => state.setAsset);
+  const account = tempStore((state) => state.account);
+
   let reset = beetStore((state) => state.reset);
   let back = appStore((state) => state.back);
 
-  let account = appStore((state) => state.account);
   const [tries, setTries] = useState(0);
 
   function increaseTries() {
@@ -29,7 +31,6 @@ export default function SelectAsset(properties) {
   function goBack() {
     reset();
     back();
-    setMode();
     clearAssets();
   }
 
@@ -117,25 +118,33 @@ export default function SelectAsset(properties) {
               buttonList
             }
           </SimpleGrid>
-
-          <Button
-            variant="outline"
-            sx={{marginTop: '15px', marginRight: '5px'}}
-            onClick={() => {
-              increaseTries()
-            }}
-          >
-            {t('blockchain:selectAsset.refresh')}
-          </Button>
-          <Button
-            variant="light"
-            sx={{marginTop: '15px'}}
-            onClick={() => {
-              goBack()
-            }}
-          >
-            {t('blockchain:selectAsset.back')}
-          </Button>
+          
+          <Center>
+            <Group>
+              <Button
+                variant="outline"
+                compact
+                sx={{marginTop: '15px', marginRight: '5px'}}
+                onClick={() => {
+                  increaseTries()
+                }}
+                leftIcon={<HiOutlineRefresh />}
+              >
+                {t('blockchain:selectAsset.refresh')}
+              </Button>
+              <Button
+                variant="outline"
+                compact
+                sx={{marginTop: '15px'}}
+                onClick={() => {
+                  goBack()
+                }}
+                leftIcon={<HiArrowNarrowLeft />}
+              >
+                {t('blockchain:selectAsset.back')}
+              </Button>
+            </Group>
+          </Center>
         </Box>
       </Paper>
     </Col>

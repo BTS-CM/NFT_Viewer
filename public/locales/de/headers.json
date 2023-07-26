@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Wählen Sie die Blockchain aus, für die Sie Ihre bevorzugten NFTs und Künstler anzeigen möchten.",
+      "offline": "Um Ihre Lieblings-NFTs und -Künstler anzuzeigen, benötigen Sie einen funktionierenden Knoten. ",
+      "asset": "Wählen Sie den NFT aus, den Sie anzeigen möchten."
+    },
+    "featured": {
+      "environment": "Wählen Sie die Blockchain aus, für die Sie die vorgestellten NFTs und Künstler anzeigen möchten.",
+      "asset": "Welchen vorgestellten NFT möchten Sie ansehen?"
+    },
+    "portfolio": {
+      "environment": "Wählen Sie die Blockchain aus, für die Sie ein NFT-Portfolio anzeigen möchten.",
+      "offline": "Um ein NFT-Portfolio anzuzeigen, benötigen Sie einen funktionierenden Knoten. ",
+      "account": "Wählen Sie das Konto aus, für das Sie das NFT-Portfolio anzeigen möchten.",
+      "asset": "Welchen NFT in diesem Portfolio möchten Sie ansehen?"
+    },
+    "issuer": {
+      "environment": "Wählen Sie die Blockchain für diese NFT-Emittenten-Suchfunktion aus.",
+      "offline": "Um die von einem Konto ausgegebenen NFTs anzuzeigen, benötigen Sie einen funktionierenden Knoten. ",
+      "account": "Wählen Sie das Konto (Künstler) aus, das die NFTs herausgegeben hat, an denen Sie interessiert sind.",
+      "asset": "Welchen NFT, den dieser Benutzer ausgegeben hat, möchten Sie sehen?"
+    },
+    "search": {
+      "environment": "Auf welcher Blochchain möchten Sie nach NFTs suchen?",
+      "offline": "Um nach NFTs zu suchen, benötigen Sie einen funktionierenden Knoten. ",
+      "input": "Um fortzufahren, geben Sie das Symbol oder die Asset-ID für den NFT ein, nach dem Sie suchen möchten."
+    },
+    "load": {
+      "environment": "Wählen Sie die Blockchain aus, für die Sie einen NFT-Entwurf laden möchten."
+    }
+  }

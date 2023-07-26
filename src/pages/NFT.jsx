@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
-  TextInput,
-  Checkbox,
   CopyButton,
   Button,
   Container,
@@ -10,64 +8,57 @@ import {
   Text,
   Tabs,
   Card,
-  Divider,
   Title,
   Col,
   Paper,
   Group,
   Tooltip,
-  Loader,
-  Textarea,
-  Code
+  Center,
+  Textarea
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { Link, useParams } from "react-router-dom";
 
-import { TbHeart, TbHeartBroken } from 'react-icons/tb';
+import { TbHeart, TbHeartBroken, TbUser } from 'react-icons/tb';
 
-import { fetchAssets } from '../../lib/queries';
-import { appStore, beetStore, favouritesStore } from '../../lib/states';
-import IssuerDetails from './IssuerDetails';
-import Quantity from './Quantity';
-import Media from './Media';
-import BeetModal from "../beet/BeetModal";
-import GetAccount from '../beet/GetAccount';
+import {
+  HiOutlineHome,
+  HiOutlineCake,
+  HiOutlineRefresh,
+} from "react-icons/hi";
+
+import { fetchAssets } from '../lib/queries';
+import { appStore, beetStore, favouritesStore, tempStore } from '../lib/states';
+import IssuerDetails from '../components/NFT/IssuerDetails';
+import Quantity from '../components/NFT/Quantity';
+import Media from '../components/NFT/Media';
+import BeetModal from "../components/beet/BeetModal";
+import GetAccount from '../components/beet/GetAccount';
+import Loading from '../components/setup/Loading';
 
 export default function NFT(properties) {
   const { t, i18n } = useTranslation();
-  let asset = appStore((state) => state.asset);
 
-  let setAccount = appStore((state) => state.setAccount);
-  let resetBeet = beetStore((state) => state.reset);
+  const params = useParams();
+  const thisSymbol = params.symbol;
+  const env = params.env;
 
-  let back = appStore((state) => state.back);
+  let asset = tempStore((state) => state.asset);
+  let account = tempStore((state) => state.account);
+  let asset_issuer = tempStore((state) => state.asset_issuer);
+
   let environment = appStore((state) => state.environment);
-  let setMode = appStore((state) => state.setMode);
   let nodes = appStore((state) => state.nodes);
-  let account = appStore((state) => state.account);
 
   const favourites = favouritesStore((state) => state.favourites);
   const removeFavourite = favouritesStore((state) => state.removeFavourite);
   const addFavourite = favouritesStore((state) => state.addFavourite);
+  const addFavouriteAccount = favouritesStore((state) => state.addFavouriteAccount);
 
   const [operation, setOperation] = useState();
   const [inProgress, setInProgress] = useState(false);
   const [btnItr, setBtnItr] = useState(0);
   
-  function goBack() {
-    setAccount();
-    resetBeet();
-    back();
-  }
-
-  function beetBuy() {
-    setMode('buy');
-  }
-
-  function favouriteAsset() {
-    const relevantChain = environment === 'production' ? 'BTS' : 'BTS_TEST';
-    addFavourite({name: asset.symbol, id: asset.id, chain: relevantChain});
-  }
-
   function launchDEX(args) {
     window.electron.openDEX(args)
   }
@@ -99,7 +90,8 @@ export default function NFT(properties) {
   let artist = nft_object && nft_object.artist ? nft_object.artist : undefined;
   let narrative = nft_object && nft_object.narrative ? nft_object.narrative : undefined;
   let attestation = nft_object && nft_object.attestation ? nft_object.attestation : undefined;
-  let acknowledgments = nft_object && nft_object.acknowledgments ? nft_object.acknowledgments : undefined;
+  let acknowledgements = nft_object && nft_object.acknowledgements ? nft_object.acknowledgements : undefined;
+  let acknowledgment = nft_object && nft_object.acknowledgment ? nft_object.acknowledgment : undefined;
   let tags = nft_object && nft_object.tags ? nft_object.tags.split(',') : undefined;
   let nft_flags = nft_object && nft_object.flags ? nft_object.flags.split(",") : undefined;
   let encoding = nft_object && nft_object.encoding ? nft_object.encoding : undefined;
@@ -108,7 +100,7 @@ export default function NFT(properties) {
   let holder_license = nft_object && nft_object.holder_license ? nft_object.holder_license : undefined;
   let password_multihash = nft_object && nft_object.password_multihash ? nft_object.password_multihash : undefined;
 
-  let asset_order_book = appStore((state) => state.asset_order_book);
+  let asset_order_book = tempStore((state) => state.asset_order_book);
 
   //let asks = asset_order_book ? asset_order_book.asks : null;
   let bids = asset_order_book ? asset_order_book.bids : null;
@@ -117,73 +109,134 @@ export default function NFT(properties) {
   let amountToBuy = bids && bids.length ? bids[0].base : null;
   let amountToSell = bids && bids.length ? bids[0].quote : null;
 
-  /**
-   * Given fetched asset details, store the operation
-   * @param {Object} assetDetails
-   */
-  function storeOperation(assetDetails) {
-    const soldAssetDetails = assetDetails.find((x) => x.symbol === soldAsset);
-    const boughtAssetDetails = assetDetails.find((x) => x.symbol === boughtAsset);
+  useEffect(() => {
+    async function fetchData() {
+      let assetDetails;
+      try {
+        assetDetails = await fetchAssets(nodes[environment][0], [soldAsset, boughtAsset], true);
+      } catch (error) {
+        console.log(error);
+        setInProgress(false);
+      }
+  
+      if (assetDetails) {
+        const soldAssetDetails = assetDetails.find((x) => x.symbol === soldAsset);
+        const boughtAssetDetails = assetDetails.find((x) => x.symbol === boughtAsset);
+    
+        let currentDate = new Date();
+        currentDate.setHours(currentDate.getHours() + 24);
+    
+        setOperation([{
+            fee: {
+                amount: 0,
+                asset_id: "1.3.0"
+            },
+            seller: account,
+            amount_to_sell: {
+              amount: amountToSell * Math.pow(10, soldAssetDetails.precision),
+              asset_id: soldAssetDetails.id
+            },
+            min_to_receive: {
+              amount: amountToBuy * Math.pow(10, boughtAssetDetails.precision),
+              asset_id: boughtAssetDetails.id
+            },
+            fill_or_kill: false,
+            expiration: currentDate
+        }]);
+      }
+    }
+    if (account && soldAsset && boughtAsset) {
+      console.log("Fetching data");
+      fetchData();
+    }
+  }, [account, btnItr]);
 
-    let currentDate = new Date();
-    currentDate.setHours(currentDate.getHours() + 24);
+  const [favAssetItr, setFavAssetItr] = useState(0);
+  const favButton = useMemo(() => {
+    if (!asset || !environment || !favourites) {
+      return null;
+    }
+    return favourites && favourites.length && favourites.find(f => (f.id === asset.id))
+      ? <Button
+          leftIcon={<TbHeartBroken />}
+          variant="outline"
+          compact
+          mt="xs"
+          onClick={() => {
+            setFavAssetItr(favAssetItr + 1);
+            removeFavourite(asset.id);
+          }}
+        >
+          {t('nft:favourite.remove')}
+        </Button>
+      : <Button
+          leftIcon={<TbHeart />}
+          variant="outline"
+          compact
+          mt="xs"
+          onClick={() => {
+            setFavAssetItr(favAssetItr + 1);
+            addFavourite({
+              name: asset.symbol,
+              id: asset.id,
+              chain: environment === 'bitshares' ? 'BTS' : 'BTS_TEST'
+            });
+          }}
+        >
+          {t('nft:favourite.save')}
+        </Button>
+  }, [asset, favourites, favAssetItr]);
 
-    setOperation([{
-        fee: {
-            amount: 0,
-            asset_id: "1.3.0"
-        },
-        seller: account,
-        amount_to_sell: {
-          amount: amountToSell * Math.pow(10, soldAssetDetails.precision),
-          asset_id: soldAssetDetails.id
-        },
-        min_to_receive: {
-          amount: amountToBuy * Math.pow(10, boughtAssetDetails.precision),
-          asset_id: boughtAssetDetails.id
-        },
-        fill_or_kill: false,
-        expiration: currentDate
-    }]);
+  const [favAccountItr, setFavAccountItr] = useState(0);
+  const favAccountButton = useMemo(() => {
+    if (!asset || !environment || !favourites) {
+      return null;
+    }
+    return favourites && favourites.length && favourites.find(f => (f.id === asset.issuer))
+      ? <Button
+          leftIcon={<TbHeartBroken />}
+          variant="outline"
+          compact
+          mt="xs"
+          onClick={() => {
+            setFavAccountItr(favAccountItr + 1);
+            removeFavourite(asset.issuer);
+          }}
+        >
+          {t('nft:accountFavourite.remove')}
+        </Button>
+      : <Button
+          leftIcon={<TbHeart />}
+          variant="outline"
+          compact
+          mt="xs"
+          onClick={() => {
+            setFavAccountItr(favAccountItr + 1);
+            addFavouriteAccount(nodes[environment][0], environment, asset.issuer);
+          }}
+        >
+          {t('nft:accountFavourite.save')}
+        </Button>
+  }, [asset, favourites, favAccountItr]);
+
+  if (!asset) {
+    return (
+      <>
+        <Loading />
+        <Center>
+          <Button
+            compact
+            variant="outline"
+            mt="lg"
+            onClick={() => setBtnItr(btnItr + 1)}
+            leftIcon={<HiOutlineRefresh />}
+          >
+            {t('blockchain:selectAsset.refresh')}
+          </Button>
+        </Center>
+      </>
+    );
   }
-
-  useEffect(() => {
-    async function fetchData() {
-      let assetDetails;
-      try {
-        assetDetails = await fetchAssets(nodes[0], [soldAsset, boughtAsset], true);
-      } catch (error) {
-        console.log(error);
-        setInProgress(false);
-        return;
-      }
-  
-      storeOperation(assetDetails);
-    }
-    if (account && account.length) {
-      console.log("creating operation for account")
-      fetchData();
-    }
-  }, [account]);
-
-  useEffect(() => {
-    async function fetchData() {
-      let assetDetails;
-      try {
-        assetDetails = await fetchAssets(nodes[0], [soldAsset, boughtAsset], true);
-      } catch (error) {
-        console.log(error);
-        setInProgress(false);
-        return;
-      }
-  
-      storeOperation(assetDetails)
-    }
-    if (btnItr > 0) {
-      console.log("creating balance from refresh")
-      fetchData();
-    }
-  }, [btnItr]); // refresh button trigger
 
   return ([
             <Col span={12} key="media">
@@ -196,7 +249,7 @@ export default function NFT(properties) {
                     &quot;{title}&quot; {t('nft:nft.by')} {artist}
                   </Title>                
 
-                  <Tabs defaultValue="NFT">
+                  <Tabs defaultValue="NFT" key="nftTab">
                     <Tabs.List>
                       <Tabs.Tab value="NFT">
                         {t('nft:nft.tabs.nft')}
@@ -227,7 +280,7 @@ export default function NFT(properties) {
                       </Tabs.Tab>
                     </Tabs.List>
                     
-                    <Tabs.Panel value="NFT" pt="xs">
+                    <Tabs.Panel value="NFT" pt="xs" key="nftTab">
                       <Text size="md">
                         <b>{t('nft:nft.nft.attestation')}</b>: &quot;{attestation}&quot;
                       </Text>
@@ -235,11 +288,11 @@ export default function NFT(properties) {
                         <b>{t('nft:nft.nft.narrative')}</b>: &quot;{narrative}&quot;
                       </Text>
                       <Text size="md">
-                        <b>{t('nft:nft.nft.acknowledgements')}</b>: &quot;{acknowledgments ? acknowledgments : 'N/A'}&quot;
+                        <b>{t('nft:nft.nft.acknowledgements')}</b>: &quot;{acknowledgements ?? ''}{acknowledgment ?? ''}&quot;
                       </Text>
                     </Tabs.Panel>
 
-                    <Tabs.Panel value="Asset" pt="xs">
+                    <Tabs.Panel value="Asset" pt="xs" key="assetTab">
                       <Group position="center" sx={{marginTop: '5px'}}>
                         <Badge>
                           {t('nft:nft.asset.name', {name: symbol ?? '???'})}
@@ -285,7 +338,7 @@ export default function NFT(properties) {
                       </Group>
                     </Tabs.Panel>
 
-                    <Tabs.Panel value="Tags" pt="xs">
+                    <Tabs.Panel value="Tags" pt="xs" key="tagTab">
                       {
                         tags && tags.length
                           ? <Group sx={{marginTop: '5px'}} position="center">
@@ -319,14 +372,14 @@ export default function NFT(properties) {
                       }
                     </Tabs.Panel>
                     
-                    <Tabs.Panel value="Buy" pt="xs">
+                    <Tabs.Panel value="Buy" pt="xs" key="buyTab">
                       {
                         !bids || !bids.length
-                          ? <span>
+                          ? <>
                               <Text size="md">
                                 {t('beet:buy.unavailable')}
                               </Text>
-                            </span>
+                            </>
                           : null
                       }
                       {
@@ -335,8 +388,8 @@ export default function NFT(properties) {
                             <>
                               <GetAccount
                                 basic
-                                token={environment === 'production' ? 'bitshares' : 'bitshares_testnet'}
-                                env={environment === 'production' ? 'bitshares' : 'bitshares_testnet'}
+                                token={environment === 'bitshares' ? 'bitshares' : 'bitshares_testnet'}
+                                env={environment === 'bitshares' ? 'bitshares' : 'bitshares_testnet'}
                               />
                             </>
                           )
@@ -345,7 +398,7 @@ export default function NFT(properties) {
                       {
                         bids && bids.length && !inProgress && account && operation
                           ? <BeetModal
-                              value={environment === 'production' ? 'bitshares' : 'bitshares_testnet'}
+                              value={environment === 'bitshares' ? 'bitshares' : 'bitshares_testnet'}
                               opContents={operation}
                               opType="limit_order_create"
                               opNum={57}
@@ -359,77 +412,84 @@ export default function NFT(properties) {
                       }
                       {
                         bids && bids.length && !inProgress && account && !operation
-                          ? <Button onClick={() => setBtnItr(btnItr + 1)}>Refresh</Button>
+                          ? <Button
+                              compact
+                              variant="outline"
+                              onClick={() => setBtnItr(btnItr + 1)}
+                              leftIcon={<HiOutlineRefresh />}
+                            >
+                              {t('blockchain:selectAsset.refresh')}
+                            </Button>
                           : null
                       }
                       {
-                        environment === 'production'
-                        ? [
-                          <Text size="md">
-                            {t('nft:nft.buy.buyHeader')}
-                          </Text>,
-                          <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
-                            <Button
-                              onClick={() => {
-                                launchDEX({target: 'btsExchange', symbol: symbol, market: market})
-                              }}
-                              sx={{m: 0.25}}
-                              variant="outline"
-                            >
-                              BTS.Exchange
-                            </Button>
-                            <Button
-                              onClick={() => {
-                                launchDEX({target: 'bit20', symbol: symbol, market: market})
-                              }}
-                              sx={{m: 0.25}}
-                              variant="outline"
-                            >
-                              BTWTY
-                            </Button>
-                            <Button
-                              onClick={() => {
-                                launchDEX({target: 'XBTSIO', symbol: symbol, market: market})
-                              }}
-                              sx={{m: 0.25}}
-                              variant="outline"
-                            >
-                              XBTS.io
-                            </Button>
-                            <Tooltip
-                              label={t('nft:nft.buy.desktopTooltip', {symbol})}
-                              withArrow
-                            >
+                        environment === 'bitshares'
+                        ? <>
+                            <Text size="md">
+                              {t('nft:nft.buy.buyHeader')}
+                            </Text>
+                            <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
                               <Button
                                 onClick={() => {
-                                  launchDEX({target: 'lightClient', symbol: symbol, market: market})
+                                  launchDEX({target: 'btsExchange', symbol: symbol, market: market})
                                 }}
                                 sx={{m: 0.25}}
                                 variant="outline"
                               >
-                                {t('nft:nft.buy.desktopApp')}
+                                BTS.Exchange
                               </Button>
-                            </Tooltip>
-                          </Group>,
-                          <Text size="lg" style={{'paddingTop': '5px'}}>
-                            {t('nft:nft.buy.explorerHeader')}
-                          </Text>,
-                          <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
-                            <Button
-                              sx={{m: 0.25}}
-                              variant="outline"
-                              href={`https://blocksights.info/#/assets/${symbol}`}
-                              component="a"
-                            >
-                              blocksights.info
-                            </Button>
-                          </Group>
-                        ]
+                              <Button
+                                onClick={() => {
+                                  launchDEX({target: 'bit20', symbol: symbol, market: market})
+                                }}
+                                sx={{m: 0.25}}
+                                variant="outline"
+                              >
+                                BTWTY
+                              </Button>
+                              <Button
+                                onClick={() => {
+                                  launchDEX({target: 'XBTSIO', symbol: symbol, market: market})
+                                }}
+                                sx={{m: 0.25}}
+                                variant="outline"
+                              >
+                                XBTS.io
+                              </Button>
+                              <Tooltip
+                                label={t('nft:nft.buy.desktopTooltip', {symbol})}
+                                withArrow
+                              >
+                                <Button
+                                  onClick={() => {
+                                    launchDEX({target: 'lightClient', symbol: symbol, market: market})
+                                  }}
+                                  sx={{m: 0.25}}
+                                  variant="outline"
+                                >
+                                  {t('nft:nft.buy.desktopApp')}
+                                </Button>
+                              </Tooltip>
+                            </Group>
+                            <Text size="lg" style={{'paddingTop': '5px'}}>
+                              {t('nft:nft.buy.explorerHeader')}
+                            </Text>
+                            <Group position="center" sx={{marginTop: '5px', paddingTop: '5px'}}>
+                              <Button
+                                sx={{m: 0.25}}
+                                variant="outline"
+                                href={`https://blocksights.info/#/assets/${symbol}`}
+                                component="a"
+                              >
+                                blocksights.info
+                              </Button>
+                            </Group>
+                          </>
                         : null
                       }
                     </Tabs.Panel>
                     
-                    <Tabs.Panel value="Flags" pt="xs">
+                    <Tabs.Panel value="Flags" pt="xs" key="flagTab">
                       {
                         asset_flags
                           ? <Group position="center">
@@ -450,7 +510,7 @@ export default function NFT(properties) {
                       }
                     </Tabs.Panel>
                     
-                    <Tabs.Panel value="Permissions" pt="xs">
+                    <Tabs.Panel value="Permissions" pt="xs" key="permTab">
                       {
                         permissions
                           ? <Group position="center">
@@ -487,7 +547,7 @@ export default function NFT(properties) {
                       }
                     </Tabs.Panel>
                     
-                    <Tabs.Panel value="Signature" pt="xs">
+                    <Tabs.Panel value="Signature" pt="xs" key="sigTab">
                       <Container size="md" px="xs">
                         <Card shadow="sm" p="sm" radius="md" withBorder m="sm">
                           <Textarea
@@ -553,7 +613,7 @@ export default function NFT(properties) {
                       </Container>
                     </Tabs.Panel>
                     
-                    <Tabs.Panel value="License" pt="xs">
+                    <Tabs.Panel value="License" pt="xs" key="licenseTab">
                       <Text size="md">
                         <b>{t('nft:nft.license.header1')}</b>
                         {
@@ -572,7 +632,7 @@ export default function NFT(properties) {
                       </Text>
                     </Tabs.Panel>
                     
-                    <Tabs.Panel value="JSON" pt="xs">
+                    <Tabs.Panel value="JSON" pt="xs" key="jsonTab">
                       <Container size="md" px="xs">
                         <Card shadow="sm" p="sm" radius="md" withBorder m="sm">
                           <Textarea
@@ -603,35 +663,39 @@ export default function NFT(properties) {
             </Col>,
             <Col span={12} key="back">
               <Group position="center">
-              {
-                favourites && favourites.length && favourites.find(f => (f.id === asset.id))
-                ? <Button
-                    leftIcon={<TbHeartBroken />}
-                    variant="light"
-                    onClick={() => {
-                      removeFavourite(asset.id);
-                    }}
-                  >
-                    {t('nft:favourite.remove')}
-                  </Button>
-                : <Button
-                    leftIcon={<TbHeart />}
-                    variant="light"
-                    onClick={() => {
-                      favouriteAsset();
-                    }}
-                  >
-                    {t('nft:favourite.save')}
-                  </Button>
+                {
+                  favButton
                 }
-                <Button
-                  variant="light"
-                  onClick={() => {
-                    goBack()
-                  }}
-                >
-                  {t('nft:nft.back')}
-                </Button>  
+                {
+                  favAccountButton
+                }
+                <Link style={{ textDecoration: 'none' }} to={`/featured/${environment}`}>
+                  <Button
+                    leftIcon={<HiOutlineCake />}
+                    variant="outline"
+                    compact
+                  >
+                    {t("app:menu.featured")}
+                  </Button>
+                </Link>
+                <Link style={{ textDecoration: 'none' }} to={`/issuer/${environment}/${asset.issuer}`}>
+                  <Button
+                    variant="outline"
+                    leftIcon={<TbUser />}
+                    compact
+                  >
+                    {t("app:menu.issued", {username: asset_issuer})}
+                  </Button>
+                </Link>
+                <Link style={{ textDecoration: 'none' }} to="/">
+                  <Button
+                    variant="outline"
+                    leftIcon={<HiOutlineHome />}
+                    compact
+                  >
+                    {t("app:menu.home")}
+                  </Button>
+                </Link>
               </Group>
             </Col>
           ])

@@ -1,0 +1,35 @@
+{
+    "title": "ยินดีต้อนรับสู่ Bitshares NFT Viewer!",
+    "desc": "คุณสมบัติต่อไปนี้มีให้สำหรับบล็อกเชนของ Bitshares!",
+    "footer": "เพื่อใช้ชุดคุณสมบัติที่มีอยู่ในเครื่องมือนี้อย่างเต็มที่ จำเป็นต้องใช้ Bitshares BEET multiwallet",
+    "grid": {
+      "favourites": {
+        "title": "รายการโปรด",
+        "desc": "ดู NFT และศิลปินที่คุณชื่นชอบ"
+      },
+      "featured": {
+        "title": "NFT ที่โดดเด่น",
+        "desc": "ดู NFT ที่โดดเด่นล่าสุด"
+      },
+      "portfolio": {
+        "title": "การค้นหาผลงาน NFT",
+        "desc": "ดูผลงาน NFT ของบัญชี"
+      },
+      "issuer": {
+        "title": "การค้นหาผู้ออก NFT",
+        "desc": "ดู NFT ที่ออกของบัญชี"
+      },
+      "search": {
+        "title": "ค้นหา",
+        "desc": "ค้นหา NFT และศิลปิน"
+      },
+      "faq": {
+        "title": "คำถามที่พบบ่อย",
+        "desc": "เรียนรู้เพิ่มเติมเกี่ยวกับ NFT, Bitshares blockchain และ BEET multiwallet"
+      },
+      "nodes": {
+        "title": "โหนดที่กำหนดค่าได้",
+        "desc": "สลับไปมาระหว่างโหนด blockchain"
+      }
+    }
+  }

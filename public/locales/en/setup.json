@@ -19,7 +19,7 @@
         "production": "Main network"
     },
     "loading": {
-        "message": "Finding fastest blockchain connection, please wait.."
+        "message": "Processing blockchain data, please wait..."
     },
     "mode": {
         "header": "What do you want to do?",

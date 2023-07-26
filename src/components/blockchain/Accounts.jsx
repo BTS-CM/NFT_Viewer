@@ -17,7 +17,7 @@ import { TbInputSearch, TbArrowNarrowRight, TbAlertCircle } from 'react-icons/tb
 
 import { useTranslation } from 'react-i18next';
 
-import { appStore, beetStore, identitiesStore } from '../../lib/states';
+import { appStore, tempStore, beetStore, identitiesStore } from '../../lib/states';
 import { fetchObject } from '../../lib/queries';
 
 import Connect from '../beet/Connect'
@@ -28,10 +28,9 @@ export default function Accounts(properties) {
   const { t, i18n } = useTranslation();
 
   let identities = identitiesStore((state) => state.identities);
-  let setAccount = appStore((state) => state.setAccount);
+  let setAccount = tempStore((state) => state.setAccount);
   let nodes = appStore((state) => state.nodes);
   let environment = appStore((state) => state.environment);
-  let goBack = appStore((state) => state.back);
 
   let connection = beetStore((state) => state.connection);
   let reset = beetStore((state) => state.reset);
@@ -125,7 +124,7 @@ export default function Accounts(properties) {
                 </Button>
   }
 
-  const relevantChain = environment === 'production' ? 'BTS' : 'BTS_TEST';
+  const relevantChain = environment === 'bitshares' ? 'BTS' : 'BTS_TEST';
   let relevantIdentities = identities.filter(x => x.chain === relevantChain);
 
   const tempIDs = relevantIdentities.map(id => {

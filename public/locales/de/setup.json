@@ -1,48 +1,48 @@
 {
-  "accountMode": {
-      "header": "Für das Konto \"{{account}}\" Was möchten Sie tun?",
-      "balance": "Sehen Sie sich das NFT-Portfolio an",
+    "accountMode": {
+      "header": "Für das Konto „{{account}}\" Was möchten Sie tun?",
+      "balance": "NFT-Portfolio ansehen",
       "issued": "Ausgestellte NFTs anzeigen",
-      "back": "Der Rücken",
-      "header2": "Bitte geben Sie eine Konto-ID/einen Namen an:",
-      "chooseBEET": "Frag RÜBE",
+      "back": "Zurück",
+      "header2": "Bitte geben Sie eine Konto-ID/einen Kontonamen an:",
+      "chooseBEET": "Fragen Sie BEET",
       "chooseSearch": "Konto manuell suchen",
       "beetPrompt": "Um fortzufahren, verbinden Sie sich bitte mit Beet.",
       "linkPrompt": "Um fortzufahren, verlinken Sie bitte mit Beet.",
       "waiting": "Warten auf Benutzerantwort vom BEET-Client",
       "save": "Lieblingskonto",
       "remove": "Favorit entfernen"
-  },
-  "environment": {
+    },
+    "environment": {
       "header": "Welche Bitshares-Blockchain möchten Sie verwenden?",
-      "testnet": "Netzwerk testen",
-      "production": "Hauptnetz"
-  },
-  "loading": {
-      "message": "Suche nach schnellster Blockchain-Verbindung, bitte warten.."
-  },
-  "mode": {
+      "testnet": "Testnetzwerk",
+      "production": "Hauptnetzwerk"
+    },
+    "loading": {
+      "message": "Blockchain-Daten werden verarbeitet, bitte warten..."
+    },
+    "mode": {
       "header": "Was möchten Sie tun?",
       "searchBtn": "Suchen Sie nach NFT",
-      "lookupBtn": "Suchen Sie die NFTs eines Kontos",
-      "featuredBtn": "Vorgestellte NFTs anzeigen",
-      "favouritesBtn": "Favoriten anzeigen",
-      "back": "Der Rücken"
-  },
-  "offline": {
+      "lookupBtn": "Suchen Sie nach den NFTs eines Kontos",
+      "featuredBtn": "Sehen Sie sich die vorgestellten NFTs an",
+      "favouritesBtn": "Favoriten ansehen",
+      "back": "Zurück"
+    },
+    "offline": {
       "header": "Du scheinst offline zu sein? ",
-      "exit": "Ausgang"
-  },
-  "settings": {
+      "exit": "Ausfahrt"
+    },
+    "settings": {
       "remove": "Entfernen",
       "settings": "Einstellungen",
-      "linked": "Hier sind Ihre derzeit verknüpften Konten",
-      "notLinked": "Rübe nicht verbunden.",
-      "back": "Der Rücken",
+      "linked": "Hier sind Ihre aktuell verknüpften Konten",
+      "notLinked": "Rüben nicht verlinkt.",
+      "back": "Zurück",
       "language": "Sprache ändern?"
-  },
-  "app": {
-      "error": "Ein Problem ist aufgetreten, setzen Sie es zurück und versuchen Sie es erneut.",
+    },
+    "app": {
+      "error": "Es ist ein Problem aufgetreten. Setzen Sie es zurück und versuchen Sie es erneut.",
       "reset": "App zurücksetzen"
+    }
   }
-}

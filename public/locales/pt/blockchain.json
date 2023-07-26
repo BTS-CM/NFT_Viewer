@@ -1,53 +1,66 @@
 {
-    "accounts": {
-      "enterID": "Insira um ID de conta para prosseguir",
-      "fetchingAccount": "Procurando conta",
-      "noAccount": "Essa conta não foi encontrada, verifique a entrada e tente novamente.",
-      "searchResults": "Procurar Resultados",
-      "loading": "Carregando...",
-      "invalidID": "ID de conta inválido - Deve começar com '1.2.' ",
-      "accountID": "ID da conta (por exemplo, 1.2.0)",
-      "existingID": "Prossiga com um ID de conta existente da conta Beet vinculada?",
-      "beetReq": "Buscar ID da conta da carteira Beet",
-      "beetLinked": "Prossiga com sua conta vinculada ao Beet"
-    },
-    "accountSearch": {
-      "inputPrompt": "Insira o ID/nome da sua conta blockchain para continuar"
-    },
-    "featured": {
-      "fetching": "Buscando recursos em destaque",
-      "issue": "Foi encontrado um problema ao buscar os recursos em destaque. Tente novamente.",
-      "retry": "Tente novamente",
-      "heading": "NFTs em destaque",
-      "back": "Volte"
-    },
-    "portfolio": {
-      "checkingAccount": "Verificando seus Bitshares {{environment}} conta...",
-      "emptyPortfolio": "Parece que você ainda não tem nenhum NFT em seu portfólio.",
-      "header": "Seu portfólio contém os seguintes NFTs",
-      "refresh": "Atualizar portfólio",
-      "back": "Voltar"
-    },
-    "search": {
-      "inProgress": "Procurando",
-      "searchPrompt": "Pesquisar NFTs",
-      "noResults": "Nenhum resultado de pesquisa para entrada",
-      "resultHeader": "resultados de pesquisa NFT",
-      "back": "Voltar"
-    },
-    "selectAsset": {
-      "lookup": "Ativos de pesquisa emitidos por um usuário",
-      "fetching": "Recuperando informações em sua conta Bitshares",
-      "noResultsHeader": "Nenhum ativo emitido encontrado",
-      "noResultsDesc": "Esta conta Bitshares não emitiu NFTs no BTS DEX.",
-      "notice": "Nota: Comprar e possuir um NFT no BTS DEX não concede automaticamente a você direitos de edição de NFT.",
-      "selection": "Selecione o NFT que deseja visualizar",
-      "back": "Voltar",
-      "refresh": "Atualizar"
-    },
-    "favourites": {
-      "noFavourites": "Nenhum favorito encontrado",
-      "noFavouritesDesc": "Você não parece ter nenhum favorito ainda. ",
-      "selection": "Selecione seu item favorito abaixo"
-    }
+  "accounts": {
+    "enterID": "Insira um ID de conta para prosseguir",
+    "fetchingAccount": "Procurando conta",
+    "noAccount": "Essa conta não foi encontrada, verifique a entrada e tente novamente.",
+    "searchResults": "Procurar Resultados",
+    "loading": "Carregando...",
+    "invalidID": "ID de conta inválida - Deve começar com '1.2.' ",
+    "accountID": "ID da conta (por exemplo, 1.2.0)",
+    "existingID": "Prossiga com um ID de conta existente da conta Beet vinculada?",
+    "beetReq": "Buscar ID da conta da carteira Beet",
+    "beetLinked": "Prossiga com sua conta vinculada ao Beet"
+  },
+  "accountSearch": {
+    "inputPrompt": "Insira o ID/nome da sua conta blockchain para prosseguir"
+  },
+  "featured": {
+    "fetching": "Buscando recursos em destaque",
+    "issue": "Foi encontrado um problema ao buscar os recursos em destaque. Tente novamente.",
+    "retry": "Tente novamente",
+    "heading": "NFTs em destaque",
+    "back": "Volte"
+  },
+  "portfolio": {
+    "checkingAccount": "Verificando seus Bitshares {{environment}} conta...",
+    "emptyPortfolio": "Esta conta parece não ter nenhum NFT em seu portfólio ainda.",
+    "header": "O portfólio desta conta contém as seguintes NFTs",
+    "issuer": "NFTs emitidas pela conta",
+    "button": "Portfólio NFT da conta",
+    "refresh": "Atualizar portfólio",
+    "back": "Voltar",
+    "error": "Pode ter ocorrido um erro ao buscar o portfólio NFT da conta, aguarde e tente novamente.",
+    "retry": "Repetir solicitação de blockchain"
+  },
+  "issuer": {
+    "checkingAccount": "Verificando seus Bitshares {{environment}} conta...",
+    "empty": "Esse {{environment}} conta blockchain ainda não emitiu NFTs.",
+    "header": "Esse {{environment}} conta blockchain emitiu os seguintes NFTs",
+    "refresh": "Atualizar NFTs emitidas",
+    "back": "Voltar"
+  },
+  "search": {
+    "inProgress": "Procurando",
+    "searchPrompt": "Pesquisar NFTs",
+    "noResults": "Nenhum resultado de pesquisa para entrada",
+    "resultHeader": "resultados de pesquisa NFT",
+    "back": "Voltar"
+  },
+  "selectAsset": {
+    "lookup": "Ativos de pesquisa emitidos por um usuário",
+    "fetching": "Recuperando informações em sua conta Bitshares",
+    "noResultsHeader": "Nenhum ativo emitido encontrado",
+    "noResultsDesc": "Esta conta Bitshares não emitiu NFTs no BTS DEX.",
+    "notice": "Nota: Comprar e possuir um NFT no BTS DEX não concede automaticamente a você direitos de edição de NFT.",
+    "selection": "Selecione o NFT que deseja visualizar",
+    "back": "Voltar",
+    "refresh": "Atualizar"
+  },
+  "favourites": {
+    "noFavourites": "Nenhum favorito encontrado",
+    "noFavouritesDesc": "Você não parece ter nenhum favorito ainda. ",
+    "selection": "Selecione seu item favorito abaixo",
+    "favAccounts": "Contas favoritas:",
+    "favAssets": "Ativos favoritos:"
   }
+}

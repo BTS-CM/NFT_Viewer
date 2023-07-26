@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Vælg den blockchain, som du vil se dine foretrukne NFT'er og kunstnere for.",
+      "offline": "For at se dine foretrukne NFT'er og kunstnere skal du bruge en fungerende node. ",
+      "asset": "Vælg den NFT, du vil se."
+    },
+    "featured": {
+      "environment": "Vælg den blockchain, som du vil se de fremhævede NFT'er og kunstnere for.",
+      "asset": "Hvilket udvalgt NFT vil du se?"
+    },
+    "portfolio": {
+      "environment": "Vælg den blockchain, som du vil se en NFT-portefølje for.",
+      "offline": "For at se en NFT-portefølje skal du bruge en fungerende node. ",
+      "account": "Vælg den konto, du ønsker at se NFT-porteføljen for.",
+      "asset": "Hvilken NFT i denne portefølje vil du se?"
+    },
+    "issuer": {
+      "environment": "Vælg blockchain for denne NFT-udstederopslagsfunktion.",
+      "offline": "For at se de NFT'er, en konto har udstedt, skal du have en fungerende node. ",
+      "account": "Vælg den konto (kunstner), der har udstedt de NFT'er, du er interesseret i.",
+      "asset": "Hvilken NFT, som denne bruger udstedte, vil du se?"
+    },
+    "search": {
+      "environment": "Hvilken blochchain vil du søge efter NFT'er på?",
+      "offline": "For at søge efter NFT'er skal du bruge en fungerende node. ",
+      "input": "For at fortsætte skal du indtaste symbolet eller aktiv-id'et for den NFT, du vil søge efter."
+    },
+    "load": {
+      "environment": "Vælg den blockchain, du vil indlæse et NFT-udkast til."
+    }
+  }

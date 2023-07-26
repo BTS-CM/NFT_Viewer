@@ -1,0 +1,43 @@
+{
+    "bug": {
+      "control": "Hvordan kan jeg rapportere et problem?",
+      "panel": "Rapporter eventuelle softwareproblemer til NFT_Viewer github repo gennem problemsystemet. "
+    },
+    "featured": {
+      "control": "Hvordan kan jeg blive fremhævet?",
+      "panel": "Afhængigt af NFT-medieindholdet kan du åbne et github-problem for at få din NFT vist. "
+    },
+    "storage": {
+      "control": "Hvor opbevares NFT-mediedata?",
+      "panel": "NFT-mediedata kan lagres både på kæde og på IPFS. "
+    },
+    "fileTypes": {
+      "control": "Hvilke filtyper understøttes?",
+      "panel": "Mange filtyper understøttes, herunder billeder, videoer, lyd, dokumenter, 3D-filer og mere."
+    },
+    "why": {
+      "control": "Hvad kan jeg gøre med en NFT?",
+      "panel": "Når du ejer en NFT, kan du handle den, bruge den som sikkerhed, samle den på lang sigt, spekulere i dens værdi og mere afhængigt af NFT's indehaverlicens."
+    },
+    "sell": {
+      "control": "Hvordan sælger jeg en NFT?",
+      "panel": "Denne app understøtter endnu ikke salg af NFT'er, men du kan sælge dem på Bitshares DEX via web wallet-grænsefladen. "
+    },
+    "purchase": {
+      "control": "Hvordan køber du en NFT?",
+      "panel": "Hvis de er tilgængelige til salg, kan de købes i denne app (tjek fanen buy nft) og i alle Bitshares web wallet exchange-grænseflader."
+    },
+    "create": {
+      "control": "Hvordan opretter jeg en NFT?",
+      "panel": "Bitshares NFT-udstedelsesværktøjet giver dig mulighed for at oprette en NFT med din Bitshares-konto. "
+    },
+    "beet": {
+      "control": "Hvad er Beet-pungen?",
+      "panel": "BEET-pungen er en multi blockchain-crypto-pung, den bruges til sikkert at håndtere godkendelse og netværksudsendelse af transaktioner."
+    },
+    "blockchains": {
+      "control": "Hvilke blockchains understøttes?",
+      "panel": "I øjeblikket understøttes kun Bitshares blockchain, men dette værktøj er fuldt åben kildekode på github."
+    },
+    "title": "Ofte stillede spørgsmål"
+  }

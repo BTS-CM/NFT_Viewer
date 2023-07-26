@@ -17,7 +17,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { QRCode } from 'react-qrcode-logo';
 
 import {
-  appStore, beetStore
+  appStore, beetStore, tempStore
 } from '../../lib/states';
 import { beetBroadcast, generateDeepLink, generateQRContents } from '../../lib/generate';
 import GetAccount from './GetAccount';
@@ -41,7 +41,9 @@ export default function BeetModal(properties) {
   const connection = beetStore((state) => state.connection);
   const identity = beetStore((state) => state.identity);
   const reset = beetStore((state) => state.reset);
-  const account = appStore((state) => state.account);
+  const account = tempStore((state) => state.account);
+
+  const environment = appStore((state) => state.environment);
 
   const [tx, setTX] = useState();
   const [inProgress, setInProgress] = useState(false);
@@ -59,7 +61,7 @@ export default function BeetModal(properties) {
   const [qrBGC, setQRBGC] = useState("#ffffff");
   const [qrFGC, setQRFGC] = useState("#000000");
 
-  const currentNodes = appStore((state) => state.nodes);
+  const nodes = appStore((state) => state.nodes);
 
   let assetName = "1.3.0";
   let relevantChain = "bitshares";
@@ -80,7 +82,7 @@ export default function BeetModal(properties) {
         payload = await generateDeepLink(
           appName,
           relevantChain,
-          currentNodes[0],
+          nodes[environment][0],
           opType,
           opContents
         );
@@ -132,7 +134,7 @@ export default function BeetModal(properties) {
       response = await beetBroadcast(
         connection,
         relevantChain,
-        currentNodes[0],
+        nodes[environment][0],
         opType,
         opContents
       );

@@ -1,0 +1,35 @@
+{
+    "title": "Bitshares NFT 뷰어에 오신 것을 환영합니다!",
+    "desc": "다음 기능은 Bitshares 블록체인에서 사용할 수 있습니다!",
+    "footer": "이 도구에서 사용할 수 있는 기능 세트를 최대한 활용하려면 Bitshares BEET 다중 지갑이 필요합니다.",
+    "grid": {
+      "favourites": {
+        "title": "즐겨찾기",
+        "desc": "좋아하는 NFT 및 아티스트 보기"
+      },
+      "featured": {
+        "title": "주요 NFT",
+        "desc": "최신 추천 NFT 보기"
+      },
+      "portfolio": {
+        "title": "NFT 포트폴리오 조회",
+        "desc": "계정의 NFT 포트폴리오 보기"
+      },
+      "issuer": {
+        "title": "NFT 발급자 조회",
+        "desc": "계정의 발행된 NFT 보기"
+      },
+      "search": {
+        "title": "찾다",
+        "desc": "NFT 및 아티스트 검색"
+      },
+      "faq": {
+        "title": "자주 묻는 질문",
+        "desc": "NFT, Bitshares 블록체인 및 BEET 다중 지갑에 대해 자세히 알아보십시오."
+      },
+      "nodes": {
+        "title": "구성 가능한 노드",
+        "desc": "블록체인 노드 간 전환"
+      }
+    }
+  }

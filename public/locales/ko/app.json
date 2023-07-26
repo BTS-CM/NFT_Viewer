@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "메뉴",
+      "label": "메인 메뉴",
+      "home": "집",
+      "language": "언어",
+      "featured": "주요 NFT",
+      "issuer": "NFT 발급자 조회",
+      "issued": "NFT 더 보기 {{username}}",
+      "portfolio": "NFT 포트폴리오 조회",
+      "favourites": "즐겨찾기",
+      "search": "찾다",
+      "faq": "자주하는 질문",
+      "changeNodes": "노드 변경"
+    }
+  }

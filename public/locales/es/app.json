@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "Menú",
+      "label": "Menú principal",
+      "home": "Hogar",
+      "language": "Idioma",
+      "featured": "NFT destacados",
+      "issuer": "Búsqueda de emisores de NFT",
+      "issued": "Más NFT de {{username}}",
+      "portfolio": "Búsqueda de cartera NFT",
+      "favourites": "Favoritos",
+      "search": "Buscar",
+      "faq": "Preguntas más frecuentes",
+      "changeNodes": "Cambiar nodos"
+    }
+  }

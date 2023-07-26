@@ -4,7 +4,7 @@
         "linkPrompt": "Proceed with linking this app to your Beet wallet below.",
         "linkButton": "Link to Beet",
         "beetWait": "Waiting on response from BEET prompt",
-        "backButton": "Back"
+        "backButton": "Change account method"
     },
     "buy": {
         "unavailable": "This NFT is not currently for sale.",

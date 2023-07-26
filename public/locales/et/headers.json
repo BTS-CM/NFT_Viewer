@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Valige plokiahel, mille jaoks soovite oma lemmik-NFT-sid ja artiste vaadata.",
+      "offline": "Oma lemmik-NFT-de ja -artistide vaatamiseks vajate toimivat sõlme. ",
+      "asset": "Valige NFT, mida soovite vaadata."
+    },
+    "featured": {
+      "environment": "Valige plokiahel, mille esiletoodud NFT-sid ja artiste soovite vaadata.",
+      "asset": "Millist esiletõstetud NFT-d soovite vaadata?"
+    },
+    "portfolio": {
+      "environment": "Valige plokiahel, mille NFT portfelli soovite vaadata.",
+      "offline": "NFT portfelli vaatamiseks vajate toimivat sõlme. ",
+      "account": "Valige konto, mille NFT portfelli soovite vaadata.",
+      "asset": "Millist NFT-d selles portfellis soovite vaadata?"
+    },
+    "issuer": {
+      "environment": "Valige selle NFT väljaandja otsingu funktsiooni jaoks plokiahel.",
+      "offline": "Konto väljastatud NFT-de vaatamiseks vajate toimivat sõlme. ",
+      "account": "Valige konto (esitaja), kes on väljastanud teid huvitavad NFT-d.",
+      "asset": "Millist NFT-d, mille see kasutaja väljastas, soovite vaadata?"
+    },
+    "search": {
+      "environment": "Millise blochchaini kaudu soovite NFT-sid otsida?",
+      "offline": "NFT-de otsimiseks vajate toimivat sõlme. ",
+      "input": "Jätkamiseks sisestage selle NFT sümbol või vara ID, mida soovite otsida."
+    },
+    "load": {
+      "environment": "Valige plokiahel, mille jaoks soovite NFT mustandi laadida."
+    }
+  }

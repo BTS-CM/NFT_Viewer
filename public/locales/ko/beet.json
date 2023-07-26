@@ -2,9 +2,9 @@
   "beetlink": {
     "connected": "Beet 지갑에 성공적으로 연결되었습니다.",
     "linkPrompt": "이 앱을 아래의 Beet 지갑에 연결하십시오.",
-    "linkButton": "사탕무 링크",
+    "linkButton": "비트 링크",
     "beetWait": "BEET 프롬프트에서 응답 대기 중",
-    "backButton": "뒤쪽에"
+    "backButton": "계정 방법 변경"
   },
   "buy": {
     "unavailable": "이 NFT는 현재 판매용이 아닙니다.",
@@ -28,7 +28,7 @@
       "title": "원시 딥링크를 통해",
       "step1": "BEET 지갑을 실행하고 메뉴에서 'Raw Link'로 이동합니다.",
       "step2": "이 페이지에서 모든 작업을 허용하거나 작업 1 '제한 주문 생성'만 허용할 수 있습니다(그런 다음 저장을 클릭).",
-      "step3": "지갑에 '원시 링크 준비'가 표시되면 이 요청을 제출하세요.",
+      "step3": "지갑에 '원시 링크 준비 완료'가 표시되면 이 요청을 제출하세요.",
       "btn": "원시 딥링크 생성"
     },
     "DL": {
@@ -42,7 +42,7 @@
     "beetConnect": "구매를 계속하려면 Beet에 연결하세요.",
     "beetLink": "구매를 계속하려면 Beet과 연결하세요.",
     "beetWait": "BEET 클라이언트의 사용자 응답을 기다리는 중입니다.",
-    "buySuccess": "NFT에 대한 구매 지정가 주문을 성공적으로 브로드캐스트합니다.\"{{boughtAsset}}\"에 대한 대가로 {{amountToSell}} {{soldAsset}}",
+    "buySuccess": "NFT에 대한 구매 지정가 주문을 성공적으로 브로드캐스트합니다. \"{{boughtAsset}}\"에 대한 대가로 {{amountToSell}} {{soldAsset}}",
     "viewPortfolio": "포트폴리오 보기",
     "backButton": "뒤쪽에",
     "beetBuyPrompt": "BEET에 NFT 구매 지시\"{{boughtAsset}}\" 을 위한 {{amountToSell}} {{soldAsset}}?",

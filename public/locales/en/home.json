@@ -1,0 +1,35 @@
+{
+    "title": "Welcome to the Bitshares NFT Viewer!",
+    "desc": "The following features are available for the Bitshares blockchains!",
+    "footer": "To make full use of the feature set available in this tool, the Bitshares BEET multiwallet is required.",
+    "grid": {
+        "favourites": {
+            "title" : "Favourites",
+            "desc" : "View your favourited NFTs and artists"
+        },
+        "featured": {
+            "title" : "Featured NFTs",
+            "desc" : "View the latest featured NFTs"
+        },
+        "portfolio": {
+            "title" : "NFT Portfolio lookup",
+            "desc" : "View an account's NFT portfolio"
+        },
+        "issuer": {
+            "title": "NFT Issuer lookup",
+            "desc": "View an account's isued NFTs"
+        },
+        "search": {
+            "title" : "Search",
+            "desc" : "Search for NFTs and artists"
+        },
+        "faq": {
+            "title": "Frequently asked questions",
+            "desc": "Learn more about NFTs, the Bitshares blockchain and the BEET multiwallet"
+        },
+        "nodes": {
+            "title": "Configurable nodes",
+            "desc": "Switch between blockchain nodes"
+        }
+    }
+}

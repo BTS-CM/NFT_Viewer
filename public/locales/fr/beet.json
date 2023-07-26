@@ -4,7 +4,7 @@
     "linkPrompt": "Continuez en reliant cette application à votre portefeuille Beet ci-dessous.",
     "linkButton": "Lien vers la betterave",
     "beetWait": "En attente de réponse de l'invite BEET",
-    "backButton": "Dos"
+    "backButton": "Changer la méthode de compte"
   },
   "buy": {
     "unavailable": "Ce NFT n'est pas en vente actuellement.",

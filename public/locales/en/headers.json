@@ -1,0 +1,31 @@
+{
+    "favourites" : {
+        "environment": "Select the blockchain for which you want to view your favourited NFTs and artists.",
+        "offline": "To view your favourite NFTs and artists, you need a functioning node. Please fix your node configuration.",
+        "asset": "Select the NFT you want to view."
+    },
+    "featured" : {
+        "environment": "Select the blockchain for which you want to view the featured NFTs and artists.",
+        "asset": "Which featured NFT do you want to view?"
+    },
+    "portfolio" : {
+        "environment": "Select the blockchain for which you want to view an NFT portfolio.",
+        "offline": "To view an NFT portfolio, you need a functioning node. Please fix your node configuration.",
+        "account": "Select the account you wish to view the NFT portfolio for.",
+        "asset": "Which NFT in this portfolio do you want to view?"
+    },
+    "issuer" : {
+        "environment": "Select the blockchain for this NFT issuer lookup feature.",
+        "offline": "To view the NFTs an account has issued you require a functioning node. Please fix your node configuration.",
+        "account": "Select the account (artist) which has issued the NFTs you're interested in.",
+        "asset": "Which NFT that this user issued do you want to view?"
+    },
+    "search" : {
+        "environment": "Which blochchain do you want to search for NFTs on?",
+        "offline": "To search for NFTs, you need a functioning node. Please fix your node configuration.",
+        "input": "To proceed, enter the symbol or asset ID for the NFT you want to search for."
+    },
+    "load": {
+        "environment": "Pick the blockchain you want to load an NFT draft for."
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "bug": {
+      "control": "Comment puis-je signaler un problème ?",
+      "panel": "Signalez tout problème logiciel au référentiel github NFT_Viewer via le système de gestion des problèmes. "
+    },
+    "featured": {
+      "control": "Comment puis-je être présenté?",
+      "panel": "En fonction du contenu multimédia NFT, vous pouvez ouvrir un problème github pour mettre votre NFT en vedette. "
+    },
+    "storage": {
+      "control": "Où sont stockées les données multimédia NFT ?",
+      "panel": "Les données multimédias NFT peuvent être stockées à la fois sur la chaîne et sur IPFS. "
+    },
+    "fileTypes": {
+      "control": "Quels types de fichiers sont pris en charge ?",
+      "panel": "De nombreux types de fichiers sont pris en charge, y compris les images, les vidéos, l'audio, les documents, les fichiers 3D et plus encore."
+    },
+    "why": {
+      "control": "Que puis-je faire avec un NFT ?",
+      "panel": "Une fois que vous possédez un NFT, vous pouvez l'échanger, l'utiliser comme garantie, le collecter à long terme, spéculer sur sa valeur et plus encore en fonction de la licence du titulaire du NFT."
+    },
+    "sell": {
+      "control": "Comment vendre un NFT ?",
+      "panel": "Cette application ne prend pas encore en charge la vente de NFT, mais vous pouvez les vendre sur Bitshares DEX via l'interface de portefeuille Web. "
+    },
+    "purchase": {
+      "control": "Comment acheter un NFT ?",
+      "panel": "S'ils sont disponibles à la vente, ils peuvent être achetés dans cette application (vérifiez l'onglet acheter nft) et dans toutes les interfaces d'échange de portefeuille Web Bitshares."
+    },
+    "create": {
+      "control": "Comment créer un NFT ?",
+      "panel": "L'outil d'émission Bitshares NFT vous permet de créer un NFT avec votre compte Bitshares. "
+    },
+    "beet": {
+      "control": "Qu'est-ce que le portefeuille Beet ?",
+      "panel": "Le portefeuille BEET est un portefeuille crypto multi blockchain, il est utilisé pour gérer en toute sécurité l'authentification et la diffusion réseau des transactions."
+    },
+    "blockchains": {
+      "control": "Quelles chaînes de blocs sont prises en charge ?",
+      "panel": "Actuellement, seule la blockchain Bitshares est prise en charge, mais cet outil est entièrement open source sur github."
+    },
+    "title": "Questions fréquemment posées"
+  }

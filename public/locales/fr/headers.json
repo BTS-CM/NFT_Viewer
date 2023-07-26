@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Sélectionnez la blockchain pour laquelle vous souhaitez afficher vos NFT et artistes préférés.",
+      "offline": "Pour afficher vos NFT et artistes préférés, vous avez besoin d'un nœud fonctionnel. ",
+      "asset": "Sélectionnez le NFT que vous souhaitez afficher."
+    },
+    "featured": {
+      "environment": "Sélectionnez la blockchain pour laquelle vous souhaitez afficher les NFT et les artistes présentés.",
+      "asset": "Quelle fonctionnalité NFT souhaitez-vous afficher ?"
+    },
+    "portfolio": {
+      "environment": "Sélectionnez la blockchain pour laquelle vous souhaitez afficher un portefeuille NFT.",
+      "offline": "Pour afficher un portefeuille NFT, vous avez besoin d'un nœud fonctionnel. ",
+      "account": "Sélectionnez le compte dont vous souhaitez afficher le portefeuille NFT.",
+      "asset": "Quel NFT de ce portefeuille souhaitez-vous afficher ?"
+    },
+    "issuer": {
+      "environment": "Sélectionnez la blockchain pour cette fonction de recherche d'émetteur NFT.",
+      "offline": "Pour afficher les NFT qu'un compte a émis, vous avez besoin d'un nœud fonctionnel. ",
+      "account": "Sélectionnez le compte (artiste) qui a émis les NFT qui vous intéressent.",
+      "asset": "Quel NFT émis par cet utilisateur souhaitez-vous afficher ?"
+    },
+    "search": {
+      "environment": "Sur quelle chaîne de blocs souhaitez-vous rechercher des NFT ?",
+      "offline": "Pour rechercher des NFT, vous avez besoin d'un nœud fonctionnel. ",
+      "input": "Pour continuer, entrez le symbole ou l'ID d'actif du NFT que vous souhaitez rechercher."
+    },
+    "load": {
+      "environment": "Choisissez la blockchain pour laquelle vous souhaitez charger un brouillon NFT."
+    }
+  }

@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "Speisekarte",
+      "label": "Hauptmenü",
+      "home": "Heim",
+      "language": "Sprache",
+      "featured": "Ausgewählte NFTs",
+      "issuer": "Suche nach NFT-Emittenten",
+      "issued": "Weitere NFTs von {{username}}",
+      "portfolio": "NFT-Portfolio-Suche",
+      "favourites": "Favoriten",
+      "search": "Suchen",
+      "faq": "FAQ",
+      "changeNodes": "Knoten ändern"
+    }
+  }

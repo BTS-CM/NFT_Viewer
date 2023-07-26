@@ -1,0 +1,35 @@
+{
+    "title": "Bitshares NFT ビューアーへようこそ!",
+    "desc": "Bitshares ブロックチェーンでは次の機能が利用可能です。",
+    "footer": "このツールで利用可能な機能セットを最大限に活用するには、Bitshares BEET マルチウォレットが必要です。",
+    "grid": {
+      "favourites": {
+        "title": "お気に入り",
+        "desc": "お気に入りの NFT とアーティストを表示します"
+      },
+      "featured": {
+        "title": "注目のNFT",
+        "desc": "最新の注目の NFT を表示する"
+      },
+      "portfolio": {
+        "title": "NFTポートフォリオ検索",
+        "desc": "アカウントのNFTポートフォリオを表示する"
+      },
+      "issuer": {
+        "title": "NFT発行者の検索",
+        "desc": "アカウントの発行された NFT を表示する"
+      },
+      "search": {
+        "title": "検索",
+        "desc": "NFT とアーティストを検索する"
+      },
+      "faq": {
+        "title": "よくある質問",
+        "desc": "NFT、Bitshares ブロックチェーン、BEET マルチウォレットについて詳しく学ぶ"
+      },
+      "nodes": {
+        "title": "構成可能なノード",
+        "desc": "ブロックチェーンノード間の切り替え"
+      }
+    }
+  }

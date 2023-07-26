@@ -1,98 +1,105 @@
 {
-    "issuerDetails": {
-      "tooltip1": "A propriedade do ativo foi 'queimada' ao ser enviada para 'conta nula'; ",
-      "tooltip2": "Aviso: a propriedade do recurso ainda não foi transferida para 'conta nula'; ",
-      "issuer": "Emissor"
+  "issuerDetails": {
+    "tooltip1": "A propriedade do ativo foi 'queimada' ao ser enviada para 'conta nula'; ",
+    "tooltip2": "Aviso: a propriedade do ativo ainda não foi transferida para 'conta nula'; ",
+    "issuer": "Emissor"
+  },
+  "nft": {
+    "by": " por ",
+    "back": "Volte",
+    "tabs": {
+      "nft": "NFT",
+      "asset": "Ativo",
+      "tags": "Tag",
+      "buy": "Comprar",
+      "flags": "Bandeiras",
+      "permissions": "Permissões",
+      "signature": "Assinatura",
+      "license": "Licença",
+      "json": "JSON"
     },
     "nft": {
-      "by": " de ",
-      "back": "Volte",
-      "tabs": {
-        "nft": "NFT",
-        "asset": "De ativos",
-        "tags": "Tag",
-        "buy": "Comprar",
-        "flags": "Bandeiras",
-        "permissions": "Permissões",
-        "signature": "Assinatura",
-        "license": "Licença",
-        "json": "JSON"
-      },
-      "nft": {
-        "attestation": "atestado",
-        "narrative": "Narrativa",
-        "acknowledgements": "Agradecimentos"
-      },
-      "asset": {
-        "name": "Nome: {{name}}",
-        "filetype": "Tipo de arquivo: {{filetype}}",
-        "onChain": "na cadeia",
-        "offChain": "fora da cadeia",
-        "encoding": "Codificação: {{encoding}}",
-        "precision0": "Com uma precisão de 0, '{{short_name}}' é um token não fungível!",
-        "precision1": "Por não ter uma precisão de 0, este é um token fungível.",
-        "precisionVal": "Precisão: {{precision}}"
-      },
-      "tags": {
-        "noTags": "Sem tags de tópico/interesse",
-        "noFlags": "Nenhuma etiqueta NFT"
-      },
-      "buy": {
-        "buyHeader": "Este NFT pode ser negociado/transferido usando as seguintes carteiras Bitshares DEX",
-        "desktopTooltip": "No aplicativo de desktop, procure o ativo '{{symbol}}'",
-        "desktopApp": "aplicativo de desktop",
-        "explorerHeader": "Veja este NFT nos seguintes exploradores:"
-      },
-      "flags": {
-        "none": "Nenhum sinalizador está habilitado no momento."
-      },
-      "permissions": {
-        "permissionTips": {
-          "enabled": {
-            "charge_market_fee": "Aktivudstederen kan aktivere marcadosgebyrer.",
-            "white_list": "Atudstederen kan oprette en liste over godkendte marker",
-            "override_authority": "Os usuários podem usar esse recurso NFT para si mesmo.",
-            "transfer_restricted": "Este ativo pode ser usado para fornecer/destinar-se a pedidos marcados",
-            "disable_force_settle": "Brugere kan anmode om tvangsafregning af deste marcadosudstedte aktiv.",
-            "global_settle": "Udstederen af ​​​​dette marcadosudstedte aktiv har mulighed para em afvikle aktivet globalt",
-            "disable_confidential": "Os usuários deste ativo podem desativar transações furtivas.",
-            "witness_fed_asset": "Esta ação ativa pode ser aproveitada por meio do vídeo Bitshares.",
-            "committee_fed_asset": "Esta atividade marcada com suspensões pode ser aproveitada por meio do Bitshares udvalgsmedlemmer."
-          },
-          "disabled": {
-            "charge_market_fee": "Der kan ikke opkræves nogen markedsgebyrer for dette aktiv; ",
-            "white_list": "Não há nenhuma lista de favoritos sobre marcadores para esta atividade. ",
-            "override_authority": "Atudstederen er ikke i stand to overføre denne NFT tilbage to sig selv.",
-            "transfer_restricted": "Este superførsler ativo é ubegrænsede.",
-            "disable_force_settle": "Este ativo não pode ser usado.",
-            "global_settle": "Esta atividade não pode afetar globalmente.",
-            "disable_confidential": "Fortrolige transaktioner af dette aktiv er mulige permanente.",
-            "witness_fed_asset": "Vidnerne kan ikke dar en pris para este aktiv.",
-            "committee_fed_asset": "Komitéen kan ikke dar en pris para este aktiv."
-          }
-        },
-        "none": "Todas as permissões foram desativadas."
-      },
-      "signature": {
-        "address": "Pubkey ou endereço",
-        "label": "Assinatura NFT",
-        "pwd": "senha multihash"
-      },
-      "license": {
-        "header1": "Licença:",
-        "header2": "Licença do titular:",
-        "noLicense": "A licença sob a qual este NFT foi lançado não foi fornecida.",
-        "noHoldLicense": "As informações da licença do titular não foram fornecidas."
-      },
-      "json": {
-        "label": "NFT JSON",
-        "copy": "cópia de",
-        "copied": "copiado"
-      }
+      "attestation": "atestado",
+      "narrative": "Narrativa",
+      "acknowledgements": "Agradecimentos"
     },
-    "quantity": "Quantidade",
-    "favourite": {
-      "save": "Ativo favorito",
-      "remove": "Remova dos favoritos"
+    "asset": {
+      "name": "Nome: {{name}}",
+      "filetype": "Tipo de arquivo: {{filetype}}",
+      "onChain": "na cadeia",
+      "offChain": "fora da cadeia",
+      "encoding": "Codificação: {{encoding}}",
+      "precision0": "Com uma precisão de 0, '{{short_name}}' é um token não fungível!",
+      "precision1": "Por não ter uma precisão de 0, este é um token fungível.",
+      "precisionVal": "Precisão: {{precision}}"
+    },
+    "tags": {
+      "noTags": "Sem tags de tópico/interesse",
+      "noFlags": "Nenhuma etiqueta NFT"
+    },
+    "buy": {
+      "buyHeader": "Este NFT pode ser negociado/transferido usando as seguintes carteiras Bitshares DEX",
+      "desktopTooltip": "No aplicativo de desktop, procure o ativo '{{symbol}}'",
+      "desktopApp": "aplicativo de desktop",
+      "explorerHeader": "Veja este NFT nos seguintes exploradores:"
+    },
+    "flags": {
+      "none": "Nenhum sinalizador está habilitado no momento."
+    },
+    "permissions": {
+      "permissionTips": {
+        "enabled": {
+          "charge_market_fee": "Aktivudstederen kan aktivere marcadosgebyrer.",
+          "white_list": "Atudstederen kan oprette en liste over godkendte marker",
+          "override_authority": "Os usuários podem usar esse recurso NFT para si mesmo.",
+          "transfer_restricted": "Este ativo pode ser usado para fornecer/destinar-se a pedidos marcados",
+          "disable_force_settle": "Brugere kan anmode om tvangsafregning af deste marcadosudstedte aktiv.",
+          "global_settle": "Udstederen af ​​​​dette marcadosudstedte aktiv har mulighed para em afvikle aktivet globalt",
+          "disable_confidential": "Os usuários deste ativo podem desativar transações furtivas.",
+          "witness_fed_asset": "Esta ação ativa pode ser aproveitada por meio do vídeo Bitshares.",
+          "committee_fed_asset": "Esta atividade marcada com suspensões pode ser aproveitada por meio do Bitshares udvalgsmedlemmer."
+        },
+        "disabled": {
+          "charge_market_fee": "Der kan ikke opkræves nogen markedsgebyrer for dette aktiv; ",
+          "white_list": "Não há nenhuma lista de favoritos sobre marcadores para esta atividade. ",
+          "override_authority": "Atudstederen er ikke i stand to overføre denne NFT tilbage to sig selv.",
+          "transfer_restricted": "Este superførsler ativo é ubegrænsede.",
+          "disable_force_settle": "Este ativo não pode ser usado.",
+          "global_settle": "Esta atividade não pode afetar globalmente.",
+          "disable_confidential": "Fortrolige transaktioner af dette aktiv er mulige permanente.",
+          "witness_fed_asset": "Vidnerne kan ikke dar en pris para este aktiv.",
+          "committee_fed_asset": "Komitéen kan ikke dar en pris para este aktiv."
+        }
+      },
+      "none": "Todas as permissões foram desativadas."
+    },
+    "signature": {
+      "address": "Pubkey ou endereço",
+      "label": "Assinatura NFT",
+      "pwd": "senha multihash"
+    },
+    "license": {
+      "header1": "Licença:",
+      "header2": "Licença do titular:",
+      "noLicense": "A licença sob a qual este NFT foi lançado não foi fornecida.",
+      "noHoldLicense": "As informações da licença do titular não foram fornecidas."
+    },
+    "json": {
+      "label": "NFT JSON",
+      "copy": "cópia de",
+      "copied": "copiado"
+    },
+    "image": {
+      "zoom": "Ampliação"
     }
+  },
+  "quantity": "Quantidade",
+  "favourite": {
+    "save": "Ativo favorito",
+    "remove": "Remover ativo dos favoritos"
+  },
+  "accountFavourite": {
+    "save": "conta favorita",
+    "remove": "Remover conta dos favoritos"
   }
+}

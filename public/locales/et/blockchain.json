@@ -1,53 +1,66 @@
 {
-    "accounts": {
-      "enterID": "Jätkamiseks sisestage konto ID",
-      "fetchingAccount": "Otsin kontot",
-      "noAccount": "Sellist kontot ei leitud, kontrollige sisestust ja proovige uuesti.",
-      "searchResults": "Otsingu tulemused",
-      "loading": "Laadimine...",
-      "invalidID": "Kehtetu konto ID – see peab algama numbriga 1.2. ",
-      "accountID": "Konto ID (nt 1.2.0)",
-      "existingID": "Kas jätkata lingitud Beeti konto olemasoleva konto ID-ga?",
-      "beetReq": "Hankige Beet walletist konto ID",
-      "beetLinked": "Jätkake oma Beetiga seotud kontoga"
-    },
-    "accountSearch": {
-      "inputPrompt": "Jätkamiseks sisestage oma plokiahela konto ID/nimi"
-    },
-    "featured": {
-      "fetching": "Esiletõstetud varade toomine",
-      "issue": "Esiletõstetud varade toomisel ilmnes probleem, proovige uuesti.",
-      "retry": "Proovi uuesti",
-      "heading": "Esiletõstetud NFT-d",
-      "back": "Mine tagasi"
-    },
-    "portfolio": {
-      "checkingAccount": "Teie Bitshare'ide kontrollimine {{environment}} konto...",
-      "emptyPortfolio": "Näib, et teie portfellis pole veel ühtegi NFT-d.",
-      "header": "Teie portfell sisaldab järgmisi NFT-sid",
-      "refresh": "Värskenda portfelli",
-      "back": "tagasi"
-    },
-    "search": {
-      "inProgress": "Otsimine",
-      "searchPrompt": "Otsige NFT-sid",
-      "noResults": "Sisestamiseks pole otsingutulemusi",
-      "resultHeader": "NFT otsingutulemused",
-      "back": "tagasi"
-    },
-    "selectAsset": {
-      "lookup": "Otsige kasutaja väljastatud varasid",
-      "fetching": "Teabe hankimine teie Bitsharesi kontolt",
-      "noResultsHeader": "Välja antud varasid ei leitud",
-      "noResultsDesc": "See Bitsharesi konto ei ole BTS DEXis ühtegi NFT-d väljastanud.",
-      "notice": "Märkus. NFT ostmine ja omamine BTS DEXis ei anna teile automaatselt NFT redigeerimisõigusi.",
-      "selection": "Valige NFT, mida soovite vaadata",
-      "back": "tagasi",
-      "refresh": "Värskenda"
-    },
-    "favourites": {
-      "noFavourites": "Lemmikuid ei leitud",
-      "noFavouritesDesc": "Tundub, et teil pole veel lemmikuid. ",
-      "selection": "Valige allpool oma lemmiküksus"
-    }
+  "accounts": {
+    "enterID": "Jätkamiseks sisestage konto ID",
+    "fetchingAccount": "Otsin kontot",
+    "noAccount": "Sellist kontot ei leitud, kontrollige sisestust ja proovige uuesti.",
+    "searchResults": "Otsingu tulemused",
+    "loading": "Laadimine...",
+    "invalidID": "Kehtetu konto ID – see peab algama numbriga 1.2. ",
+    "accountID": "Konto ID (nt 1.2.0)",
+    "existingID": "Kas jätkata lingitud Beeti konto olemasoleva konto ID-ga?",
+    "beetReq": "Hankige Beet walletist konto ID",
+    "beetLinked": "Jätkake oma Beetiga seotud kontoga"
+  },
+  "accountSearch": {
+    "inputPrompt": "Jätkamiseks sisestage oma plokiahela konto ID/nimi"
+  },
+  "featured": {
+    "fetching": "Esiletõstetud varade toomine",
+    "issue": "Esiletõstetud varade toomisel ilmnes probleem, proovige uuesti.",
+    "retry": "Proovi uuesti",
+    "heading": "Esiletõstetud NFT-d",
+    "back": "Mine tagasi"
+  },
+  "portfolio": {
+    "checkingAccount": "Teie Bitshare'ide kontrollimine {{environment}} konto...",
+    "emptyPortfolio": "Näib, et selle konto portfellis pole veel ühtegi NFT-d.",
+    "header": "Selle konto portfell sisaldab järgmisi NFT-sid",
+    "issuer": "Konto väljastatud NFT-d",
+    "button": "Konto NFT portfell",
+    "refresh": "Värskenda portfelli",
+    "back": "tagasi",
+    "error": "Konto NFT-portfelli toomisel võis ilmneda viga. Palun oodake ja proovige uuesti.",
+    "retry": "Proovige plokiahela taotlust uuesti"
+  },
+  "issuer": {
+    "checkingAccount": "Teie Bitshare'ide kontrollimine {{environment}} konto...",
+    "empty": "See {{environment}} plokiahela konto pole veel ühtegi NFT-d välja andnud.",
+    "header": "See {{environment}} plokiahela konto on väljastanud järgmised NFT-d",
+    "refresh": "Värskendage välja antud NFT-sid",
+    "back": "tagasi"
+  },
+  "search": {
+    "inProgress": "Otsimine",
+    "searchPrompt": "Otsige NFT-sid",
+    "noResults": "Sisestamiseks pole otsingutulemusi",
+    "resultHeader": "NFT otsingutulemused",
+    "back": "tagasi"
+  },
+  "selectAsset": {
+    "lookup": "Otsige kasutaja väljastatud varasid",
+    "fetching": "Teabe hankimine teie Bitsharesi kontolt",
+    "noResultsHeader": "Välja antud varasid ei leitud",
+    "noResultsDesc": "See Bitsharesi konto ei ole BTS DEXis väljastanud ühtegi NFT-d.",
+    "notice": "Märkus. NFT ostmine ja omamine BTS DEXis ei anna teile automaatselt NFT redigeerimisõigusi.",
+    "selection": "Valige NFT, mida soovite vaadata",
+    "back": "tagasi",
+    "refresh": "Värskenda"
+  },
+  "favourites": {
+    "noFavourites": "Lemmikuid ei leitud",
+    "noFavouritesDesc": "Tundub, et teil pole veel lemmikuid. ",
+    "selection": "Valige allpool oma lemmiküksus",
+    "favAccounts": "Lemmikkontod:",
+    "favAssets": "Lemmikvarad:"
   }
+}

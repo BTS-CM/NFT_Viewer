@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Selecione o blockchain para o qual você deseja visualizar seus NFTs e artistas favoritos.",
+      "offline": "Para visualizar seus NFTs e artistas favoritos, você precisa de um nó funcional. ",
+      "asset": "Selecione o NFT que deseja visualizar."
+    },
+    "featured": {
+      "environment": "Selecione o blockchain para o qual você deseja visualizar os NFTs e artistas em destaque.",
+      "asset": "Qual NFT em destaque você deseja visualizar?"
+    },
+    "portfolio": {
+      "environment": "Selecione o blockchain para o qual você deseja visualizar um portfólio NFT.",
+      "offline": "Para visualizar um portfólio NFT, você precisa de um nó em funcionamento. ",
+      "account": "Selecione a conta para a qual deseja visualizar o portfólio NFT.",
+      "asset": "Qual NFT neste portfólio você deseja visualizar?"
+    },
+    "issuer": {
+      "environment": "Selecione o blockchain para este recurso de pesquisa do emissor NFT.",
+      "offline": "Para visualizar os NFTs emitidos por uma conta, você precisa de um nó em funcionamento. ",
+      "account": "Selecione a conta (artista) que emitiu as NFTs de seu interesse.",
+      "asset": "Qual NFT que este usuário emitiu você deseja visualizar?"
+    },
+    "search": {
+      "environment": "Em qual blochchain você deseja procurar por NFTs?",
+      "offline": "Para pesquisar NFTs, você precisa de um nó em funcionamento. ",
+      "input": "Para prosseguir, insira o símbolo ou ID do ativo para o NFT que você deseja pesquisar."
+    },
+    "load": {
+      "environment": "Escolha o blockchain para o qual deseja carregar um rascunho NFT."
+    }
+  }

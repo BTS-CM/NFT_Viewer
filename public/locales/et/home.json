@@ -1,0 +1,35 @@
+{
+    "title": "Tere tulemast Bitsharesi NFT-vaaturisse!",
+    "desc": "Bitsharesi plokiahelate jaoks on saadaval järgmised funktsioonid!",
+    "footer": "Selle tööriista funktsioonide täielikuks kasutamiseks on vaja Bitshares BEET multirahakotti.",
+    "grid": {
+      "favourites": {
+        "title": "Lemmikud",
+        "desc": "Vaadake oma lemmik NFT-sid ja artiste"
+      },
+      "featured": {
+        "title": "Esiletõstetud NFT-d",
+        "desc": "Vaadake uusimaid esiletoodud NFT-sid"
+      },
+      "portfolio": {
+        "title": "NFT portfelli otsing",
+        "desc": "Vaadake konto NFT-portfelli"
+      },
+      "issuer": {
+        "title": "NFT emitendi otsing",
+        "desc": "Vaadake kontole väljastatud NFT-sid"
+      },
+      "search": {
+        "title": "Otsing",
+        "desc": "Otsige NFT-sid ja artiste"
+      },
+      "faq": {
+        "title": "Korduma kippuvad küsimused",
+        "desc": "Lisateavet NFT-de, Bitsharesi plokiahela ja BEET-i multirahakoti kohta"
+      },
+      "nodes": {
+        "title": "Konfigureeritavad sõlmed",
+        "desc": "Vahetage plokiahela sõlmede vahel"
+      }
+    }
+  }

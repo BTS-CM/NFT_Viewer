@@ -23,9 +23,20 @@
     },
     "portfolio": {
         "checkingAccount": "Checking your Bitshares {{environment}} account...",
-        "emptyPortfolio": "You don't seem to have any NFTs in your portfolio yet.",
-        "header": "Your portfolio contains the following NFTs",
+        "emptyPortfolio": "This account doesn't seem to have any NFTs in its portfolio yet.",
+        "header": "This account's portfolio contains the following NFTs",
+        "issuer": "Account's issued NFTs",
+        "button": "Account's NFT portfolio",
         "refresh": "Refresh portfolio",
+        "back": "Back",
+        "error": "An error may have occurred whilst fetching the account's NFT portfolio, please wait then try again.",
+        "retry": "Retry blockchain request"
+    },
+    "issuer": {
+        "checkingAccount": "Checking your Bitshares {{environment}} account...",
+        "empty": "This {{environment}} blockchain account hasn't yet issued any NFTs.",
+        "header": "This {{environment}} blockchain account has issued the following NFTs",
+        "refresh": "Refresh issued NFTs",
         "back": "Back"
     },
     "search": {
@@ -48,6 +59,8 @@
     "favourites": {
         "noFavourites": "No favourites found",
         "noFavouritesDesc": "You don't seem to have any favourites yet. You can add an NFT or an account to your favourites by clicking the heart icon on their respective pages.",
-        "selection": "Select your favourite item below"
+        "selection": "Select your favourite item below",
+        "favAccounts": "Favourite accounts:",
+        "favAssets": "Favourite assets:"
     }
 }

@@ -1,0 +1,31 @@
+{
+    "favourites": {
+      "environment": "Seleccione la cadena de bloques para la que desea ver sus NFT y artistas favoritos.",
+      "offline": "Para ver sus NFT y artistas favoritos, necesita un nodo que funcione. ",
+      "asset": "Seleccione el NFT que desea ver."
+    },
+    "featured": {
+      "environment": "Seleccione la cadena de bloques para la que desea ver los NFT y artistas destacados.",
+      "asset": "¿Qué NFT destacado quieres ver?"
+    },
+    "portfolio": {
+      "environment": "Seleccione la cadena de bloques para la que desea ver una cartera de NFT.",
+      "offline": "Para ver una cartera de NFT, necesita un nodo en funcionamiento. ",
+      "account": "Seleccione la cuenta para la que desea ver la cartera de NFT.",
+      "asset": "¿Qué NFT de esta cartera desea ver?"
+    },
+    "issuer": {
+      "environment": "Seleccione la cadena de bloques para esta función de búsqueda de emisores de NFT.",
+      "offline": "Para ver los NFT que ha emitido una cuenta, necesita un nodo en funcionamiento. ",
+      "account": "Seleccione la cuenta (artista) que ha emitido los NFT que le interesan.",
+      "asset": "¿Qué NFT que emitió este usuario desea ver?"
+    },
+    "search": {
+      "environment": "¿En qué cadena de bloques desea buscar NFT?",
+      "offline": "Para buscar NFT, necesita un nodo que funcione. ",
+      "input": "Para continuar, ingrese el símbolo o ID de activo para el NFT que desea buscar."
+    },
+    "load": {
+      "environment": "Elija la cadena de bloques para la que desea cargar un borrador NFT."
+    }
+  }

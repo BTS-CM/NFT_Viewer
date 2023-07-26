@@ -1,0 +1,35 @@
+{
+    "title": "¡Bienvenido al visor NFT de Bitshares!",
+    "desc": "¡Las siguientes funciones están disponibles para las cadenas de bloques de Bitshares!",
+    "footer": "Para hacer un uso completo del conjunto de funciones disponible en esta herramienta, se requiere la billetera múltiple Bitshares BEET.",
+    "grid": {
+      "favourites": {
+        "title": "Favoritos",
+        "desc": "Vea sus NFT y artistas favoritos"
+      },
+      "featured": {
+        "title": "NFT destacados",
+        "desc": "Ver los últimos NFT destacados"
+      },
+      "portfolio": {
+        "title": "Búsqueda de cartera NFT",
+        "desc": "Ver la cartera de NFT de una cuenta"
+      },
+      "issuer": {
+        "title": "Búsqueda de emisores de NFT",
+        "desc": "Ver los NFT emitidos de una cuenta"
+      },
+      "search": {
+        "title": "Buscar",
+        "desc": "Buscar NFT y artistas"
+      },
+      "faq": {
+        "title": "Preguntas frecuentes",
+        "desc": "Obtenga más información sobre las NFT, la cadena de bloques de Bitshares y la billetera múltiple BEET"
+      },
+      "nodes": {
+        "title": "Nodos configurables",
+        "desc": "Cambiar entre nodos de blockchain"
+      }
+    }
+  }

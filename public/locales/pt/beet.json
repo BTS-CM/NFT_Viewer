@@ -4,7 +4,7 @@
     "linkPrompt": "Prossiga com a vinculação deste aplicativo à sua carteira Beet abaixo.",
     "linkButton": "Link para Beterraba",
     "beetWait": "Aguardando a resposta do prompt do BEET",
-    "backButton": "Voltar"
+    "backButton": "Alterar método de conta"
   },
   "buy": {
     "unavailable": "Este NFT não está à venda no momento.",
@@ -21,13 +21,13 @@
     "method": "Por upload de arquivo local",
     "preStep1": "1. Inicie a carteira BEET e navegue até 'Local' no menu.",
     "preStep2": "2. Nesta página, permita tudo ou permita apenas a operação 1 'limit_order_create'.",
-    "preStep3": "3. Na página de upload local, clique no botão abaixo para prosseguir.",
+    "preStep3": "3. Uma vez na página de upload local, clique no botão abaixo para prosseguir.",
     "generate": "Gerar arquivo JSON",
     "deepLink": "Link profundo",
     "noDL": {
       "title": "Por link direto bruto",
       "step1": "Inicie a carteira BEET e navegue até 'Raw Link' no menu.",
-      "step2": "A partir desta página, você pode permitir todas as operações ou permitir apenas a operação 1 'criar ordem de limite' (depois clique em salvar).",
+      "step2": "Nesta página, você pode permitir todas as operações ou permitir apenas a operação 1 'criar ordem de limite' (depois clique em salvar).",
       "step3": "Depois que 'Ready for raw links' aparecer na carteira, envie esta solicitação.",
       "btn": "Gerar deeplink bruto"
     },
@@ -45,7 +45,7 @@
     "buySuccess": "Transmitir com sucesso uma ordem de limite de compra para o NFT \"{{boughtAsset}}\" em troca de {{amountToSell}} {{soldAsset}}",
     "viewPortfolio": "Ver portfólio",
     "backButton": "Voltar",
-    "beetBuyPrompt": "Instrua o BEET a comprar o NFT \"{{boughtAsset}}\" para {{amountToSell}} {{soldAsset}}?",
+    "beetBuyPrompt": "Instrua a BEET a comprar o NFT \"{{boughtAsset}}\" para {{amountToSell}} {{soldAsset}}?",
     "confirmPurchase": "Sim",
     "rejectPurchase": "Não",
     "generateQR": "Gerar código QR",
@@ -59,7 +59,7 @@
     "newBtn": "Conectar com nova conta",
     "back": "Volte",
     "beetHeader": "Esta ferramenta foi projetada para uso com a Carteira Bitshares BEET.",
-    "beetSubheading": "Inicie e desbloqueie-o e, em seguida, clique no botão de conexão abaixo para prosseguir.",
+    "beetSubheading": "Inicie e desbloqueie-o e, em seguida, clique no botão de conexão abaixo para continuar.",
     "beetConnect": "Conecte-se à Beterraba",
     "btsPrompt": "Ainda não tem a carteira Bitshares BEET instalada? ",
     "btsGuide": "Depois de instalado, crie uma carteira e prossiga para conectar-se acima.",

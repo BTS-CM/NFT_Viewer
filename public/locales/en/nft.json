@@ -88,11 +88,18 @@
             "label": "NFT JSON",
             "copy": "Copy",
             "copied": "Copied"
+        },
+        "image": {
+          "zoom": "Zoom"
         }
     },
     "quantity": "Quantity",
     "favourite": {
         "save": "Favourite asset",
-        "remove": "Remove from favourites"
+        "remove": "Remove asset from favourites"
+    },
+    "accountFavourite": {
+        "save": "Favourite account",
+        "remove": "Remove account from favourites"
     }
 }

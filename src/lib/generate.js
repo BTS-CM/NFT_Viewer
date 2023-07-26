@@ -133,6 +133,13 @@ async function generateDeepLink(appName, chain, node, opType, operations) {
       return;
     }
 
+    
+    try {
+      await Apis.close(); // forcibly close the API instance
+    } catch (error) {
+        console.log(error);
+    }
+
     resolve(encodedPayload);
   });
 }
@@ -217,7 +224,12 @@ async function beetBroadcast(
       return;
     }
 
-    console.log(result);
+    try {
+      await Apis.close(); // forcibly close the API instance
+    } catch (error) {
+        console.log(error);
+    }
+
     resolve(result);
   });
 }

@@ -1,0 +1,43 @@
+{
+    "bug": {
+      "control": "문제를 보고하려면 어떻게 해야 합니까?",
+      "panel": "문제 시스템을 통해 소프트웨어 문제를 NFT_Viewer github 저장소에 보고하세요. "
+    },
+    "featured": {
+      "control": "추천을 받으려면 어떻게 해야 하나요?",
+      "panel": "NFT 미디어 콘텐츠에 따라 github 문제를 열어 NFT를 소개할 수 있습니다. "
+    },
+    "storage": {
+      "control": "NFT 미디어 데이터는 어디에 저장되나요?",
+      "panel": "NFT 미디어 데이터는 체인과 IPFS 모두에 저장할 수 있습니다. "
+    },
+    "fileTypes": {
+      "control": "어떤 파일 형식이 지원되나요?",
+      "panel": "이미지, 비디오, 오디오, 문서, 3D 파일 등을 포함한 많은 파일 형식이 지원됩니다."
+    },
+    "why": {
+      "control": "NFT로 무엇을 할 수 있나요?",
+      "panel": "NFT를 소유하면 NFT 보유자 라이선스에 따라 거래하고, 담보로 사용하고, 장기적으로 수집하고, 그 가치를 추측하는 등의 작업을 할 수 있습니다."
+    },
+    "sell": {
+      "control": "NFT는 어떻게 판매하나요?",
+      "panel": "이 앱은 아직 NFT 판매를 지원하지 않지만 웹 지갑 인터페이스를 통해 Bitshares DEX에서 NFT를 판매할 수 있습니다. "
+    },
+    "purchase": {
+      "control": "NFT는 어떻게 구매합니까?",
+      "panel": "판매가 가능한 경우 이 앱(구매 nft 탭 확인)과 모든 Bitshares 웹 지갑 교환 인터페이스 내에서 구매할 수 있습니다."
+    },
+    "create": {
+      "control": "NFT는 어떻게 생성하나요?",
+      "panel": "Bitshares NFT 발급 도구를 사용하면 Bitshares 계정으로 NFT를 생성할 수 있습니다. "
+    },
+    "beet": {
+      "control": "사탕무 지갑은 무엇입니까?",
+      "panel": "BEET 지갑은 멀티 블록체인 암호화폐 지갑으로 인증 및 거래의 네트워크 브로드캐스트를 안전하게 처리하는 데 사용됩니다."
+    },
+    "blockchains": {
+      "control": "어떤 블록체인이 지원되나요?",
+      "panel": "현재 Bitshares 블록체인만 지원되지만 이 도구는 github에서 완전히 오픈 소스입니다."
+    },
+    "title": "자주 묻는 질문"
+  }

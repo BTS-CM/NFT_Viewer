@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "メニュー",
+      "label": "メインメニュー",
+      "home": "家",
+      "language": "言語",
+      "featured": "注目のNFT",
+      "issuer": "NFT発行者の検索",
+      "issued": "その他のNFT {{username}}",
+      "portfolio": "NFTポートフォリオ検索",
+      "favourites": "お気に入り",
+      "search": "検索",
+      "faq": "よくある質問",
+      "changeNodes": "ノードを変更する"
+    }
+  }

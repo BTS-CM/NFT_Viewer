@@ -1,0 +1,35 @@
+{
+    "title": "Velkommen til Bitshares NFT Viewer!",
+    "desc": "Følgende funktioner er tilgængelige for Bitshares blockchains!",
+    "footer": "For at få fuld brug af funktionssættet, der er tilgængeligt i dette værktøj, er Bitshares BEET multiwallet påkrævet.",
+    "grid": {
+      "favourites": {
+        "title": "Favoritter",
+        "desc": "Se dine foretrukne NFT'er og kunstnere"
+      },
+      "featured": {
+        "title": "Udvalgte NFT'er",
+        "desc": "Se de seneste udvalgte NFT'er"
+      },
+      "portfolio": {
+        "title": "NFT-porteføljeopslag",
+        "desc": "Se en kontos NFT-portefølje"
+      },
+      "issuer": {
+        "title": "NFT Udstederopslag",
+        "desc": "Se en kontos udstedte NFT'er"
+      },
+      "search": {
+        "title": "Søg",
+        "desc": "Søg efter NFT'er og kunstnere"
+      },
+      "faq": {
+        "title": "Ofte stillede spørgsmål",
+        "desc": "Lær mere om NFT'er, Bitshares blockchain og BEET multiwallet"
+      },
+      "nodes": {
+        "title": "Konfigurerbare noder",
+        "desc": "Skift mellem blockchain noder"
+      }
+    }
+  }

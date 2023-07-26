@@ -1,0 +1,43 @@
+{
+    "bug": {
+        "control": "How can I report an issue?",
+        "panel": "Report any software issues to the NFT_Viewer github repo through the issue system. Consider creating a fork and a pull request to fix issues yourself."
+    },
+    "featured": {
+        "control": "How can I get featured?",
+        "panel": "Depending on the NFT media content, you can open a github issue to get your NFT featured. You can fork this NFT viewer to promote your own NFT collections if this doesn't suit you."
+    },
+    "storage": {
+        "control": "Where is NFT media data stored?",
+        "panel": "NFT media data can be stored both on chain and on IPFS. It's significantly cheaper to store the data on IPFS."
+    },
+    "fileTypes": {
+        "control": "What filetypes are supported?",
+        "panel": "Many file types are supported, including images, videos, audio, documents, 3D files and more."
+    },
+    "why": {
+        "control": "What can I do with an NFT?",
+        "panel": "Once you own an NFT you can trade it, use it as collateral, collect it long term, speculate on its value and more depending on the NFT's holder license."
+    },
+    "sell": {
+        "control": "How do I sell an NFT?",
+        "panel": "This app doesn't support selling NFTs yet, however you can sell them on the Bitshares DEX via the web wallet interface. Once for sale, they can be purchased with this app."
+    },
+    "purchase": {
+        "control": "How do you purchase an NFT?",
+        "panel": "If available for sale, they're purchasable within this app (check the buy nft tab) and within all Bitshares web wallet exchange interfaces."
+    },
+    "create": {
+        "control": "How do I create an NFT?",
+        "panel": "The Bitshares NFT issuance tool enables you to create an NFT with your Bitshares account. Go download it and get issuing NFTs on the Bitshares blockchain today!"
+    },
+    "beet": {
+        "control": "What is the Beet wallet?",
+        "panel": "The BEET wallet is a multi blockchain crypto wallet, it's used to securely handle authentication and network broadcast of transactions."
+    },
+    "blockchains": {
+        "control": "Which blockchains are supported?",
+        "panel": "Currently only the Bitshares blockchain is supported, however this tool is fully open source on github."
+    },
+    "title": "Frequently Asked Questions"
+}

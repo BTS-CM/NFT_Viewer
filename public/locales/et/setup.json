@@ -1,48 +1,48 @@
 {
-    "accountMode": {
-      "header": "konto jaoks \"{{account}}\" mida sa teha tahad?",
-      "balance": "Vaadake NFT portfelli",
-      "issued": "Vaadake välja antud NFT-sid",
-      "back": "tagasi",
-      "header2": "Sisestage konto ID/nimi:",
-      "chooseBEET": "Küsi PEEDIT",
-      "chooseSearch": "Otsige kontot käsitsi",
-      "beetPrompt": "Jätkamiseks ühendage Beetiga.",
-      "linkPrompt": "Jätkamiseks linkige Beetiga.",
-      "waiting": "Ootan kasutaja vastust BEET-kliendilt",
-      "save": "Lemmikkonto",
-      "remove": "Eemalda lemmik"
-    },
-    "environment": {
-      "header": "Millist Bitsharesi plokiahelat soovite kasutada?",
-      "testnet": "Test võrku",
-      "production": "Põhivõrk"
-    },
-    "loading": {
-      "message": "Kiireima plokiahela ühenduse leidmine, palun oodake."
-    },
-    "mode": {
-      "header": "Mida sa teha tahad?",
-      "searchBtn": "Otsi NFT",
-      "lookupBtn": "Otsige üles konto NFT-d",
-      "featuredBtn": "Vaadake esiletõstetud NFT-sid",
-      "favouritesBtn": "Vaata lemmikuid",
-      "back": "tagasi"
-    },
-    "offline": {
-      "header": "Tundub, et olete võrguühenduseta? ",
-      "exit": "Välju"
-    },
-    "settings": {
-      "remove": "Eemalda",
-      "settings": "Seaded",
-      "linked": "Siin on teie praegu lingitud kontod",
-      "notLinked": "Peet ei ole seotud.",
-      "back": "tagasi",
-      "language": "Kas vahetada keelt?"
-    },
-    "app": {
-      "error": "Ilmnes probleem, lähtestage ja proovige uuesti.",
-      "reset": "Lähtesta rakendus"
-    }
+  "accountMode": {
+    "header": "konto jaoks \"{{account}}\" mida sa teha tahad?",
+    "balance": "Vaadake NFT portfelli",
+    "issued": "Vaadake välja antud NFT-sid",
+    "back": "tagasi",
+    "header2": "Sisestage konto ID/nimi:",
+    "chooseBEET": "Küsi PEEDIT",
+    "chooseSearch": "Otsige kontot käsitsi",
+    "beetPrompt": "Jätkamiseks ühendage Beetiga.",
+    "linkPrompt": "Jätkamiseks linkige Beetiga.",
+    "waiting": "Ootan kasutaja vastust BEET-kliendilt",
+    "save": "Lemmikkonto",
+    "remove": "Eemalda lemmik"
+  },
+  "environment": {
+    "header": "Millist Bitsharesi plokiahelat soovite kasutada?",
+    "testnet": "Test võrku",
+    "production": "Põhivõrk"
+  },
+  "loading": {
+    "message": "Plokiahela andmete töötlemine, palun oodake..."
+  },
+  "mode": {
+    "header": "Mida sa teha tahad?",
+    "searchBtn": "Otsi NFT",
+    "lookupBtn": "Otsige üles konto NFT-d",
+    "featuredBtn": "Vaadake esiletõstetud NFT-sid",
+    "favouritesBtn": "Vaata lemmikuid",
+    "back": "tagasi"
+  },
+  "offline": {
+    "header": "Tundub, et olete võrguühenduseta? ",
+    "exit": "Välju"
+  },
+  "settings": {
+    "remove": "Eemalda",
+    "settings": "Seaded",
+    "linked": "Siin on teie praegu lingitud kontod",
+    "notLinked": "Peet ei ole seotud.",
+    "back": "tagasi",
+    "language": "Kas vahetada keelt?"
+  },
+  "app": {
+    "error": "Ilmnes probleem, lähtestage ja proovige uuesti.",
+    "reset": "Lähtesta rakendus"
   }
+}

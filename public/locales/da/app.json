@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "Menu",
+      "label": "Hovedmenu",
+      "home": "Hjem",
+      "language": "Sprog",
+      "featured": "Udvalgte NFT'er",
+      "issuer": "NFT Udstederopslag",
+      "issued": "Flere NFT'er af {{username}}",
+      "portfolio": "NFT-porteføljeopslag",
+      "favourites": "Favoritter",
+      "search": "Søg",
+      "faq": "FAQ",
+      "changeNodes": "Skift noder"
+    }
+  }

@@ -1,0 +1,16 @@
+{
+    "menu": {
+      "btn": "เมนู",
+      "label": "เมนูหลัก",
+      "home": "บ้าน",
+      "language": "ภาษา",
+      "featured": "NFT ที่โดดเด่น",
+      "issuer": "การค้นหาผู้ออก NFT",
+      "issued": "NFT เพิ่มเติมโดย {{username}}",
+      "portfolio": "การค้นหาผลงาน NFT",
+      "favourites": "รายการโปรด",
+      "search": "ค้นหา",
+      "faq": "คำถามที่พบบ่อย",
+      "changeNodes": "เปลี่ยนโหนด"
+    }
+  }

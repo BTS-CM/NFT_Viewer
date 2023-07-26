@@ -1,0 +1,35 @@
+{
+    "title": "Bienvenue dans la visionneuse Bitshares NFT !",
+    "desc": "Les fonctionnalités suivantes sont disponibles pour les blockchains Bitshares !",
+    "footer": "Pour tirer pleinement parti de l'ensemble des fonctionnalités disponibles dans cet outil, le multiportefeuille Bitshares BEET est requis.",
+    "grid": {
+      "favourites": {
+        "title": "Favoris",
+        "desc": "Voir vos NFT et artistes préférés"
+      },
+      "featured": {
+        "title": "NFT en vedette",
+        "desc": "Voir les derniers NFT en vedette"
+      },
+      "portfolio": {
+        "title": "Recherche de portefeuille NFT",
+        "desc": "Afficher le portefeuille NFT d'un compte"
+      },
+      "issuer": {
+        "title": "Recherche d'émetteur NFT",
+        "desc": "Afficher les NFT émis d'un compte"
+      },
+      "search": {
+        "title": "Recherche",
+        "desc": "Rechercher des NFT et des artistes"
+      },
+      "faq": {
+        "title": "Questions fréquemment posées",
+        "desc": "En savoir plus sur les NFT, la blockchain Bitshares et le multiwallet BEET"
+      },
+      "nodes": {
+        "title": "Nœuds configurables",
+        "desc": "Basculer entre les nœuds de la blockchain"
+      }
+    }
+  }
