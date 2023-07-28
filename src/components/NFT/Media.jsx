@@ -9,7 +9,6 @@ import {
   Modal,
   Badge,
   Button,
-  Container,
   Card,
   Center
 } from '@mantine/core';
@@ -26,9 +25,15 @@ import {
   BsQuestion,
 } from "react-icons/bs";
 
-import { appStore, tempStore, localePreferenceStore } from '../../lib/states';
+import {
+  HiOutlineClipboardCheck,
+  HiOutlineClipboardCopy,
+  HiSearch
+} from "react-icons/hi";
 
-let imageTypes = ["PNG", "JPEG", "GIF", "TIFF", "BMP"];
+import { tempStore, localePreferenceStore } from '../../lib/states';
+
+let imageTypes = ["PNG", "JPEG", "GIF", "TIFF", "BMP", "WEBP"];
 let audioTypes = ["MP3", "MP4", "M4A", "OGG", "FLAC", "WAV", "WMA", "AAC"];
 let documentTypes = ["PDF", "DOCX", "ODT", "XLSX", "ODS", "PPTX", "TXT"]
 let videoTypes = ["WEBM", "MOV", "QT", "AVI", "WMV", "MPEG"];
@@ -113,34 +118,31 @@ export default function Media(properties) {
                                             compact
                                             variant="outline"
                                             color={copied ? 'teal' : 'blue'}
-                                            style={{marginTop: '5px'}}
                                             onClick={copy}
                                           >
                                             {
                                               copied
-                                                ? t('nft:nft.json.copied')
-                                                : t('nft:nft.json.copy')
+                                                ? <HiOutlineClipboardCheck />
+                                                : <HiOutlineClipboardCopy />
                                             }
-                                          </Button>
-                                          <Button
-                                            variant='outline'
-                                            compact
-                                            style={{marginTop: '5px'}}
-                                            onClick={() => {
-                                              setZoomIndex(i);
-                                              open();
-                                            }}
-                                          >
-                                            {t("nft:nft.image.zoom")}
                                           </Button>
                                         </>
                                       )}
                                     </CopyButton>
+                                    <Button
+                                      variant='outline'
+                                      compact
+                                      onClick={() => {
+                                        setZoomIndex(i);
+                                        open();
+                                      }}
+                                    >
+                                      <HiSearch />
+                                    </Button>
                                     <Badge
                                       variant="light"
                                       leftSection={icon}
                                       size="lg"
-                                      style={{marginTop: '5px'}}
                                     >
                                       {image.type}
                                     </Badge>
