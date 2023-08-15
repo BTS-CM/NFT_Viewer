@@ -1,17 +1,7 @@
+
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { connect, checkBeet, link } from 'beet-js';
-
-import { 
-  testNodes,
-  fetchUserNFTBalances,
-  fetchIssuedAssets,
-  fetchAssets,
-  fetchDynamicData,
-  fetchObject,
-} from './queries';
 import { getImages } from './images';
-
 import config from '../config/config.json';
 
 const nonNFTStore = create(
@@ -104,7 +94,7 @@ const favouritesStore = create(
 
         let searchResult;
         try {
-          searchResult = await fetchObject(node, newFavourite);
+          searchResult = await window.electron.fetchObject(node, newFavourite);
         } catch (error) {
           console.log(error);
           return;
@@ -194,6 +184,8 @@ const identitiesStore = create(
         console.log("No identity provided");
         return;
       }
+
+      console.log("Setting identity");
 
       let currentIdentities = get().identities;
       if (
@@ -334,7 +326,7 @@ const tempStore = create(
       const node = nodes[environment][0];
       let dynamicData;
       try {
-        dynamicData = await fetchDynamicData(node, newAsset, changeURL);
+        dynamicData = await window.electron.fetchDynamicData(node, newAsset, changeURL);
       } catch (error) {
         console.log(error);
         return;
@@ -390,7 +382,7 @@ const tempStore = create(
       const node = nodes[environment][0];
       let response;
       try {
-        response = await fetchAssets(node, remainingAssetIds);
+        response = await window.electron.fetchAssets(node, remainingAssetIds);
       } catch (error) {
         console.log(error);
         changeURL();
@@ -413,6 +405,7 @@ const tempStore = create(
       const { bitshares: assetBitshares, bitshares_testnet: assetBitsharesTestnet } = assetStore.getState();
       const { bitshares: nonNFTBitshares, bitshares_testnet: nonNFTBitsharesTestnet } = nonNFTStore.getState();
       if (!nodes || !environment) {
+        console.log("No nodes or environment");
         return;
       }
 
@@ -429,38 +422,34 @@ const tempStore = create(
       const node = nodes[environment][0];
       let response;
       try {
-        response = await fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs);
+        response = await window.electron.fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs);
       } catch (error) {
         console.log(error);
         changeURL();
       }
 
-      if (!response || !response.length) {
+      if (!response) {
         set({ assets: [] });
         return;
       }
 
-      const normalAssets = [];
-      const filteredAssets = [];
-      for (let i = 0; i < response.length; i++) {
-        const asset = response[i];
-        const currentDescription = JSON.parse(asset.options.description);
-        const nft_object = currentDescription.nft_object ?? null;
+      const {
+        finalAssets,
+        nonNFTAssetIDs,
+      } = response;
 
-        if (!nft_object) {
-          normalAssets.push(asset);
-          continue;
-        }
-
-        filteredAssets.push(asset);
+      const changeAssets = assetStore.getState().changeAssets;
+      const nonCachedAssets = finalAssets.filter((finalAsset) => cachedAssets.find((cachedAsset) => cachedAsset.id === finalAsset.id));
+      if (nonCachedAssets.length) {
+          // FinalAssets has new data to cache
+          changeAssets(environment, cachedAssets.concat(nonCachedAssets)); // caching the NFT assets
       }
 
-      if (filteredAssets.length) {
-        set({ assets: filteredAssets });
-      }
+      const changeNonNFTs = nonNFTStore.getState().changeNonNFTs;
+      changeNonNFTs(environment, nonNFTAssetIDs); // caching the non-NFT asset IDs
 
-      if (normalAssets.length) {
-        set({ nonNFTs: normalAssets });
+      if (finalAssets) {
+        set({ assets: await finalAssets })
       }
     },
     fetchNFTBalances: async (accountID) => {
@@ -474,23 +463,55 @@ const tempStore = create(
       let cachedAssets = [];
       let nonNFTs = [];
       if (environment === 'bitshares') {
-        cachedAssets = assetBitshares && assetBitshares.length ? assetBitshares : [];
-        nonNFTs = nonNFTBitshares && nonNFTBitshares.length ? nonNFTBitshares : [];
+        cachedAssets = assetBitshares && assetBitshares.length
+          ? assetBitshares
+          : [];
+        nonNFTs = nonNFTBitshares && nonNFTBitshares.length
+          ? nonNFTBitshares
+          : [];
       } else if (environment === 'bitshares_testnet' && bitshares_testnet && bitshares_testnet.length) {
-        cachedAssets = assetBitsharesTestnet && assetBitsharesTestnet.length ? assetBitsharesTestnet : [];
-        nonNFTs = nonNFTBitsharesTestnet && nonNFTBitsharesTestnet.length ? nonNFTBitsharesTestnet : [];
+        cachedAssets = assetBitsharesTestnet && assetBitsharesTestnet.length
+          ? assetBitsharesTestnet
+          : [];
+        nonNFTs = nonNFTBitsharesTestnet && nonNFTBitsharesTestnet.length
+          ? nonNFTBitsharesTestnet
+          : [];
       }
       
       const node = nodes[environment][0];
+
       let response;
       try {
-        response = await fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs);
+        response = await window.electron.fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs);
       } catch (error) {
         console.log(error)
+        return;
       }
 
-      if (response) {
-        set({ assets: await response })
+      const {
+        finalAssets,
+        nonNFTAssetIDs,
+      } = response;
+
+      const changeAssets = assetStore.getState().changeAssets;
+      const nonCachedAssets = finalAssets && finalAssets.length
+        ? finalAssets.filter((finalAsset) => cachedAssets.find((cachedAsset) => cachedAsset.id === finalAsset.id))
+        : [];
+
+      if (nonCachedAssets.length) {
+          // FinalAssets has new data to cache
+          changeAssets(environment, cachedAssets.concat(nonCachedAssets)); // caching the NFT assets
+      }
+
+      const changeNonNFTs = nonNFTStore.getState().changeNonNFTs;
+      if (nonNFTAssetIDs && nonNFTAssetIDs.length) {
+        changeNonNFTs(environment, nonNFTAssetIDs); // caching the non-NFT asset IDs
+      }
+
+      if (finalAssets) {
+        set({ assets: await finalAssets })
+      } else {
+        set({ assets: [] })
       }
     },
     eraseAsset: () => set({
@@ -531,7 +552,7 @@ const beetStore = create((set, get) => ({
        */
       let beetOnline;
       try {
-        beetOnline = await checkBeet(true);
+        beetOnline = await window.electron.checkBeet(true);
       } catch (error) {
         console.log(error);
       }
@@ -543,7 +564,7 @@ const beetStore = create((set, get) => ({
   
       let connected;
       try {
-        connected = await connect(
+        connected = await window.electron.connect(
           "NFT Viewer",
           "Application",
           "localhost",
@@ -554,6 +575,8 @@ const beetStore = create((set, get) => ({
         console.error(error)
       }
 
+      connected = JSON.parse(connected);
+      
       if (!connected) {
         console.error("Couldn't connect to Beet");
         set({
@@ -595,18 +618,26 @@ const beetStore = create((set, get) => ({
        * Re/Link to Beet wallet
        * @param {String} environment
        */
-      let currentConnection = get().connection;
-
       let linkAttempt;
       try {
-        linkAttempt = await link(environment === 'bitshares' ? 'BTS' : 'BTS_TEST', currentConnection);
+        linkAttempt = await window.electron.link(
+          environment === 'bitshares' ? 'BTS' : 'BTS_TEST'
+        );
       } catch (error) {
         console.error(error)
         set({ isLinked: null, identity: null })
         return;
       }
 
-      if (!currentConnection.identity) {
+      if (!linkAttempt) {
+        set({ isLinked: null, identity: null })
+        return;
+      }
+
+      const parsedLinkAttempt = JSON.parse(linkAttempt);
+
+      if (!parsedLinkAttempt || !parsedLinkAttempt.identity) {
+        console.log('No identity in linkAttempt');
         set({ isLinked: null, identity: null })
         return;
       }
@@ -614,19 +645,19 @@ const beetStore = create((set, get) => ({
       const { storeConnection } = identitiesStore.getState();
 
       try {
-        storeConnection(currentConnection);
+        storeConnection(parsedLinkAttempt);
       } catch (error) {
         console.log(error);
       }
       
-      const { setAccount } = appStore.getState();
+      const { setAccount } = tempStore.getState();
       try {
-        setAccount(currentConnection.identity.requested.account.id);
+        setAccount(parsedLinkAttempt.identity.requested.account.id);
       } catch (error) {
         console.log(error);
       }
 
-      set({ isLinked: true, identity: currentConnection.identity })
+      set({ isLinked: true, identity: parsedLinkAttempt.identity })
     },
     relink: async (environment) => {
       /**
@@ -637,7 +668,7 @@ const beetStore = create((set, get) => ({
   
       let linkAttempt;
       try {
-        linkAttempt = await link(
+        linkAttempt = await window.electron.link(
           environment === 'bitshares' ? 'BTS' : 'BTS_TEST',
           currentConnection,
         );

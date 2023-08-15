@@ -19,7 +19,7 @@ import { QRCode } from 'react-qrcode-logo';
 import {
   appStore, beetStore, tempStore
 } from '../../lib/states';
-import { beetBroadcast, generateDeepLink, generateQRContents } from '../../lib/generate';
+import { generateQRContents } from '../../lib/generate';
 import GetAccount from './GetAccount';
 
 export default function BeetModal(properties) {
@@ -38,7 +38,6 @@ export default function BeetModal(properties) {
   const [deepLinkItr, setDeepLinkItr] = useState(0);
   const [opened, { open, close }] = useDisclosure(false);
 
-  const connection = beetStore((state) => state.connection);
   const identity = beetStore((state) => state.identity);
   const reset = beetStore((state) => state.reset);
   const account = tempStore((state) => state.account);
@@ -79,7 +78,7 @@ export default function BeetModal(properties) {
 
       let payload;
       try {
-        payload = await generateDeepLink(
+        payload = await window.electron.generateDeepLink(
           appName,
           relevantChain,
           nodes[environment][0],
@@ -131,12 +130,12 @@ export default function BeetModal(properties) {
     setOutcome();
     let response;
     try {
-      response = await beetBroadcast(
-        connection,
+      response = await window.electron.beetBroadcast(
         relevantChain,
         nodes[environment][0],
         opType,
-        opContents
+        opContents,
+        identity ?? null
       );
     } catch (error) {
       console.log(error);
@@ -266,7 +265,7 @@ export default function BeetModal(properties) {
             : null
         }
         {
-          account && method && method === "BEET" && connection && identity && !outcome
+          account && method && method === "BEET" && identity && !outcome
             ? (
               <>
                 <Text>{t("modal:beet.text")}</Text>

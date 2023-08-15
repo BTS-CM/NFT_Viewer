@@ -10,6 +10,7 @@ import {
   Paper,
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { HiArrowNarrowLeft } from "react-icons/hi";
 
 import { appStore, beetStore, identitiesStore, tempStore } from '../../lib/states';
 

@@ -15,7 +15,6 @@ import { TbInputSearch, TbArrowNarrowRight } from 'react-icons/tb';
 import { useTranslation } from 'react-i18next';
 
 import { appStore, tempStore, beetStore, identitiesStore } from '../../lib/states';
-import { accountSearch } from '../../lib/queries';
 
 export default function AccountSearch(properties) {
   const theme = useMantineTheme();
@@ -49,7 +48,7 @@ export default function AccountSearch(properties) {
 
     let searchResult;
     try {
-      searchResult = await accountSearch(nodes[environment][0], searchInput)
+      searchResult = await window.electron.accountSearch(nodes[environment][0], searchInput)
     } catch (error) {
       console.log(error);
       setInProgress(false);

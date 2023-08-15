@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { HiOutlineHome, HiArrowNarrowLeft, HiOutlineRefresh } from "react-icons/hi";
 import { TbHeart, TbHeartBroken, TbUser } from 'react-icons/tb';
 
-import { appStore, tempStore, favouritesStore } from '../lib/states';
+import { appStore, beetStore, tempStore, favouritesStore } from '../lib/states';
 
 import Loading from "../components/setup/Loading";
 import Environment from "../components/setup/Environment";
@@ -27,6 +27,7 @@ export default function Portfolio(properties) {
   let account = tempStore((state) => state.account);
   let setAccount = tempStore((state) => state.setAccount);
   let resetTemp = tempStore((state) => state.reset);
+  let resetBeet = beetStore((state => state.reset));
 
   let setAsset = tempStore((state) => state.setAsset);
   let fetchNFTBalances = tempStore((state) => state.fetchNFTBalances);
@@ -47,6 +48,8 @@ export default function Portfolio(properties) {
 
   useEffect(() => {
     resetTemp();
+    resetBeet();
+
     if (env && id) {
       setEnvironment(env);
       setAccount(id);
@@ -109,24 +112,30 @@ export default function Portfolio(properties) {
     }
   }, [tries, account]);
 
-  const memorizedAssets = useMemo(() => {
+  const [memorizedAssets, setMemorizedAssets] = useState([]);
+  useEffect(() => {
     if (!assets || !assets.length || !environment) {
-      return [];
+      setMemorizedAssets([]);
+      return;
     }
-    return assets.map(asset => {
-      return <Button
-                compact
-                sx={{margin: '2px'}}
-                variant="outline"
-                key={`button.${asset.id}`}
-                onClick={() => {
-                  setAsset(asset);
-                  navigate(`/NFT/${environment}/${asset.symbol}`);
-                }}
-              >
-                {asset.symbol}: {asset.id}
-              </Button>
-    })
+    if (assets && assets.length) {
+      setMemorizedAssets(assets.map(asset => {
+        return (
+          <Button
+            compact
+            sx={{margin: '2px'}}
+            variant="outline"
+            key={`button.${asset.id}`}
+            onClick={() => {
+              setAsset(asset);
+              navigate(`/NFT/${environment}/${asset.symbol}`);
+            }}
+          >
+            {asset.symbol}: {asset.id}
+          </Button>
+        );
+      }));
+    }
   }, [assets]);
 
   const homeButton = <Link style={{ textDecoration: 'none' }} to="/">
@@ -291,7 +300,7 @@ export default function Portfolio(properties) {
     </Button>
   </>;
 
-  if (assets && !assets.length) {
+  if (!memorizedAssets || !memorizedAssets.length) {
     return (
       <>
         <Paper padding="sm" shadow="xs">

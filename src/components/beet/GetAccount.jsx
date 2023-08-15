@@ -9,12 +9,16 @@ import {
   Button,
   Center,
   Group,
+  Paper,
+  Box,
+  ScrollArea,
+  Table
 } from '@mantine/core';
 
-import { HiArrowNarrowLeft } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiOutlineReply } from "react-icons/hi";
 
 import {
-  beetStore, tempStore
+  beetStore, tempStore, identitiesStore
 } from "../../lib/states";
 import AccountSearch from "../blockchain/AccountSearch";
 import Connect from "./Connect";
@@ -32,11 +36,36 @@ export default function GetAccount(properties) {
   // for beet use
   const connection = beetStore((state) => state.connection);
   const isLinked = beetStore((state) => state.isLinked);
+  const setIsLinked = beetStore((state) => state.setIsLinked);
   const identity = beetStore((state) => state.identity);
+  const setIdentity = beetStore((state) => state.setIdentity);
   const [accountMethod, setAccountMethod] = useState();
 
   const account = tempStore((state) => state.account);
   const setAccount = tempStore((state) => state.setAccount);
+
+  const identities = identitiesStore((state) => state.identities);
+  //const setIdentities = identitiesStore((state) => state.setIdentities);
+  const removeIdentity = identitiesStore((state) => state.removeIdentity);
+  const removeConnection = identitiesStore((state) => state.removeConnection);
+
+  /**
+   * Removing a previously linked identity from the identity store
+   * @param {Object} rowIdentity
+   */
+  function remove(rowIdentity) {
+    try {
+      removeIdentity(rowIdentity.requested.account.id);
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      removeConnection(rowIdentity.identityhash);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   let assetName = "";
   let titleName = "token";
@@ -54,9 +83,47 @@ export default function GetAccount(properties) {
 
   useEffect(() => {
     if (!account && identity && identity.requested.account && identity.requested.account.id) {
+      console.log("Identity set via BEET")
       setAccount(identity.requested.account.id);
     }
   }, [account, identity]);
+
+  const relevantIdentities = identities.filter((x) => x.chain === relevantChain);
+  const rows = relevantIdentities
+    .map((row) => (
+      <tr key={`${row.requested.account.name}_row`}>
+        <td>
+          <Button
+            variant="light"
+            sx={{ marginTop: '5px', marginRight: '5px' }}
+            onClick={() => {
+              console.log({row})
+              setAccount(row.requested.account.id);
+              setIsLinked(true);
+              setIdentity(row);
+            }}
+          >
+            {row.requested.account.name}
+            {' '}
+            (
+            {row.requested.account.id}
+            )
+          </Button>
+          <Button
+            sx={{ marginTop: '5px' }}
+            variant="subtle"
+            color="red"
+            compact
+            onClick={() => {
+              remove(row);
+            }}
+          >
+            Remove
+          </Button>
+        </td>
+      </tr>
+    ))
+    .filter((x) => x);
 
   return (
     <Card shadow={basic ? "" : "md"} radius="md" padding="sm">
@@ -121,21 +188,33 @@ export default function GetAccount(properties) {
           ? (
           <>
             {
-              !connection
-                ? (
-                  <span>
-                    <Connect relevantChain={relevantChain} />
-                  </span>
-                )
-                : null
-            }
-            {
-              connection && !isLinked
+              !isLinked
                 ? (
                   <span>
                     <Text size="md">
                       {t('beet:accountMode.linkPrompt')}
                     </Text>
+                    {
+                      rows && rows.length > 0
+                        ? (
+                          <Paper padding="sm" shadow="xs">
+                            <Box mx="auto" sx={{ padding: '10px', paddingTop: '10px' }}>
+                              <Text size="md">
+                                {t('beet:connect.previousBEET')}
+                              </Text>
+                              <ScrollArea
+                                sx={{ height: rows.length > 1 && rows.length < 3 ? rows.length * 55 : 120 }}
+                              >
+                                <Table sx={{ minWidth: 700 }}>
+                                  <tbody>{rows}</tbody>
+                                </Table>
+                              </ScrollArea>
+                            </Box>
+                          </Paper>
+                        )
+                        : null
+                    }
+                    <br />
                     <BeetLink env={relevantChain} />
                   </span>
                 )
@@ -147,13 +226,16 @@ export default function GetAccount(properties) {
                 ? (
                   <Center>
                     <Button
+                      leftIcon={<HiOutlineReply />}
+                      compact
+                      variant="outline"
                       onClick={() => {
                         setAccountMethod();
                         setConnection();
                         setAuthenticated();
                       }}
                     >
-                      Go back
+                      {t('beet:beetlink.backButton')}
                     </Button>
                   </Center>
                 )

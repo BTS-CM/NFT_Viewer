@@ -38,7 +38,7 @@ export default function Home(properties) {
     resetBeet();
     setEnvironment();
   }, []);
-
+  
   return (
     <>
       <Title order={2} ta="center" mt="sm">
