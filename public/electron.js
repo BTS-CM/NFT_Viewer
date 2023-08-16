@@ -1,35 +1,25 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
-const url = require("url");
+const url = require('url');
+const { v4: uuidv4 } = require('uuid');
+//import BeetConnection from 'beet-js/src/lib/BeetConnection';
+//const { BeetConnection } = require('beet-js/src/lib/BeetConnection');
 
-const createWindow = () => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-       nodeIntegration: true,
-       enableRemoteModule:true,
-       contextIsolation:false,
-       preload: path.join(__dirname, "preload.js"),
-       partition: 'persist:nft_viewer'
-    }
-  })
+const {
+  fetchUserNFTBalances,
+  fetchIssuedAssets,
+  fetchAssets,
+  fetchObject,
+  fetchDynamicData,
+  fetchOrderBook,
+  accountSearch
+} = require('../src/lib/queries');
 
-  const indexURL = app.isPackaged
-    ? url.format({
-        pathname: path.join(__dirname, './index.html'),
-        protocol: 'file:',
-        slashes: true
-      })
-    : "http://localhost:3333";
-  mainWindow.loadURL(indexURL);
-
-  // Automatically open Chrome's DevTools in development mode.
-  if (!app.isPackaged) {
-    mainWindow.webContents.openDevTools();
-  }
-}
+const {
+  beetBroadcast,
+  generateDeepLink,
+  generateQRContents
+} = require('../src/preload/generate');
 
 let allowed = {
   "gallery": "https://nftea.gallery/gallery",
@@ -49,29 +39,34 @@ let allowed = {
   "nft_spec": "https://github.com/Bit20-Creative-Group/BitShares-NFT-Specification"
 }
 
-ipcMain.on('openURL', (event, arg) => {
-  if (allowed.hasOwnProperty(arg)) {
-    event.returnValue = 'Opening url!'
-    shell.openExternal(allowed[arg]);
-  }
-});
+const createWindow = () => {
+  // Create the browser window.
+  const mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+       nodeIntegration: false,
+       enableRemoteModule: false,
+       contextIsolation: true,
+       preload: path.join(__dirname, "preload.js"),
+       partition: 'persist:nft_viewer'
+    }
+  })
 
-let allowedDEX = {
-  "XBTSIO": "https://ex.xbts.io/market/",
-  "btsExchange": "https://bts.exchange/#/market/",
-  "bit20": "https://wallet.btwty.com/market/",
-  "lightClient": "https://github.com/bitshares/bitshares-ui/releases"
-};
+  const indexURL = app.isPackaged
+    ? url.format({
+        pathname: path.join(__dirname, './index.html'),
+        protocol: 'file:',
+        slashes: true
+      })
+    : "http://localhost:3333";
+  mainWindow.loadURL(indexURL);
 
-ipcMain.on('openDEX', (event, arg) => {
-  if (allowedDEX.hasOwnProperty(arg.target)) {
-    event.returnValue = 'Opening url!'
-    let url = arg.target === 'lightClient'
-                ? allowedDEX[arg.target]
-                : allowedDEX[arg.target] + `${arg.symbol}_${arg.market ? arg.market : 'BTS'}`
-    shell.openExternal(url);
+  // Automatically open Chrome's DevTools in development mode.
+  if (!app.isPackaged) {
+    mainWindow.webContents.openDevTools();
   }
-});
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -101,3 +96,165 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 })
+
+ipcMain.on('openURL', (event, arg) => {
+  if (allowed.hasOwnProperty(arg)) {
+    event.returnValue = 'Opening url!'
+    shell.openExternal(allowed[arg]);
+  }
+});
+
+let allowedDEX = {
+  "XBTSIO": "https://ex.xbts.io/market/",
+  "btsExchange": "https://bts.exchange/#/market/",
+  "bit20": "https://wallet.btwty.com/market/",
+  "lightClient": "https://github.com/bitshares/bitshares-ui/releases"
+};
+
+ipcMain.on('openDEX', (event, arg) => {
+  if (allowedDEX.hasOwnProperty(arg.target)) {
+    event.returnValue = 'Opening url!'
+    let url = arg.target === 'lightClient'
+                ? allowedDEX[arg.target]
+                : allowedDEX[arg.target] + `${arg.symbol}_${arg.market ? arg.market : 'BTS'}`
+    shell.openExternal(url);
+  }
+});
+
+ipcMain.handle('getUUID', async (event, arg) => {
+  return await uuidv4();
+});
+
+ipcMain.handle('fetchUserNFTBalances', async (event, ...args) => {
+  return await fetchUserNFTBalances(...args);
+});
+
+ipcMain.handle('fetchIssuedAssets', async (event, ...args) => {
+  return await fetchIssuedAssets(...args);
+});
+
+ipcMain.handle('fetchAssets', async (event, ...args) => {
+  return await fetchAssets(...args);
+});
+
+ipcMain.handle('fetchObject', async (event, ...args) => {
+  return await fetchObject(...args);
+});
+
+ipcMain.handle('fetchDynamicData', async (event, ...args) => {
+  return await fetchDynamicData(...args);
+});
+
+ipcMain.handle('fetchOrderBook', async (event, ...args) => {
+  return await fetchOrderBook(...args);
+});
+
+ipcMain.handle('accountSearch', async (event, ...args) => {
+  return await accountSearch(...args);
+});
+
+import('beet-js').then((beet) => {
+  ipcMain.handle('checkBeet', async (event, ...args) => {
+    console.log('checkBeet')
+    return await beet.checkBeet(...args);
+  });
+
+  ipcMain.handle('connect', async (event, ...args) => {
+    console.log('connect')
+    const connection = await beet.connect(...args);
+    return JSON.stringify(connection, (key, value) => {
+      if (key === 'io' || key === 'socket' || key === 'nsp') {
+        return undefined;
+      }
+      return value;
+    });
+  });
+
+  ipcMain.handle('link', async (event, ...args) => {
+    if (!args.length) {
+      console.log(new Error('No arguments provided'));
+      return;
+    }
+
+    const beetOnline = await beet.checkBeet(true)
+    if (!beetOnline) {
+      console.log('Beet is not online');
+      return;
+    }
+
+    const connection = await beet.connect(
+      "NFT Viewer",
+      "Application",
+      "localhost",
+      null,
+      null
+    );
+
+    const chain = args[0] ?? null;
+    let linkage;
+    try {
+      linkage = await beet.link(chain, connection);
+    } catch (error) {
+      console.log(error)
+      return;
+    }
+
+    return JSON.stringify(connection, (key, value) => {
+      if (key === 'io' || key === 'socket' || key === 'nsp') {
+        return undefined;
+      }
+      return value;
+    });
+  });
+
+  ipcMain.handle('beetBroadcast', async (event, ...args) => {
+
+    const chain = args[0] ?? null;
+    const node = args[1] ?? null;
+    const opType = args[2] ?? null;
+    const operations = args[3] ?? null;
+    const identity = args[4] ?? null;
+    const {
+      beetkey,
+      next_identification,
+      secret
+    } = args[5] ?? null;
+
+    const connection = await beet.connect(
+      "NFT Viewer",
+      "Application",
+      "localhost",
+      null,
+      identity
+    );
+
+    if (!connection) {
+      console.log('No connection');
+      return;
+    }
+
+    connection.beetkey = beetkey;
+    connection.next_identification = next_identification;
+    connection.secret = secret;
+    connection.id = next_identification;
+
+    return await beetBroadcast(
+      connection,
+      chain,
+      node,
+      opType,
+      operations
+    );
+  });
+
+  ipcMain.handle('generateDeepLink', async (event, ...args) => {
+    return await generateDeepLink(...args);
+  });
+
+  ipcMain.handle('generateQRContents', async (event, ...args) => {
+    return await generateQRContents(...args);
+  });
+
+}).catch((err) => {
+  console.error(err);
+});

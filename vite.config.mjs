@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite'
+import i18nextLoader from 'vite-plugin-i18next-loader'
 import react from '@vitejs/plugin-react'
 import electron from 'vite-plugin-electron'
-import GlobalPolyFill from "@esbuild-plugins/node-globals-polyfill";
-import NodeModulesPolyfillPlugin from '@esbuild-plugins/node-modules-polyfill';
+import { polyfillNode } from "esbuild-plugin-polyfill-node";
 
 export default defineConfig({
   plugins: [
     react(),
     electron({
       entry: 'public/electron.js'
+    }),
+    i18nextLoader({ 
+      paths: ['./src/locales'],
+      namespaceResolution: 'basename'
     })
   ],
   server: {
@@ -17,17 +21,16 @@ export default defineConfig({
   },
   optimizeDeps: {
     esbuildOptions: {
-        define: {
-            global: "globalThis",
-        },
-        plugins: [
-            GlobalPolyFill({
-                process: true,
-                assert: true,
-                buffer: true,
-            }),
-            NodeModulesPolyfillPlugin()
-        ],
+      define: {
+          global: "globalThis",
+      },
+      plugins:  [
+        polyfillNode({
+            process: true,
+            assert: true,
+            buffer: true,
+        }),
+      ],
     },
   },
   resolve: {
@@ -37,5 +40,6 @@ export default defineConfig({
           stream: "stream-browserify",
           util: "util",
       },
+      extensions: ['.js', '.jsx', '.mjs']
   },
 })

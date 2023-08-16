@@ -1,12 +1,21 @@
+
+import React, { useEffect, useState } from 'react';
 import { Button, Box, Text, Col, Paper } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
-import { appStore, beetStore } from '../../lib/states';
-import React, { useEffect } from 'react';
+import { appStore, beetStore, tempStore } from '../../lib/states';
 
 export default function Mode(properties) {
   const { t, i18n } = useTranslation();
   const setEnvironment = appStore((state) => state.setEnvironment); 
+
+  const resetTemp = tempStore((state) => state.reset);
+  const resetBeet = beetStore((state => state.reset));
+
+  useEffect(() => {
+    resetTemp();
+    resetBeet();
+  }, []);
 
   return (
     <Col span={12}>

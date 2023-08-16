@@ -8,7 +8,7 @@ import {
 } from "react-icons/hi2";
 import { TbHeart, TbHeartBroken } from 'react-icons/tb';
 
-import { appStore, tempStore, favouritesStore } from '../lib/states';
+import { appStore, beetStore, tempStore, favouritesStore } from '../lib/states';
 
 import Loading from "../components/setup/Loading";
 import Environment from "../components/setup/Environment";
@@ -26,11 +26,14 @@ export default function Issuer(properties) {
   let environment = appStore((state) => state.environment);
   let nodes = appStore((state) => state.nodes);
   let setEnvironment = appStore((state) => state.setEnvironment);
+  let changeURL = appStore((state) => state.changeURL);
 
   let assets = tempStore((state) => state.assets);
   let account = tempStore((state) => state.account);
   let resetTemp = tempStore((state) => state.reset);
   let setAccount = tempStore((state) => state.setAccount);
+
+  let resetBeet = beetStore((state => state.reset));
 
   let setAsset = tempStore((state) => state.setAsset);
   let clearAssets = tempStore((state) => state.clearAssets);
@@ -45,6 +48,7 @@ export default function Issuer(properties) {
 
   useEffect(() => {
     resetTemp();
+    resetBeet();
 
     if (env) {
       setEnvironment(env);
@@ -75,6 +79,9 @@ export default function Issuer(properties) {
         fetchIssuedAssets(account);
       } catch (error) {
         console.log(error);
+        if (error && error.includes("connection is dead")) {
+          changeURL();
+        }
       }
 
       setInProgress(false);
@@ -84,11 +91,14 @@ export default function Issuer(properties) {
     }
   }, [tries, account]);
 
-  const memorizedAssets = useMemo(() => {
+  const [memorizedAssets, setMemorizedAssets] = useState([]);
+  useEffect(() => {
     if (!assets || !assets.length || !environment) {
-      return [];
+      setMemorizedAssets([]);
+      return;
     }
-    return assets.map(asset => {
+
+    setMemorizedAssets(assets.map(asset => {
       return <Button
                 compact
                 sx={{margin: '2px'}}
@@ -101,7 +111,7 @@ export default function Issuer(properties) {
               >
                 {asset.symbol}: {asset.id}
               </Button>
-    })
+    }));
   }, [assets]);
 
   const [favAccountItr, setFavAccountItr] = useState(0);
@@ -228,6 +238,17 @@ export default function Issuer(properties) {
                   >
                     {t('setup:accountMode.back')}
                   </Button>;
+  const refreshButton = <Button
+                          variant="outline"
+                          mt="sm"
+                          compact
+                          onClick={() => {
+                            increaseTries()
+                          }}
+                          leftIcon={<HiOutlineRefresh />}
+                        >
+                          {t('blockchain:issuer.refresh')}
+                        </Button>;
 
   if (inProgress || !assets) {
     return (
@@ -240,24 +261,13 @@ export default function Issuer(properties) {
           <Group>
             {homeButton}
             {portfolioButton}
+            {refreshButton}
             {backTwo}
           </Group>
         </Center>
       </>
     )
   }
-
-  const refreshButton = <Button
-                          variant="outline"
-                          mt="sm"
-                          compact
-                          onClick={() => {
-                            increaseTries()
-                          }}
-                          leftIcon={<HiOutlineRefresh />}
-                        >
-                          {t('blockchain:issuer.refresh')}
-                        </Button>;
 
   if (assets && !assets.length) {
     return (

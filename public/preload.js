@@ -1,93 +1,11 @@
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 const { 
-    ipcRenderer
+    ipcRenderer,
+    contextBridge
 } = require("electron");
-const Socket = require("simple-websocket")
 
 // Note: Changes to this file will require a build before electron:start works
-
-/**
- * Call an async function with a maximum time limit (in milliseconds) for the timeout
- * @param {Promise} asyncPromise An asynchronous promise to resolve
- * @param {number} timeLimit Time limit to attempt function in milliseconds
- * @returns {Promise | undefined} Resolved promise for async function call, or an error if time limit reached
- */
- const asyncCallWithTimeout = async (asyncPromise, timeLimit) => {
-    let timeoutHandle;
-
-    const timeoutPromise = new Promise((_resolve, reject) => {
-        timeoutHandle = setTimeout(
-            () => _resolve(null),
-            timeLimit
-        );
-    });
-
-    return Promise.race([asyncPromise, timeoutPromise]).then(result => {
-        clearTimeout(timeoutHandle);
-        return result;
-    })
-}
-
-/**
- * Test a wss url for successful connection.
- * @param {String} url
- * @returns {Object}
- */
- async function _testConnection(url) {
-    return new Promise(async (resolve, reject) => {
-        let before = new Date();
-        let beforeTS = before.getTime();
-        let closing;
-
-        /**
-         * Exiting the url connection
-         * @param {Boolean} connected 
-         * @param {WebSocket} socket 
-         * @returns 
-         */
-        function _exitTest(connected, socket) {
-            if (closing || !connected && !socket) {
-                return;
-            }
-
-            if (socket) {
-                socket.destroy();
-            }
-
-            closing = true;
-            if (!connected) {
-                return resolve(null);
-            }
-
-            let now = new Date();
-            let nowTS = now.getTime();
-            return resolve({ url: url, lag: nowTS - beforeTS });
-        }
-
-        let socket = new Socket(url);
-
-        socket.on('connect', () => {
-            socket.send('{"method": "call", "params": [1, "database", []], "id": 3}')
-            socket.on('data', (data) => {
-                const socketResponse = JSON.parse(data.toString());
-                if (socketResponse.result !== 2) {
-                    // database not available
-                    return _exitTest(false, socket);
-                }
-                return _exitTest(true, socket);
-            })
-        });
-
-        socket.on('error', (error) => {
-            return _exitTest(false, socket);
-        });
-
-        socket.on('close', () => {
-            return _exitTest();
-        });
-    });
-}
 
 async function _openURL(target) {
     ipcRenderer.send('openURL', target);
@@ -97,42 +15,69 @@ async function _openDEX(args) {
     ipcRenderer.send('openDEX', args);
 }
 
-window.electron = {
-    testConnection: async (url, timeout) => {
-        return await asyncCallWithTimeout(_testConnection(url), timeout ?? 3000);
-    },
+// Expose only the necessary APIs to the renderer process using context bridge
+contextBridge.exposeInMainWorld('electron', {
     openURL: async (target) => {
         return _openURL(target);
     },
     openDEX: async (args) => {
         return _openDEX(args);
     },
-    fetchLocales: () => {
-        const translations = {};
-        const languages = ['en','da', 'de', 'et', 'es', 'fr', 'it', 'ja', 'ko', 'pt', 'th'];
-        const pages = [
-            'accountSearch',
-            'app',
-            'beet',
-            'beetModal',
-            'blockchain',
-            'faq',
-            'getAccount',
-            'headers',
-            'home',
-            'modal',
-            'nft',
-            'nodes',
-            'setup'
-        ];
-        languages.forEach((language) => {
-            const localPages = {};
-            pages.forEach((page) => {
-                const pageContents = require(`./locales/${language}/${page}.json`);
-                localPages[page] = pageContents;
-            });
-            translations[language] = localPages;
-        });
-        return translations;
-    }
-}
+    getUUID: async () => {
+        return await ipcRenderer.invoke('getUUID');
+    },
+    fetchUserNFTBalances: async (node, accountID, cachedAssets, nonNFTs) => {
+        return await ipcRenderer.invoke('fetchUserNFTBalances', node, accountID, cachedAssets, nonNFTs);
+    },
+    fetchIssuedAssets: async (node, accountID, cachedAssets, nonNFTs) => {
+        return await ipcRenderer.invoke('fetchIssuedAssets', node, accountID, cachedAssets, nonNFTs);
+    },
+    fetchAssets: async (node, asset_ids, nonNFT = false) => {
+        return await ipcRenderer.invoke('fetchAssets', node, asset_ids, nonNFT);
+    },
+    fetchObject: async (node, objectID) => {
+        return await ipcRenderer.invoke('fetchObject', node, objectID);
+    },
+    fetchDynamicData: async (node, asset) => {
+        return await ipcRenderer.invoke('fetchDynamicData', node, asset);
+    },
+    fetchOrderBook: async (node, base, quote, limit) => {
+        return await ipcRenderer.invoke('fetchOrderBook', node, base, quote, limit);
+    },
+    accountSearch: async (node, search_string) => {
+        return await ipcRenderer.invoke('accountSearch', node, search_string);
+    },
+    checkBeet: async (enableSSL) => {
+        return await ipcRenderer.invoke('checkBeet', enableSSL);
+    },
+    connect: async (appName, browser, origin, existingBeetConnection, identity) => {
+        return await ipcRenderer.invoke('connect', appName, browser, origin, existingBeetConnection, identity);
+    },
+    link: async (chain, beetConnection) => {
+        return await ipcRenderer.invoke('link', chain, beetConnection);
+    },
+    beetBroadcast: async (
+        chain,
+        node,
+        opType,
+        operations,
+        identity,
+        beetObject
+      ) => {
+        return await ipcRenderer.invoke(
+            'beetBroadcast',
+            chain,
+            node,
+            opType,
+            operations,
+            identity,
+            beetObject
+        );
+    },
+    generateDeepLink: async (appName, chain, node, opType, operations) => {
+        return await ipcRenderer.invoke('generateDeepLink', appName, chain, node, opType, operations);
+    },
+    generateQRContents: async (opType, opContents) => {
+        return await ipcRenderer.invoke('generateQRContents', opType, opContents);
+    },
+});

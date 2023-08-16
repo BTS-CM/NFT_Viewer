@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader, Box, Text, Col, Paper } from '@mantine/core';
+import { Loader, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 
 export default function Loading(properties) {

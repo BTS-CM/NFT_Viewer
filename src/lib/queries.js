@@ -1,39 +1,13 @@
-import config from '../config/config.json';
-import {Apis} from "bitsharesjs-ws";
-import { appStore, assetStore, nonNFTStore } from './states';
-import { sliceIntoChunks } from './common';
+const {Apis} = require("bitsharesjs-ws");
+//const {appStore, assetStore, nonNFTStore} = require('./states');
 
-const _nodes = {
-    BTS: config.bitshares.nodeList.map(node => node.url),
-    BTS_TEST: config.bitshares_testnet.nodeList.map(node => node.url)
-};
-
-/**
- * Test the wss nodes, return latencies and fastest url.
- * @returns {Promise}
- */
-async function testNodes(target, itr = 0) {
-    return new Promise(async (resolve, reject) => {
-        let urlPromises = _nodes[target].map(url => window.electron.testConnection(url, itr > 0 ? itr * 3000 : 3000))
-        return Promise.all(urlPromises)
-        .then((validNodes) => {
-            let filteredNodes = validNodes.filter(x => x);
-            if (filteredNodes.length) {
-                let sortedNodes = filteredNodes.sort((a, b) => a.lag - b.lag).map(node => node.url);
-                return resolve(sortedNodes);
-            } else {
-                if (itr > 2) {
-                    console.error("No valid BTS WSS connections established; Please check your internet connection.")
-                    return reject();
-                }
-                console.log("Couldn't establish network connections; trying again with greater timeout durations. Apologies for the delay.")
-                return resolve(testNodes(target, itr + 1));
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    });
+function sliceIntoChunks(arr, size) {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size) {
+      const chunk = arr.slice(i, i + size);
+      chunks.push(chunk);
+    }
+    return chunks;
 }
 
 /**
@@ -121,7 +95,7 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
         }
 
         try {
-            await Apis.close(); // forcibly close the API instance
+            await Apis.close();
         } catch (error) {
             console.log(error);
         }
@@ -138,18 +112,16 @@ async function lookup_asset_symbols(api, asset_ids, nonNFT = false) {
  * @param {Array} nonNFTs
  * @returns {Array}
  */
-async function fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs) {
+async function fetchUserNFTBalances(node, accountID, cachedAssets = [], nonNFTs = []) {
     return new Promise(async (resolve, reject) => {
 
         try {
             await Apis.instance(node, true, 4000, undefined, () => {
-                console.log(`FetchNFTBalanceS: Closed connection to: ${node}`);
+                console.log(`fetchUserNFTBalances: Closed connection to: ${node}`);
             }).init_promise;
         } catch (error) {
             console.log(error);
-            let changeURL = appStore.getState().changeURL;
-            changeURL();
-            return reject();
+            return reject(error);
         }
 
         let balanceResult;
@@ -157,15 +129,19 @@ async function fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs) {
             balanceResult = await Apis.instance().db_api().exec("get_account_balances", [accountID, []]);
         } catch (error) {
             console.log(error);
-            return reject();
+            await Apis.close();
+            return reject(error);
         }
 
         const assetIDs = balanceResult
-                            .filter((asset) => parseInt(asset.amount, 10) > 0) // filter out zero balances including those in limit orders
-                            .filter((asset) => !nonNFTs.includes(asset.asset_id)) // filter out non-NFT assets
-                            .map(asset => asset.asset_id);
+            ?   balanceResult
+                .filter((asset) => parseInt(asset.amount, 10) > 0) // filter out zero balances including those in limit orders
+                .filter((asset) => !nonNFTs.includes(asset.asset_id)) // filter out non-NFT assets
+                .map(asset => asset.asset_id)
+            : [];
 
         if (!assetIDs || !assetIDs.length) {
+            await Apis.close();
             return resolve([]);
         }
 
@@ -175,7 +151,8 @@ async function fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs) {
 
         if (requestedCachedAssets.length === assetIDs.length) {
             console.log(`Resolved ${requestedCachedAssets.length} NFT balance assets from cache`);
-            return resolve(requestedCachedAssets);
+            await Apis.close();
+            return resolve({finalAssets: requestedCachedAssets, nonNFTAssetIDs: []});
         }
 
         const missingAssetIDs = assetIDs.filter((id) => !requestedCachedAssets.find((asset) => asset.id === id));
@@ -197,28 +174,19 @@ async function fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs) {
         }
 
         try {
-            await Apis.close(); // forcibly close the API instance
+            await Apis.close();
         } catch (error) {
             console.log(error);
         }
 
         const finalAssets = requestedCachedAssets.concat(chunkResponses);
-        const changeAssets = assetStore.getState().changeAssets;
-        const environment = appStore.getState().environment;
-        if (finalAssets.filter((finalAsset) => cachedAssets.find((cachedAsset) => cachedAsset.id === finalAsset.id)).length) {
-            // FinalAssets has new data to cache
-            changeAssets(environment, cachedAssets.concat(finalAssets)); // caching the NFT assets
-        }
-
-        const changeNonNFTs = nonNFTStore.getState().changeNonNFTs;
         const responseIDs = chunkResponses.map(asset => asset.id);
         const nonNFTAssetIDs = nonNFTs.concat(
             missingAssetIDs.filter((id) => !responseIDs.includes(id))
         );
-        changeNonNFTs(environment, nonNFTAssetIDs); // caching the non-NFT asset IDs
 
         console.log(`Fetched ${missingAssetIDs.length} NFT balance assets from blockchain`);
-        return resolve(finalAssets);
+        return resolve({finalAssets, nonNFTAssetIDs});
     });
 }
 
@@ -226,7 +194,7 @@ async function fetchUserNFTBalances(node, accountID, cachedAssets, nonNFTs) {
  * Fetch any NFTs the user has created
  * @param {String} node
  * @param {String} accountID
- * @param {Array} cachedAssets 
+ * @param {Array} cachedAssets
  * @param {Array} nonNFTs
  * @returns {Array}
  */
@@ -239,9 +207,7 @@ async function fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs) {
             }).init_promise;
         } catch (error) {
             console.log(error);
-            let changeURL = appStore.getState().changeURL;
-            changeURL();
-            return reject();
+            return reject(error);
         }
 
         let fullAccounts;
@@ -249,11 +215,13 @@ async function fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs) {
             fullAccounts = await Apis.instance().db_api().exec("get_full_accounts", [[accountID], true])
         } catch (error) {
             console.log(error);
+            await Apis.close();
             return reject(error);
         }
 
         if (!fullAccounts.length || !fullAccounts[0].length) {
             console.log("Couldn't find account");
+            await Apis.close();
             return reject(new Error("Couldn't find account"));            
         }
 
@@ -261,7 +229,11 @@ async function fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs) {
 
         if (!accountAssets || !accountAssets.length) {
             console.log("No issued NFT assets found");
-            return resolve([]);
+            await Apis.close();
+            return resolve({
+                finalAssets: [],
+                nonNFTAssetIDs: []
+            })
         }
 
 
@@ -270,7 +242,11 @@ async function fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs) {
 
         if (requestedCachedAssets.length === requestedAssetIDs.length) {
             console.log("Resolved issued NFT assets from cache");
-            return resolve(requestedCachedAssets);
+            await Apis.close();
+            return resolve({
+                finalAssets: requestedCachedAssets,
+                nonNFTAssetIDs: []
+            })
         }
 
         const remainingAssetIds = requestedAssetIDs.filter((id) => !cachedAssets.find((asset) => asset.id === id));
@@ -292,24 +268,18 @@ async function fetchIssuedAssets(node, accountID, cachedAssets, nonNFTs) {
         }
 
         try {
-            await Apis.close(); // forcibly close the API instance
+            await Apis.close();
         } catch (error) {
             console.log(error);
         }
         
-        const changeAssets = assetStore.getState().changeAssets;
-        const environment = appStore.getState().environment;
         const finalAssets = cachedAssets.concat(chunkResponses);
-        changeAssets(environment, finalAssets); // caching NFT data
-
-        const changeNonNFTs = nonNFTStore.getState().changeNonNFTs;
         const responseIDs = chunkResponses.map(asset => asset.id);
         const nonNFTAssetIDs = nonNFTs.concat(
             remainingAssetIds.filter((id) => !responseIDs.includes(id))
         );
-        changeNonNFTs(environment, nonNFTAssetIDs); // caching the non-NFT asset IDs
 
-        return resolve(finalAssets);
+        return resolve({finalAssets, nonNFTAssetIDs});
     });
 }
 
@@ -328,9 +298,9 @@ async function fetchObject(node, objectID) {
             }).init_promise;
         } catch (error) {
             console.log(error);
-            let changeURL = appStore.getState().changeURL;
-            changeURL();
-            return reject();
+            //let changeURL = appStore.getState().changeURL;
+            //changeURL();
+            return reject(error);
         }
 
         let object;
@@ -338,11 +308,11 @@ async function fetchObject(node, objectID) {
             object = await Apis.instance().db_api().exec("get_objects", [[objectID]])
         } catch (error) {
             console.log(error);
-            return reject();
+            return reject(error);
         }
 
         try {
-            await Apis.close(); // forcibly close the API instance
+            await Apis.close();
         } catch (error) {
             console.log(error);
         }
@@ -366,11 +336,11 @@ async function fetchObject(node, objectID) {
             }).init_promise;
         } catch (error) {
             console.log(error);
-            let changeURL = appStore.getState().changeURL;
-            changeURL();
-            let nodes = appStore.getState().nodes;
-            return accountSearch(nodes[0], search_string);
-            //return reject();
+            //let changeURL = appStore.getState().changeURL;
+            //changeURL();
+            //let nodes = appStore.getState().nodes;
+            //return accountSearch(nodes[0], search_string);
+            return reject(error);
         }
 
         let object;
@@ -400,9 +370,9 @@ async function fetchObject(node, objectID) {
             }).init_promise;
         } catch (error) {
             console.log(error);
-            let changeURL = appStore.getState().changeURL;
-            changeURL();
-            return reject();
+            //let changeURL = appStore.getState().changeURL;
+            //changeURL();
+            return reject(error);
         }
 
         const issuerID = asset.issuer;
@@ -423,7 +393,7 @@ async function fetchObject(node, objectID) {
 
         if (!issuerObject || !dynamicData) {           
             try {
-                await Apis.close(); // forcibly close the API instance
+                await Apis.close();
             } catch (error) {
                 console.log(error);
             }
@@ -440,10 +410,12 @@ async function fetchObject(node, objectID) {
             order_book = await Apis.instance().db_api().exec("get_order_book", [base, quote, limit])
         } catch (error) {
             console.log(error);
+            await Apis.close();
+            return reject(error);
         }
 
         try {
-            await Apis.close(); // forcibly close the API instance
+            await Apis.close();
         } catch (error) {
             console.log(error);
         }
@@ -473,9 +445,9 @@ async function fetchOrderBook(node, base, quote, limit) {
             }).init_promise;
         } catch (error) {
             console.log(error);
-            let changeURL = appStore.getState().changeURL;
-            changeURL();
-            return reject();
+            //let changeURL = appStore.getState().changeURL;
+            //changeURL();
+            return reject(error);
         }
 
         let orderBook;
@@ -483,13 +455,16 @@ async function fetchOrderBook(node, base, quote, limit) {
             orderBook = await Apis.instance().db_api().exec("get_order_book", [[base, quote, limit]])
         } catch (error) {
             console.log(error);
-            return reject();
         }
 
         try {
-            await Apis.close(); // forcibly close the API instance
+            await Apis.close();
         } catch (error) {
             console.log(error);
+        }
+
+        if (!orderBook) {
+            return reject();
         }
 
         return resolve(orderBook);
@@ -497,8 +472,7 @@ async function fetchOrderBook(node, base, quote, limit) {
 }
 
 
-export {
-    testNodes,
+module.exports = {
     fetchUserNFTBalances,
     fetchIssuedAssets,
     fetchAssets,

@@ -17,7 +17,7 @@
         },
         "issuer": {
             "title": "NFT Issuer lookup",
-            "desc": "View an account's isued NFTs"
+            "desc": "View an account's issued NFTs"
         },
         "search": {
             "title" : "Search",

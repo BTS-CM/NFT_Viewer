@@ -12,7 +12,6 @@ import {
   HiOutlineCake,
 } from "react-icons/hi";
 
-import { fetchObject } from '../lib/queries';
 import { appStore, favouritesStore, tempStore } from '../lib/states';
 import Loading from '../components/setup/Loading';
 import Environment from '../components/setup/Environment';
@@ -61,7 +60,7 @@ export default function Favourites(properties) {
 
     let searchResult;
     try {
-      searchResult = await fetchObject(nodes[environment][0], thisAsset.id);
+      searchResult = await window.electron.fetchObject(nodes[environment][0], thisAsset.id);
     } catch (error) {
       console.log(error);
       setInProgress(false);

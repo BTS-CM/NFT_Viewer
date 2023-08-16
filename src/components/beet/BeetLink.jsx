@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {
   Button, Group, Box, Text, Divider, Loader, Col, Paper,
 } from '@mantine/core';
-import { appStore, beetStore } from '../../lib/states';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { appStore, beetStore } from '../../lib/states';
 
 export default function BeetLink(properties) {
   const { t, i18n } = useTranslation();
@@ -34,9 +35,6 @@ export default function BeetLink(properties) {
   const linkContents = inProgress === false ? (
     <span>
       <Text size="md">
-        {t('beet:beetlink.connected')}
-      </Text>
-      <Text size="md">
         {t('beet:beetlink.linkPrompt')}
       </Text>
       <Button
@@ -62,17 +60,6 @@ export default function BeetLink(properties) {
       <Paper padding="sm" shadow="xs">
         <Box mx="auto" sx={{ padding: '10px' }}>
           {linkContents}
-          <Link style={{ textDecoration: 'none' }} to="/">
-            <Button
-              sx={{ marginTop: '15px', marginRight: '5px' }}
-              onClick={() => {
-                setConnection();
-                setAuthenticated();
-              }}
-            >
-              {t('beet:beetlink.backButton')}
-            </Button>
-          </Link>
         </Box>
       </Paper>
     </Col>

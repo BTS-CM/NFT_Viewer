@@ -27,7 +27,6 @@ import {
   HiOutlineRefresh,
 } from "react-icons/hi";
 
-import { fetchAssets } from '../lib/queries';
 import { appStore, beetStore, favouritesStore, tempStore } from '../lib/states';
 import IssuerDetails from '../components/NFT/IssuerDetails';
 import Quantity from '../components/NFT/Quantity';
@@ -113,11 +112,18 @@ export default function NFT(properties) {
     async function fetchData() {
       let assetDetails;
       try {
-        assetDetails = await fetchAssets(nodes[environment][0], [soldAsset, boughtAsset], true);
+        assetDetails = await window.electron.fetchAssets(nodes[environment][0], [soldAsset, boughtAsset], true);
       } catch (error) {
         console.log(error);
         setInProgress(false);
       }
+
+      console.log({
+        assetDetails,
+        soldAsset,
+        boughtAsset,
+        asset
+      })
   
       if (assetDetails) {
         const soldAssetDetails = assetDetails.find((x) => x.symbol === soldAsset);
