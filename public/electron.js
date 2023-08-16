@@ -13,13 +13,15 @@ const {
   fetchDynamicData,
   fetchOrderBook,
   accountSearch
-} = require('../src/lib/queries');
+//} = require('../src/lib/queries');
+} = require('./lib/queries');
 
 const {
   beetBroadcast,
   generateDeepLink,
   generateQRContents
-} = require('../src/preload/generate');
+//} = require('../src/preload/generate');
+} = require('./lib/generate');
 
 let allowed = {
   "gallery": "https://nftea.gallery/gallery",
