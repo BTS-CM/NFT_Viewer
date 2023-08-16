@@ -61,7 +61,8 @@ contextBridge.exposeInMainWorld('electron', {
         node,
         opType,
         operations,
-        identity
+        identity,
+        beetObject
       ) => {
         return await ipcRenderer.invoke(
             'beetBroadcast',
@@ -69,10 +70,14 @@ contextBridge.exposeInMainWorld('electron', {
             node,
             opType,
             operations,
-            identity
+            identity,
+            beetObject
         );
     },
-    generateDeepLink: async (appName, chain, node, opType, operations)=> {
+    generateDeepLink: async (appName, chain, node, opType, operations) => {
         return await ipcRenderer.invoke('generateDeepLink', appName, chain, node, opType, operations);
-    }
+    },
+    generateQRContents: async (opType, opContents) => {
+        return await ipcRenderer.invoke('generateQRContents', opType, opContents);
+    },
 });

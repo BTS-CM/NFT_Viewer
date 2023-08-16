@@ -17,9 +17,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { QRCode } from 'react-qrcode-logo';
 
 import {
-  appStore, beetStore, tempStore
+  appStore, beetStore, tempStore, identitiesStore
 } from '../../lib/states';
-import { generateQRContents } from '../../lib/generate';
 import GetAccount from './GetAccount';
 
 export default function BeetModal(properties) {
@@ -38,10 +37,16 @@ export default function BeetModal(properties) {
   const [deepLinkItr, setDeepLinkItr] = useState(0);
   const [opened, { open, close }] = useDisclosure(false);
 
+  const storeConnection = identitiesStore((state) => state.storeConnection);
+  const getStoredIds = identitiesStore((state) => state.getStoredIds);
+
   const identity = beetStore((state) => state.identity);
   const reset = beetStore((state) => state.reset);
-  const account = tempStore((state) => state.account);
+  const setConnection = beetStore((state) => state.setConnection);
+  const setAuthenticated = beetStore((state) => state.setAuthenticated);
+  const setIsLinked = beetStore((state) => state.setIsLinked);
 
+  const account = tempStore((state) => state.account);
   const environment = appStore((state) => state.environment);
 
   const [tx, setTX] = useState();
@@ -106,7 +111,7 @@ export default function BeetModal(properties) {
 
       let payload;
       try {
-        payload = await generateQRContents(
+        payload = await window.electron.generateQRContents(
           opType,
           opContents
         );
@@ -128,6 +133,9 @@ export default function BeetModal(properties) {
   async function broadcast() {
     setInProgress(true);
     setOutcome();
+
+    const idFields = await getStoredIds(identity.identityhash);
+
     let response;
     try {
       response = await window.electron.beetBroadcast(
@@ -135,7 +143,8 @@ export default function BeetModal(properties) {
         nodes[environment][0],
         opType,
         opContents,
-        identity ?? null
+        identity ?? null,
+        idFields
       );
     } catch (error) {
       console.log(error);
@@ -143,6 +152,12 @@ export default function BeetModal(properties) {
       setOutcome("FAILURE");
       return;
     }
+
+    const {connection, result} = response;
+    storeConnection(connection);
+    setConnection(connection);
+    setAuthenticated(true);
+    setIsLinked(true);
 
     setOutcome("SUCCESS");
     setInProgress(false);

@@ -21,7 +21,6 @@ import {
   beetStore, tempStore, identitiesStore
 } from "../../lib/states";
 import AccountSearch from "../blockchain/AccountSearch";
-import Connect from "./Connect";
 import BeetLink from "./BeetLink";
 
 export default function GetAccount(properties) {
@@ -97,7 +96,6 @@ export default function GetAccount(properties) {
             variant="light"
             sx={{ marginTop: '5px', marginRight: '5px' }}
             onClick={() => {
-              console.log({row})
               setAccount(row.requested.account.id);
               setIsLinked(true);
               setIdentity(row);

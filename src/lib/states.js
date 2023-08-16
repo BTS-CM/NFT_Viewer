@@ -164,13 +164,27 @@ const identitiesStore = create(
       }
       const currentConnections = get().storedConnections;
       if (!currentConnections || !currentConnections[connection.identity.identityhash]) {
+        // storing new linked connection
         currentConnections[connection.identity.identityhash] = {
           beetkey: connection.beetkey,
           next_identification: connection.next_identification,
           secret: connection.secret,
         };
         set({ storedConnections: currentConnections });
+      } else if (currentConnections && currentConnections[connection.identity.identityhash]) {
+        // updating existing linked connection
+        currentConnections[connection.identity.identityhash].beetkey = connection.beetkey;
+        currentConnections[connection.identity.identityhash].next_identification = connection.next_identification;
+        currentConnections[connection.identity.identityhash].secret = connection.secret;
+        set({ storedConnections: currentConnections });
       }
+    },
+    getStoredIds: (identityhash) => {
+      const currentConnections = get().storedConnections;
+      if (currentConnections && currentConnections[identityhash]) {
+        return currentConnections[identityhash];
+      }
+      return null;
     },
     removeConnection: (identityhash) => {
       const currentConnections = get().storedConnections;

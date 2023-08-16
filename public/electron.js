@@ -17,7 +17,8 @@ const {
 
 const {
   beetBroadcast,
-  generateDeepLink
+  generateDeepLink,
+  generateQRContents
 } = require('../src/preload/generate');
 
 let allowed = {
@@ -207,13 +208,51 @@ import('beet-js').then((beet) => {
   });
 
   ipcMain.handle('beetBroadcast', async (event, ...args) => {
-    const connection = await beet.connect(...args);
 
-    return await beetBroadcast(connection, ...args);
+    const chain = args[0] ?? null;
+    const node = args[1] ?? null;
+    const opType = args[2] ?? null;
+    const operations = args[3] ?? null;
+    const identity = args[4] ?? null;
+    const {
+      beetkey,
+      next_identification,
+      secret
+    } = args[5] ?? null;
+
+    const connection = await beet.connect(
+      "NFT Viewer",
+      "Application",
+      "localhost",
+      null,
+      identity
+    );
+
+    if (!connection) {
+      console.log('No connection');
+      return;
+    }
+
+    connection.beetkey = beetkey;
+    connection.next_identification = next_identification;
+    connection.secret = secret;
+    connection.id = next_identification;
+
+    return await beetBroadcast(
+      connection,
+      chain,
+      node,
+      opType,
+      operations
+    );
   });
 
   ipcMain.handle('generateDeepLink', async (event, ...args) => {
     return await generateDeepLink(...args);
+  });
+
+  ipcMain.handle('generateQRContents', async (event, ...args) => {
+    return await generateQRContents(...args);
   });
 
 }).catch((err) => {
