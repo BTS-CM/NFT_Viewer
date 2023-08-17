@@ -101,7 +101,7 @@ export default function Media(properties) {
                     icon = <BsQuestion />;
                 }
     
-                return <Carousel.Slide key={`cs_${uuid}`}>
+                return <Carousel.Slide key={`cs_${uuid}_${i}`}>
                           <Center>
                             <Card shadow="sm" radius="md" withBorder>
                               <Card.Section>

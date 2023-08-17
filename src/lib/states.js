@@ -386,29 +386,27 @@ const tempStore = create(
         cachedAssets = bitshares_testnet.filter((asset) => (asset_ids.includes(asset.id) || asset_ids.includes(asset.symbol)));
       }
 
-      if (cachedAssets.length && cachedAssets.length === asset_ids.length) {
-        console.log("Responded with cached assets");
-        set({ assets: cachedAssets });
-        return;
-      }
-
       const remainingAssetIds = asset_ids.filter((id) => !cachedAssets.find((asset) => asset.id === id));
-      const node = nodes[environment][0];
-      let response;
-      try {
-        response = await window.electron.fetchAssets(node, remainingAssetIds);
-      } catch (error) {
-        console.log(error);
-        changeURL();
+
+      if (remainingAssetIds.length) {
+        const node = nodes[environment][0];
+        let response;
+        try {
+          response = await window.electron.fetchAssets(node, remainingAssetIds);
+        } catch (error) {
+          console.log(error);
+          changeURL();
+          return;
+        }
+
+        cachedAssets = cachedAssets.concat(response);
       }
 
-      const finalAssets = cachedAssets.concat(response);
+      cachedAssets = cachedAssets.filter((asset, index, self) => index === self.findIndex((t) => (t.id === asset.id)));
 
-      if (response) {
-        console.log("Fetched assets");
-        set({ assets: finalAssets });
-        changeAssets(environment, finalAssets);
-      }
+      console.log("Fetched assets");
+      set({ assets: cachedAssets });
+      changeAssets(environment, cachedAssets);
     },
     fetchIssuedAssets: async (accountID) => {
       /**
@@ -456,14 +454,18 @@ const tempStore = create(
       const nonCachedAssets = finalAssets.filter((finalAsset) => cachedAssets.find((cachedAsset) => cachedAsset.id === finalAsset.id));
       if (nonCachedAssets.length) {
           // FinalAssets has new data to cache
-          changeAssets(environment, cachedAssets.concat(nonCachedAssets)); // caching the NFT assets
+          cachedAssets = cachedAssets
+                          .concat(nonCachedAssets)
+                          .filter((asset, index, self) => index === self.findIndex((t) => (t.id === asset.id)));
+
+          changeAssets(environment, cachedAssets); // caching the NFT assets
       }
 
       const changeNonNFTs = nonNFTStore.getState().changeNonNFTs;
       changeNonNFTs(environment, nonNFTAssetIDs); // caching the non-NFT asset IDs
 
       if (finalAssets) {
-        set({ assets: await finalAssets })
+        set({ assets: await finalAssets.filter((asset, index, self) => index === self.findIndex((t) => (t.id === asset.id))) })
       }
     },
     fetchNFTBalances: async (accountID) => {
@@ -514,7 +516,12 @@ const tempStore = create(
 
       if (nonCachedAssets.length) {
           // FinalAssets has new data to cache
-          changeAssets(environment, cachedAssets.concat(nonCachedAssets)); // caching the NFT assets
+          changeAssets(
+            environment,
+            cachedAssets
+              .concat(nonCachedAssets)
+              .filter((asset, index, self) => index === self.findIndex((t) => (t.id === asset.id)))
+          ); // caching the NFT assets
       }
 
       const changeNonNFTs = nonNFTStore.getState().changeNonNFTs;
@@ -523,7 +530,7 @@ const tempStore = create(
       }
 
       if (finalAssets) {
-        set({ assets: await finalAssets })
+        set({ assets: await finalAssets.filter((asset, index, self) => index === self.findIndex((t) => (t.id === asset.id))) })
       } else {
         set({ assets: [] })
       }
