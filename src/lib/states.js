@@ -426,7 +426,7 @@ const tempStore = create(
       if (environment === 'bitshares') {
         cachedAssets = assetBitshares && assetBitshares.length ? assetBitshares : [];
         nonNFTs = nonNFTBitshares && nonNFTBitshares.length ? nonNFTBitshares : [];
-      } else if (environment === 'bitshares_testnet' && bitshares_testnet && bitshares_testnet.length) {
+      } else if (environment === 'bitshares_testnet' && assetBitsharesTestnet || nonNFTBitsharesTestnet) {
         cachedAssets = assetBitsharesTestnet && assetBitsharesTestnet.length ? assetBitsharesTestnet : [];
         nonNFTs = nonNFTBitsharesTestnet && nonNFTBitsharesTestnet.length ? nonNFTBitsharesTestnet : [];
       }
@@ -485,7 +485,7 @@ const tempStore = create(
         nonNFTs = nonNFTBitshares && nonNFTBitshares.length
           ? nonNFTBitshares
           : [];
-      } else if (environment === 'bitshares_testnet' && bitshares_testnet && bitshares_testnet.length) {
+      } else if (environment === 'bitshares_testnet' && assetBitsharesTestnet || nonNFTBitsharesTestnet) {
         cachedAssets = assetBitsharesTestnet && assetBitsharesTestnet.length
           ? assetBitsharesTestnet
           : [];
